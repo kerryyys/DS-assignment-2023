@@ -3,10 +3,11 @@ GROUP 5 OCC 9
 
 # **NOTE AND RESOURCES**
 https://github.com/samweihong/JOJOLands
-Data Files
+Data Files <br>
 The necessary data files for this assignment can be obtained from the following links:
 ● residents.csv: https://github.com/samweihong/JOJOLands/blob/main/data/residents.csv
 ● stands.csv: https://github.com/samweihong/JOJOLands/blob/main/data/stands.csv
+
 Helpful Videos
 To gain further knowledge about JoJo’s Bizarre Adventure, you may refer to these legal
 YouTube videos:
