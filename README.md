@@ -1,7 +1,7 @@
 # DS-assignment-2023
 GROUP 5 OCC 9
 
-**NOTE AND RESOURCES**
+# **NOTE AND RESOURCES**
 https://github.com/samweihong/JOJOLands
 Data Files
 The necessary data files for this assignment can be obtained from the following links:
