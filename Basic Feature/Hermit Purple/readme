@@ -1,1 +1,12 @@
-
+Requirements
+● Create a virtual game environment of JOJOLands based on the map given.
+● A player can move to adjacent locations connected by roads from his current location.
+● A player can travel back to the most recent location visited.
+● A player can move forward in history if he chooses the back option.
+● The system clears a player’s forward history when he decides to move to a new location.
+● A player can choose to travel back to the Town Hall directly.
+● The system displays the available missions in each location.
+● The system recognises the first day as Day 1, which represents Sunday.
+● A player starts at the Town Hall at the start of each day.
+● A player can advance to the next day by selecting the corresponding option at the Town
+Hall.
