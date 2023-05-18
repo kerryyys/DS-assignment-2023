@@ -2,16 +2,13 @@ package JOJOLands;
 
 public class JOJOMaps{
     
-    Graph <String, Integer> maps = new Graph<>();
+    protected Graph <String, Integer> maps = new Graph<>();
     protected String [] location;
-    protected String currentLocation;
     
     public JOJOMaps(){
-        location = new String[] {"Town Hall", "Morioh Grand Hotel", "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "San Giorgio Maggiore", "Joestar Mansion", "Polnareff Land", "Savage Garden", "Green Dolphin Street Prison", "Libeccio", "Angelo Rock", "DIO’s Mansion", "Vineyard"};
+        location = new String[] {"Town Hall", "Morioh Grand Hotel", "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "San Giorgio Maggiore", "Joestar Mansion", "Polnareff Land", "Savage Garden", "Green Dolphin Street Prison", "Libeccio", "Angelo Rock", "DIO's Mansion", "Vineyard"};
         for(String i : location)
         maps.addVertex(i);
-
-        currentLocation = "Town Hall";
 
         //add edge to connect each location, in km
         maps.addEdge("Town Hall", "Morioh Grand Hotel",5);
@@ -34,19 +31,23 @@ public class JOJOMaps{
         maps.addEdge("Green Dolphin Street Prison", "Libeccio", 3);
         maps.addEdge("Green Dolphin Street Prison", "Angelo Rock", 2);
 
-        maps.addEdge("Libeccio", "DIO’s Mansion", 2);
+        maps.addEdge("Libeccio", "DIO's Mansion", 2);
         maps.addEdge("Libeccio", "Joestar Mansion", 6);
         maps.addEdge("Libeccio", "Vineyard", 6);
         maps.addEdge("Libeccio", "San Giorgio Maggiore", 4);
 
-        maps.addEdge("Angelo Rock", "DIO’s Mansion", 3);
+        maps.addEdge("Angelo Rock", "DIO's Mansion", 3);
 
         maps.addEdge("Vineyard", "Joestar Mansion", 3);
         maps.addEdge("Vineyard", "Savage Garden", 8);
-        maps.addEdge("Vineyard", "DIO’s Mansion", 3);
+        maps.addEdge("Vineyard", "DIO's Mansion", 3);
 
         maps.addEdge("Savage Garden", "Joestar Mansion", 4);
         maps.addEdge("Savage Garden", "Polnareff Land", 6);
     }
-
+/* 
+    public Graph<String, Integer> getMaps() {
+        return maps;
+    }
+*/
 }
