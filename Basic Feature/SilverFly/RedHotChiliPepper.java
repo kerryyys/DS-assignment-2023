@@ -1,13 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.labassignments2;
-
-/**
- *
- * @author Hewlett Packard
- */
 
 import java.util.*;
 
@@ -79,7 +69,7 @@ public class RedHotChiliPepper{
         parent.set(x, y); //set parent of vertex x to be vertex y
     }
 
-    public static void main(String[] args) {
+    public void print {
         List<GraphEdge> edges = new ArrayList<>();
          edges.add(new GraphEdge("Town Hall", "Morioh Grand Hotel", 5));
         edges.add(new GraphEdge("Town Hall", "Jade Garden", 5));
