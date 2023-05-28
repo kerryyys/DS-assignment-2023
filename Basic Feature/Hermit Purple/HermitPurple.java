@@ -26,11 +26,60 @@ public class HermitPurple extends JOJOMaps{
         temp = visitedLocation;
         currentLocation = "Town Hall";
         storeMission();
+        StartMenu();
         start();
         displayMenu();
 
     }
-
+public void StartMenu() throws ClassNotFoundException{
+        int num,num2;
+        String filepath;
+        System.out.println("Welcome, to the fantastical realm of JOJOLands");
+        System.out.println("[1] Start Game");
+        System.out.println("[2] Load Game");
+        System.out.println("[3] Exit");
+        
+        System.out.print("Select: ");
+        Scanner sc = new Scanner(System.in);
+        num = sc.nextInt();
+        
+        System.out.println();
+        switch(num){
+            case 1 :
+                System.out.println("Select a map :");
+                System.out.println("[1] Default Map");
+                System.out.println("[2] Parallel Map");
+                System.out.println("[3] Alternate Map");
+                
+                System.out.print("Select :");
+                num2 = sc.nextInt();
+                                
+                JOJOMaps temp = new JOJOMaps(num2);
+                
+                maps = temp.getMaps();
+                start();
+                displayMenu();
+            case 2:
+                System.out.println("Enter the path of your save file: ");
+                filepath = sc.nextLine();
+                LoadGame(filepath);
+                displayMenu();
+        }
+    }
+    public void LoadGame(String filepath) throws ClassNotFoundException{
+        
+        try{
+            FileInputStream load = new FileInputStream(filepath + "Gamesave.ser");
+            ObjectInputStream objectIn = new ObjectInputStream(load);
+            Scanner sc = new Scanner (load); //missionMap is the progress of player where the location he visited and currentLocation
+            visitedLocation.push(objectIn.readObject().toString());
+            objectIn.close();
+            load.close();
+            System.out.println("Game progress saved successfully.");
+        }catch(IOException e){
+            System.out.println("Error");
+        }
+    }
     // public void saveState() {
     //     DataStorage.saveState(this);
     // }
@@ -185,10 +234,10 @@ public class HermitPurple extends JOJOMaps{
         System.exit(0); 
     }
 
-    public void SaveGame() {
+    public void SaveGame(String filepath) {
         // Save the game progress
         try {
-            FileOutputStream fileOut = new FileOutputStream("game_save.ser");
+            FileOutputStream fileOut = new FileOutputStream(filepath + "Gamesave.ser");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(visitedLocation);  //missionMap is the progress of player where the location he visited and currentLocation
             objectOut.close();
@@ -301,7 +350,8 @@ public class HermitPurple extends JOJOMaps{
                         break;
 
                         case "3":
-                        //TheHand();
+                        TheHand hand = new TheHand();
+                        hand.print();
                         break;
 
                         case "4":
@@ -464,7 +514,27 @@ public class HermitPurple extends JOJOMaps{
                     }
 
                 break;
+                    case "Angelo Rock":
+                    switch(input){
 
+                        case "2":
+
+                        break;
+
+                        case "3":
+                            RedHotChiliPepper Red = new RedHotChiliPepper();
+                            Red.print();
+                            
+                        break;
+
+                        case "4":
+                        break;
+
+                        case "5":
+                            
+                        break;
+
+                    }
                 //for other location that dont have mission
                 default:
                 switch(input){
