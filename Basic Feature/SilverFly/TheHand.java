@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.labassignments2;
 
-/**
- *
- * @author Hewlett Packard
- */
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +69,7 @@ public class TheHand{
         return vertices.size();
     }
 
-    public static void main(String[] args) {
+    public void print() {
 
         String graphStr = "Town Hall-Morioh Grand Hotel:5,Town Hall-Jade Garden:5,Town Hall-Cafe Deux Magots:4,"
                 + "Morioh Grand Hotel-Trattoria Trussardi:6,Morioh Grand Hotel-Jade Garden:3,"
