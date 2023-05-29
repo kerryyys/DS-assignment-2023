@@ -20,73 +20,21 @@ public class HermitPurple extends JOJOMaps{ //If remove the extends does it solv
     private ArrayList<String> adjacentVertices;
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
-    private int maptype;
-    private Graph<String,Integer> maps;
+    
 
     public HermitPurple() {
-        //super(maptype);
-        try{
+        
         this.hermitPurple = this;
         temp = visitedLocation;
         currentLocation = "Town Hall";
         storeMission();
-        StartMenu();
         start();
         displayMenu();
-        }catch(ClassNotFoundException e){
-            
+          
         }
 
     }
-public int StartMenu() throws ClassNotFoundException{
-        int num,num2;
-        String filepath;
-        System.out.println("Welcome, to the fantastical realm of JOJOLands");
-        System.out.println("[1] Start Game");
-        System.out.println("[2] Load Game");
-        System.out.println("[3] Exit");
-        
-        System.out.print("Select: ");
-        Scanner sc = new Scanner(System.in);
-        num = sc.nextInt();
-        
-        System.out.println();
-        switch(num){
-            case 1 :
-                System.out.println("Select a map :");
-                System.out.println("[1] Default Map");
-                System.out.println("[2] Parallel Map");
-                System.out.println("[3] Alternate Map");
-                
-                System.out.print("Select :");
-                num2 = sc.nextInt();
-                maptype = num2                
-                JOJOMaps temp = new JOJOMaps(maptype);
-                
-                maps = temp.getMaps();
-                //start();
-                //displayMenu();
-            case 2:
-                System.out.println("Enter the path of your save file: ");
-                filepath = sc.nextLine();
-                LoadGame(filepath);
-                //displayMenu();
-        }
-    return maptype;
-    }
-    public void LoadGame(String filepath) throws ClassNotFoundException{
-        
-        try{
-            FileInputStream load = new FileInputStream(filepath + "Gamesave.ser");
-            ObjectInputStream objectIn = new ObjectInputStream(load);
-            Scanner sc = new Scanner (load); //missionMap is the progress of player where the location he visited and currentLocation
-            visitedLocation.push(objectIn.readObject().toString());
-            objectIn.close();
-            load.close();
-            System.out.println("Game progress saved successfully.");
-        }catch(IOException e){
-            System.out.println("Error");
-        }
+
     }
     // public void saveState() {
     //     DataStorage.saveState(this);
