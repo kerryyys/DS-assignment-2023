@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 
-public class HermitPurple extends JOJOMaps{
+public class HermitPurple extends JOJOMaps{ //If remove the extends does it solve the problem???
     private String currentLocation;
     private Stack<String> visitedLocation = new Stack<>();  
     private Stack<String> temp = new Stack<>();
@@ -20,8 +20,12 @@ public class HermitPurple extends JOJOMaps{
     private ArrayList<String> adjacentVertices;
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
+    private int maptype;
+    private Graph<String,Integer> maps;
 
     public HermitPurple() {
+        //super(maptype);
+        try{
         this.hermitPurple = this;
         temp = visitedLocation;
         currentLocation = "Town Hall";
@@ -29,9 +33,12 @@ public class HermitPurple extends JOJOMaps{
         StartMenu();
         start();
         displayMenu();
+        }catch(ClassNotFoundException e){
+            
+        }
 
     }
-public void StartMenu() throws ClassNotFoundException{
+public int StartMenu() throws ClassNotFoundException{
         int num,num2;
         String filepath;
         System.out.println("Welcome, to the fantastical realm of JOJOLands");
@@ -53,18 +60,19 @@ public void StartMenu() throws ClassNotFoundException{
                 
                 System.out.print("Select :");
                 num2 = sc.nextInt();
-                                
-                JOJOMaps temp = new JOJOMaps(num2);
+                maptype = num2                
+                JOJOMaps temp = new JOJOMaps(maptype);
                 
                 maps = temp.getMaps();
-                start();
-                displayMenu();
+                //start();
+                //displayMenu();
             case 2:
                 System.out.println("Enter the path of your save file: ");
                 filepath = sc.nextLine();
                 LoadGame(filepath);
-                displayMenu();
+                //displayMenu();
         }
+    return maptype;
     }
     public void LoadGame(String filepath) throws ClassNotFoundException{
         
