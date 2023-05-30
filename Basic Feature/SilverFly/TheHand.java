@@ -69,7 +69,7 @@ public class TheHand{
         return vertices.size();
     }
 
-    public void print() {
+    public void display() {
 
         String graphStr = "Town Hall-Morioh Grand Hotel:5,Town Hall-Jade Garden:5,Town Hall-Cafe Deux Magots:4,"
                 + "Morioh Grand Hotel-Trattoria Trussardi:6,Morioh Grand Hotel-Jade Garden:3,"
