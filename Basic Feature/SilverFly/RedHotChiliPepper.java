@@ -69,7 +69,7 @@ public class RedHotChiliPepper{
         parent.set(x, y); //set parent of vertex x to be vertex y
     }
 
-    public void print {
+    public void display {
         List<GraphEdge> edges = new ArrayList<>();
          edges.add(new GraphEdge("Town Hall", "Morioh Grand Hotel", 5));
         edges.add(new GraphEdge("Town Hall", "Jade Garden", 5));
