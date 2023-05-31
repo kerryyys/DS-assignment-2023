@@ -30,10 +30,10 @@ public class MondayBlue {
             try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
                 String line;
                 boolean startReading = false;
-
+    
                 // Inside the readSalesDataFromFile() method
                 Map<String, SalesRecord> salesByFood = new HashMap<>();
-
+    
                 // To skip header and retrieve data
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith("Day " + day)) {
@@ -44,31 +44,29 @@ public class MondayBlue {
                         startReading = false;
                         continue;
                     }
-
+    
                     if (startReading && line.startsWith("|")) {
-                        String[] rowData = line.split("\\|");
-                        for (int i = 0; i < rowData.length; i++) {
-                            rowData[i] = rowData[i].trim();
-                        }
-                        String order = rowData[5];
-                        double price = Double.parseDouble(rowData[7]);
-                        int quantity = 1; // Set quantity to 1 for each line read
-
+                        String[] rowData = line.split("\\s*\\|\\s*");
+    
+                        // Retrieve the order and price from the corresponding columns
+                        String order = rowData[5].trim();
+                        double price = Double.parseDouble(rowData[7].trim());  //use double here because the below code need to use MAX_VALUE to compare
+    
                         // Check if the order already exists in the salesByFood map
                         if (salesByFood.containsKey(order)) {
                             // If it exists, update the quantity
                             SalesRecord existingRecord = salesByFood.get(order);
-                            int updatedQuantity = existingRecord.getQuantity() + quantity;
+                            int updatedQuantity = existingRecord.getQuantity() + 1;
                             double totalPrice = existingRecord.getPrice() + price;
-
+    
                             salesByFood.put(order, new SalesRecord(updatedQuantity, totalPrice));
                         } else {
                             // If it's a new order, add it to the salesByFood map
-                            salesByFood.put(order, new SalesRecord(quantity, price));
+                            salesByFood.put(order, new SalesRecord(1, price));
                         }
                     }
                 }
-
+    
                 // Store the salesByFood map in the salesData map
                 salesData.computeIfAbsent(currentLocation, k -> new HashMap<>())
                         .put(String.valueOf(day), salesByFood);

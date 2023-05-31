@@ -1,8 +1,6 @@
 package JOJOLands;
 
-import java.util.LinkedList;
-import java.util.Comparator;
-import java.util.Collections;
+import java.util.*;
 
 //maybe can use bubble sort but no time
 public class PearlJam extends WaitingListGenerator {

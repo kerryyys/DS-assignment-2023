@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Resident {
+    
     private Random rand = new Random();
     private List<String[]> residents;
     private List<String[]> stands;
@@ -127,7 +128,7 @@ public class Resident {
             }
             
             Resident residentList = new Resident(name, age, gender, residentialArea, parents, standInfo, destructivePower, speed, range, stamina, precision, developmentPotential, "", "", "", "");
-                
+           
             combinedResidents.add(residentList);
         }
                 // Store the combinedResidents list in an instance variable
@@ -235,8 +236,8 @@ public class Resident {
     public void setVisitedRestaurant(){
         String[] locations = { "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "Libeccio", "Savage Garden" };
         this.visitedRestaurant = locations[rand.nextInt(locations.length)];
-    
     }
+
     public void setOrder(String order) {
         this.order = order;
     }
@@ -249,9 +250,10 @@ public class Resident {
         this.arrivalTime = arrivalTime;
     }
 
-    public void setOrderToHistory(int currentDay, String order, String restaurant) {
+    public void setOrderToHistory(int currentDay, String order, String restaurant, String price) {
         this.order = order;
         this.visitedRestaurant = restaurant;
+        this.priceOfFood = price;
         //currentDay get in WaitingListGenerator class
     }
 
