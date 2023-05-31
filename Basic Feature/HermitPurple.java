@@ -21,9 +21,11 @@ public class HermitPurple extends JOJOMaps{
     private ArrayList<String> adjacentVertices;
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
+    private TheJoestars joestars;
 
     public HermitPurple() {
         this.hermitPurple = this;
+        
         temp = visitedLocation;
         currentLocation = "Town Hall";
         storeMission();
@@ -137,6 +139,10 @@ public class HermitPurple extends JOJOMaps{
     //starts at the Town Hall at the start of each day
     public void start(){
         startNewDay();
+        if(currentDay != 1){
+            joestars = new TheJoestars(currentLocation, currentDay);
+            joestars.Filter();
+        }
         //`System.out.println("Current Location: "+currentLocation);
         }
 
