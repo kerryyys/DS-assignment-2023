@@ -1,4 +1,6 @@
-<title>Basic Feature</title>
+<head>
+  <title> Basic Feature </title>
+</head>
 There are 8 basic features in this file.<br>
 Each class is created according to their feature names and there are some helper classes to assist the functionalities of the classes.
 Player as the Main class to run the whole program<br>
@@ -16,7 +18,7 @@ Requirement:<br>
 ● A player starts at the Town Hall at the start of each day.<br>
 ● A player can advance to the next day by selecting the corresponding option at the Town Hall.<br>
 
-<b>HeavensDoor<br>
+<b>HeavensDoor</b><br>
 function to display the information of the resident in each location, and sorting can be selected<br>
 Requirement:<br>
 ● The system retrieves the information about the residents and Stands from the two provided files.<br>
