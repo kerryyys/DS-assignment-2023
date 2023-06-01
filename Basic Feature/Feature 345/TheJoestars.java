@@ -45,53 +45,52 @@ public class TheJoestars {
         JoestarsChecker = new TheJoestarsChecker(currentLocation);
         this.WaitingList = WaitingListGenerator.getResidentFullList();
         JoestarsChecker.readResidentInformation(filename);
-        JoestarsChecker.displayResidentInformation();
     }
 
-    public void Selection() {
-        while (true) {
-            System.out.println("[1] View Resident's Profile");
-            System.out.println("[2] Sort");
-            System.out.println("[3] Exit");
+    // public void Selection() {
+    //     while (true) {
+    //         System.out.println("[1] View Resident's Profile");
+    //         System.out.println("[2] Sort");
+    //         System.out.println("[3] Exit");
 
-            System.out.println("Select");
-            int input = sc.nextInt();
+    //         System.out.println("Select");
+    //         int input = sc.nextInt();
 
-            switch (input) {
-                case 1:
-                    System.out.println("Enter resident's name: ");
-                    String name = sc.nextLine();
-                    String residentName = name.toLowerCase();
-                    JoestarsChecker.readResidentProfiles(residentName);
-                    JoestarsChecker.displayResidentProfiles(residentName);
-                    break;
+    //         switch (input) {
+    //             case 1:
+    //                 System.out.println("Enter resident's name: ");
+    //                 String name = sc.nextLine();
+    //                 String residentName = name.toLowerCase();
+    //                 JoestarsChecker.readResidentProfiles(residentName);
+    //                 JoestarsChecker.displayResidentProfiles(residentName);
+    //                 break;
 
-                // assume: sort the namelist of the resident following their name
-                case 2:
-                    System.out.println("Sort the list according: ");
-                    System.out.println("[1]: Name");
-                    System.out.println("[2]: Age");
-                    System.out.println("Sort: ");
-                    int sort = sc.nextInt();
-                    switch (sort) {
-                        case 1:
-                            JoestarsChecker.sortResidentsByName();
-                            break;
-                        case 2:
-                            JoestarsChecker.sortResidentsByAge();
-                            break;
-                    }
-                    continue;
+    //             // assume: sort the namelist of the resident following their name
+    //             case 2:
+    //                 System.out.println("Sort the list according: ");
+    //                 System.out.println("[1]: Name");
+    //                 System.out.println("[2]: Age");
+    //                 System.out.println("Sort: ");
+    //                 int sort = sc.nextInt();
+    //                 switch (sort) {
+    //                     case 1:
+    //                         JoestarsChecker.sortResidentsByName();
+    //                         break;
+    //                     case 2:
+    //                         JoestarsChecker.sortResidentsByAge();
+    //                         break;
+    //                 }
+    //                 continue;
 
-                case 3:
-                    // Exit the TheJoestars, back to Hermit Purple display menu
-                    return;
+    //             case 3:
+    //                 // Exit the TheJoestars, back to Hermit Purple display menu
+    //                 return;
 
-                default:
-                    System.out.println("Invalid input");
-            }
-        }
-    }
+    //             default:
+    //                 System.out.println("Invalid input");
+    //         }
+    //     }
+    // }
 
     //use when day !=1 since day 1 only need randomly generated
     public List<String[]> Filter() {
