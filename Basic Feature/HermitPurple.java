@@ -22,8 +22,35 @@ public class HermitPurple extends JOJOMaps{
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
     private TheJoestars joestars;
-
+    /*
+    private TheWorld theworld;
+    private JOJOMaps jojomaps = new JOJOMaps();
+    */
     public HermitPurple() {
+        /*
+         int n;
+        System.out.println("Welcome, to the fantastical realm of JOJOLands!");
+        System.out.println("[1] Start Game");
+        System.out.println("[2] Load Game");
+        System.out.println("[3] Exit");
+        
+        n = sc.nextInt();
+        
+        switch(n){
+            case 1:
+                theworld = new TheWorld();
+                break;
+            case 2:
+                System.out.print("Enter the path of your save file: ");
+                String L = sc.nextLine();
+                LoadGame(L);
+                break;
+            case 3:
+                Exit();
+                break;
+        }
+        jojomaps.setMaps(theworld.getMapB());
+        */
         this.hermitPurple = this;
         
         temp = visitedLocation;
@@ -187,7 +214,25 @@ public class HermitPurple extends JOJOMaps{
             System.out.println("Failed to save the game progress: " + e.getMessage());
         }
     }
+    /*
+public void LoadGame(String filePath) {
+    try {
+        FileInputStream fileIn = new FileInputStream(filePath+"game_save.ser");
+        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
+        // Read the serialized object from the file
+        objectIn.readObject();
+
+        objectIn.close();
+        fileIn.close();
+        System.out.println("Game progress loaded successfully.");
+    } catch (IOException e) {
+        System.out.println("Failed to load the game progress: " + e.getMessage());
+    } catch (ClassNotFoundException e) {
+        System.out.println("Failed to load the game progress: " + e.getMessage());
+    }
+}
+*/
     public void Select(){
         while(true){
         System.out.print("Select: ");
