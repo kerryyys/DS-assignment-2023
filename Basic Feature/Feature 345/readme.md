@@ -7,11 +7,11 @@ PearlJam will sort the list according to the restaurant<br>
 
 all need to run the waiting list is to get the overall waiting list of that day in WaitingListGenerator, then use TheJoestars, followed by other method in specific location to call their method.<br>
 
-CAN BE USED TO TEST RUN TO SEE THE CONTENT IN THE FILE
-//
-public static void main(String[] args) {
-    String filename = "myfile.txt";
-    String newContent = "This is new content.";
+CAN BE USED TO TEST RUN TO SEE THE CONTENT IN THE FILE<br>
+
+public static void main(String[] args) {  <br>
+    String filename = "myfile.txt";  <br>
+    String newContent = "This is new content.";  <br>
 
     // Append new content to the existing file
     appendToFile(newContent, filename);
