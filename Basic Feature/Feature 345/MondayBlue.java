@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 
 //just need to read and get information from the file
+// The feature name is MoodyBlue
 public class MondayBlue {
     private String currentLocation;
     private int currentDay;
@@ -435,7 +436,14 @@ class SalesRecord {
 
     public double getPrice() {
         return price;
-    }
+        
+// JS:    public double getSales() {
+//         return Sales;
+//     }
+
+//     public void setPrice(double price) {
+//         this.price = price;
+//     }
 }
 
 /*
