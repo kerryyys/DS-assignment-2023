@@ -22,6 +22,7 @@ public class HermitPurple extends JOJOMaps{
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
     private TheJoestars joestars;
+    // add private Menu restaurant;
     /*
     private TheWorld theworld;
     private JOJOMaps jojomaps = new JOJOMaps();
@@ -52,7 +53,7 @@ public class HermitPurple extends JOJOMaps{
         jojomaps.setMaps(theworld.getMapB());
         */
         this.hermitPurple = this;
-        
+        // add this.restaurant = restaurant; 
         temp = visitedLocation;
         currentLocation = "Town Hall";
         storeMission();
@@ -175,7 +176,7 @@ public class HermitPurple extends JOJOMaps{
 
         private int currentDay;
         //recognises the first day as Day 1, which represents Sunday
-        public void startNewDay (){
+        public void startNewDay (){ 
             currentDay = 1;
             String dayofWeek = getDay(currentDay);
             System.out.println("It's Day " + currentDay + "(" + dayofWeek + ") of our journey in JOJOLands!");
@@ -364,7 +365,8 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "3":
-
+                        // JS :Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                        //      menuPearlJam.displayMenu(currentLocation); 
                         break;
 
                         case "4":
@@ -375,12 +377,17 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "5":
-                            
+                        // JS : MilagroMan milargoMan = new MilagroMan(currentLocation);
+                           //     milargoMan.modifyFoodPrices();
                         break;
 
-                        case "6":
+//                     JS: case "6":
+//                                 Back();
+//                                 break;
 
-                        break;
+//                         case "7":
+//                                 BackTownHall();
+//                                 break;
                     }
                 break;
 
@@ -399,7 +406,8 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "3":
-
+//                      JS :  Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+//                                 menuPearlJam.displayMenu(currentLocation);
                         break;
 
                         case "4":
@@ -410,12 +418,16 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "5":
-                            
+//                          JS :   MilagroMan milargoMan = new MilagroMan(currentLocation);
+//                                 milargoMan.modifyFoodPrices();
                         break;
+//                      JS:   case "6":
+//                                 Back();
+//                                 break;
 
-                        case "6":
-
-                        break;
+//                         case "7":
+//                                 BackTownHall();
+//                                 break;
                     }
                 break;
 
@@ -444,7 +456,7 @@ public void LoadGame(String filePath) {
                         case "6":
 
                         break;
-
+// San Giorgio Maggiore can make to be default case
                     }
                 break;
 
@@ -460,7 +472,8 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "3":
-
+//                         JS: Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+//                                 menuPearlJam.displayMenu(currentLocation);
                         break;
 
                         case "4":
@@ -471,16 +484,20 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "5":
-                            
+//                             JS: MilagroMan milargoMan = new MilagroMan(currentLocation);
+//                                 milargoMan.modifyFoodPrices();
                         break;
+//                         JS: case "6":
+//                                 Back();
+//                                 break;
 
-                        case "6":
-
-                        break;
+//                             case "7":
+//                                 BackTownHall();
+//                                 break;
                     }
                 break;
 
-                case "Liberrio":
+                case "Libeccio": // Libeccio, not Liberrio
                     switch(input){
                         case "2":
                         PearlJam pearlJam = new PearlJam(currentLocation, day);
@@ -491,7 +508,8 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "3":
-
+//                         JS: Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+//                                 menuPearlJam.displayMenu(currentLocation);
                         break;
 
                         case "4":
@@ -502,12 +520,16 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "5":
-                            
+//                           JS:  MilagroMan milargoMan = new MilagroMan(currentLocation);
+//                                 milargoMan.modifyFoodPrices();
                         break;
+    //                          JS:   case "6":
+    //                                 Back();
+    //                                 break;
 
-                        case "6":
-
-                        break;
+    //                             case "7":
+    //                                 BackTownHall();
+    //                                 break;
                     }
                 break;
 
@@ -522,7 +544,8 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "3":
-
+//                         JS: Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+//                                 menuPearlJam.displayMenu(currentLocation);
                         break;
 
                         case "4":
@@ -533,12 +556,17 @@ public void LoadGame(String filePath) {
                         break;
 
                         case "5":
+//                        JS : MilagroMan milargoMan = new MilagroMan(currentLocation);
+//                                 milargoMan.modifyFoodPrices();
+                        break;
                             
-                        break;
+//                       JS: case "6":
+//                                 Back();
+//                                 break;
 
-                        case "6":
-
-                        break;
+//                             case "7":
+//                                 BackTownHall();
+//                                 break;
                     }
 
                 break;
