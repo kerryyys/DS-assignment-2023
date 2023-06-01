@@ -4,7 +4,8 @@
 There are 8 basic features in this file.<br>
 Each class is created according to their feature names and there are some helper classes to assist the functionalities of the classes.
 Player as the Main class to run the whole program<br>
-<b>Hermit Purple</b>
+
+<b>Hermit Purple</b><br>
 as the main menu to diplay whole output.<br>
 Requirement:<br>
 ● Create a virtual game environment of JOJOLands based on the map given.<br>
