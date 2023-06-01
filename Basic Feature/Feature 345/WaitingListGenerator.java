@@ -324,6 +324,15 @@ public class WaitingListGenerator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//   JS:   try {
+//                 BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+//                 writer.write(content);
+//                 writer.newLine();
+//                 writer.close();
+//             } catch (IOException e) {
+//                 e.printStackTrace();
+//             }
+        // can write to the file; not sure yet
     }
 
     public void writeProfileToFile(String content, String fileName) {
