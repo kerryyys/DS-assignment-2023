@@ -314,7 +314,8 @@ public class WaitingListGenerator {
         }
 
         String content = profile.toString();
-        writeProfileToFile(content, "profile_" + nameSaved + ".txt");
+        String filename = "profile_" + nameSaved + ".txt";
+        writeProfileToFile(content, filename);
     }
 
     private void writeWaitingListToFile(String content, String filename) {
