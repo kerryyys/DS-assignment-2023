@@ -17,8 +17,7 @@ public class PearlJam extends WaitingListGenerator {
         // Process orders based on the restaurant's rule
         this.processedList = new LinkedList<>();
         processOrdersByRestaurant(currentLocation);
-        displayList();
-
+//  JS:       displayList(); THIS LINE DELETE BECAUSE WILL MULTIPLE EXECUTE THE LIST
     }
 
     public void processOrdersByRestaurant(String restaurant) {
@@ -52,7 +51,7 @@ public class PearlJam extends WaitingListGenerator {
                 System.out.println("Unknown restaurant: " + restaurant);
                 return;
         }
-        displayList();
+//  JS :  displayList(); THIS LINE DELETE BECAUSE WILL MULTIPLE EXECUTE THE LIST    
     }
 
     //first and last customers to arrive are served first, followed by thesecond and second-last, and so on.
