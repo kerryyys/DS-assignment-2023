@@ -55,4 +55,19 @@ public class Menu {
     public Map<String, Double> getMenuByRestaurant(String restaurant) {
         return menu.getOrDefault(restaurant, new HashMap<>());
     }
+    
+//  Display the menu when choosing "viewMenu"
+//    public void displayMenu(String currentLocation) {
+//         Map<String, Double> restaurantMenu = getMenuByRestaurant(currentLocation);
+//         System.out.println("Menu for " + currentLocation + ":");
+//         System.out.println("+-----------------------------------------------+-----------+");
+//         System.out.println("Food                                            |   Price   |");
+//         System.out.println("+-----------------------------------------------+-----------+");
+//         for (Map.Entry<String, Double> entry : restaurantMenu.entrySet()) {
+//             String menuItem = entry.getKey();
+//             Double price = entry.getValue();
+//             System.out.printf("| %-45s | $%8.2f |\n", menuItem, price);
+//         }
+//         System.out.println("+-----------------------------------------------+-----------+");
+//     }
 }
