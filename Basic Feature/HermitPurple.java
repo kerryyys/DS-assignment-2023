@@ -209,6 +209,7 @@ public class HermitPurple extends JOJOMaps {
             objectOut.writeObject(visitedLocation);
             objectOut.writeObject(currentLocation);
             objectOut.writeObject(previousLocation);
+            objectOut.writeObject(currentDay);
             objectOut.close();
             fileOut.close();
 
@@ -380,8 +381,8 @@ public void LoadGame(String filePath) {
                                 break;
 
                             case "3":
-                                // JS :Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                //      menuPearlJam.displayMenu(currentLocation); 
+                                Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                                menuPearlJam.displayMenu(currentLocation); 
                                 break;
 
                             case "4":
@@ -392,8 +393,8 @@ public void LoadGame(String filePath) {
                                 break;
 
                             case "5":
-                               // JS : MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                //     milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(currentLocation);
+                                milargoMan.modifyFoodPrices();
                                 break;
 
                             case "6":
@@ -426,8 +427,8 @@ public void LoadGame(String filePath) {
                                 break;
 
                             case "3":
-                                //   JS :  Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                //   menuPearlJam.displayMenu(currentLocation);
+                            Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                            menuPearlJam.displayMenu(currentLocation); 
                                 break;
 
                             case "4":
@@ -481,8 +482,8 @@ public void LoadGame(String filePath) {
                                 break;
 
                             case "5":
-                            MilagroMan milargoMan = new MilagroMan(currentLocation);
-                            milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(currentLocation);
+                                milargoMan.modifyFoodPrices();
                                 break;
 
                             case "6":
