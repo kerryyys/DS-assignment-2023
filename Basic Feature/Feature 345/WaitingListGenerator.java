@@ -318,8 +318,9 @@ public class WaitingListGenerator {
     }
 
     private void writeWaitingListToFile(String content, String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
             writer.write(content);
+            writer.newLine(); // Add a new line after appending the content
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -336,56 +337,4 @@ public class WaitingListGenerator {
         }
     }
 
-    // because only profile is separate and can print all content directly
-    // the filename should get the name of resident in join form, not split by space
-    public static void printProfile(String fileName) {
-        try {
-            File file = new File(fileName);
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-
-            reader.close();
-        } catch (IOException e) {
-            System.err.println("Error reading the file: " + e.getMessage());
-        }
-    }
-
-    // can be used to read and print the waiting list
-    // public static void readFileAndPrintByKey(String fileName, String searchKey) {
-    // try {
-    // File file = new File(fileName);
-    // BufferedReader reader = new BufferedReader(new FileReader(file));
-    // String line;
-
-    // // Read and print the header and separating lines
-    // for (int i = 0; i < 4; i++) {
-    // if ((line = reader.readLine()) != null) {
-    // System.out.println(line);
-    // }
-    // }
-
-    // // Read and print matching lines
-    // while ((line = reader.readLine()) != null) {
-    // if (line.contains(searchKey)) {
-    // System.out.println(line);
-    // }
-    // }
-
-    // // Print the last line
-    // String lastLine = null;
-    // while ((line = reader.readLine()) != null) {
-    // lastLine = line;
-    // }
-    // if (lastLine != null) {
-    // System.out.println(lastLine);
-    // }
-    // reader.close();
-    // } catch (IOException e) {
-    // System.err.println("Error reading the file: " + e.getMessage());
-    // }
-    // }
 }

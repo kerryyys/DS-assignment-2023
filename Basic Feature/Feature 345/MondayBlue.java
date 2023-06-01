@@ -1,11 +1,7 @@
 package JOJOLands;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.util.*;
+import java.io.*;
 
 //just need to read and get information from the file
 public class MondayBlue {
