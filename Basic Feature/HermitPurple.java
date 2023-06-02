@@ -697,6 +697,67 @@ public void SaveGame(String mapIdentifier) {
                         }
                         break;
 
+                        case "DIO's Mansion":
+                        switch (input) {
+                            case "2":
+                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                heavensDoor.printResidents();
+                                heavensDoor.select();
+                                break;
+
+                            case "3":
+                                //Chase
+                                Chase chase = new Chase();
+                                System.out.print("Enter the initial location: ");
+                                String initialLocation = sc.nextLine();
+
+                                chase.playChase(initialLocation);
+                                break;
+                            case "4":
+                                // Another One Bites the Dust
+
+                            case "5":
+                                Back();
+                                break;
+
+                            case "6":
+                                BackTownHall();
+                                break;
+
+                            case "7":
+                                Exit();
+                                break;
+                        }
+                        break;
+
+                        case "Green Dolphin Street Prison":
+                        switch (input) {
+                            case "2":
+                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                heavensDoor.printResidents();
+                                heavensDoor.select();
+                                break;
+
+                            case "3":
+                                //Extra feature 4
+                                DirtyDeedsDoneDirtCheap DDDDC = new DirtyDeedsDoneDirtCheap();
+                                DDDDC.RunDDDDC();
+                                break;
+
+                            case "4":
+                                Back();
+                                break;
+
+                            case "5":
+                                BackTownHall();
+                                break;
+
+                            case "6":
+                                Exit();
+                                break;
+                        }
+                        break;
+
                     // for other location that dont have mission
                     default:
                         switch (input) {
