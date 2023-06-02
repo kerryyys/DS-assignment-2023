@@ -9,6 +9,9 @@ public class DirtyDeedsDoneDirtCheap {
     List<List<String>> paths = new ArrayList<>();
 
     public DirtyDeedsDoneDirtCheap() {
+    }
+
+    public void RunDDDDC(){
         List<List<String>> paths = new ArrayList<>();
         List<String> currentPath = new ArrayList<>();
 
