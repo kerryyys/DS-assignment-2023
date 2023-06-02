@@ -2,6 +2,8 @@ package JOJOLands;
 
 import java.util.*;
 import java.io.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class HermitPurple extends JOJOMaps {
     private String currentLocation;
@@ -198,7 +200,72 @@ public class HermitPurple extends JOJOMaps {
         // Perform any necessary cleanup or saving operations here
         System.exit(0);
     }
+/*
+public void SaveGame(String mapIdentifier) {
+    // Create a directory to store the game progress according to the Map
+    String directoryPath = mapIdentifier + " directory";
+    File directory = new File(directoryPath);
+    if (!directory.exists()) {
+        directory.mkdir();
+    }
 
+    // Save the game progress
+    try {
+        // Create a JSON object to hold the game state
+        JSONObject gameState = new JSONObject();
+        gameState.put("visitedLocation", visitedLocation);
+        gameState.put("currentLocation", currentLocation);
+        gameState.put("previousLocation", previousLocation);
+        gameState.put("currentDay", currentDay);
+
+        // Serialize the JSON object to a string
+        String jsonString = gameState.toJSONString();
+
+        // Write the JSON string to a file
+        FileWriter fileWriter = new FileWriter(directoryPath + "/game_save.json");
+        fileWriter.write(jsonString);
+        fileWriter.close();
+
+        // Move the waiting list of each location file to the game directory
+        List<File> waitingListForEachLocation = new ArrayList<>();
+
+        for (int i = 0; i < visitedLocation.size(); i++) {
+            // Generate the file name
+            String fileName = "waiting_list_" + visitedLocation.get(i) + ".txt";
+
+            // Create the File object
+            File waitingListFile = new File(fileName);
+
+            // Add the File object to the list
+            waitingListForEachLocation.add(waitingListFile);
+
+            // Move the file to the destination directory
+            File destinationFile = new File(directoryPath + "/" + fileName);
+            waitingListFile.renameTo(destinationFile);
+        }
+
+        // Move the resident information files to the game directory
+        List<File> residentInformationFiles = new ArrayList<>();
+
+        for (int i = 0; i < visitedLocation.size(); i++) {
+            String fileName = "resident_information_" + visitedLocation.get(i) + ".txt";
+            File residentInformationFile = new File(fileName);
+            residentInformationFiles.add(residentInformationFile);
+            File destinationFile = new File(directoryPath + "/" + fileName);
+            residentInformationFile.renameTo(destinationFile);
+        }
+
+        // Move the FullWaitingList.txt file to the game directory
+        File fullWaitingListFile = new File("FullWaitingList.txt");
+        File fullWaitingListDestinationFile = new File(directoryPath + "/FullWaitingList.txt");
+        fullWaitingListFile.renameTo(fullWaitingListDestinationFile);
+
+        System.out.println("Game progress for map " + mapIdentifier + " saved successfully.");
+    } catch (IOException e) {
+        System.out.println("Failed to save the game progress: " + e.getMessage());
+    }
+}
+*/
     public void SaveGame(String mapIdentifier) {
         // Create a directory to store the game progress according to the Map
         String directoryPath = MapName + " directory";
