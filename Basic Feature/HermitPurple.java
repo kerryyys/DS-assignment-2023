@@ -4,6 +4,8 @@ import java.util.*;
 import java.io.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class HermitPurple extends JOJOMaps {
     private String currentLocation;
@@ -322,25 +324,40 @@ public void SaveGame(String mapIdentifier) {
         }
     }
 
-        /*
-public void LoadGame(String filePath) {
+    /*
+    public void loadGame(String mapIdentifier) {
+    // Create a directory path for the game progress
+    String directoryPath = mapIdentifier + " directory";
+
+    // Load the game progress from the JSON file
     try {
-        FileInputStream fileIn = new FileInputStream(filePath+"game_save.ser");
-        ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+        // Read the JSON file into a JSON object
+        JSONParser parser = new JSONParser();
+        FileReader fileReader = new FileReader(directoryPath + "/game_save.json");
+        JSONObject gameState = (JSONObject) parser.parse(fileReader);
+        fileReader.close();
 
-        // Read the serialized object from the file
-        objectIn.readObject();
+        // Retrieve the game state data from the JSON object
+        List<String> visitedLocationList = (List<String>) gameState.get("visitedLocation");
+        currentLocation = (String) gameState.get("currentLocation");
+        previousLocation = (String) gameState.get("previousLocation");
+        currentDay = Math.toIntExact((Long) gameState.get("currentDay"));
 
-        objectIn.close();
-        fileIn.close();
-        System.out.println("Game progress loaded successfully.");
+        // Create a new Stack<String> and populate it with the elements from visitedLocationList
+        visitedLocation = new Stack<>();
+        for (String location : visitedLocationList) {
+            visitedLocation.push(location);
+        }
+
+        System.out.println("Game progress for map " + mapIdentifier + " loaded successfully.");
     } catch (IOException e) {
         System.out.println("Failed to load the game progress: " + e.getMessage());
-    } catch (ClassNotFoundException e) {
-        System.out.println("Failed to load the game progress: " + e.getMessage());
+    } catch (ParseException e) {
+        System.out.println("Failed to parse the game save file: " + e.getMessage());
     }
 }
-*/
+    */
+    
 
     public void Select() {
         while (true) {
