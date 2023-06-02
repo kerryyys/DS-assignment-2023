@@ -17,6 +17,7 @@ public class HermitPurple extends JOJOMaps {
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
     private TheJoestars joestars;
+    private Graph<String, Integer> maps;
 
     // add private Menu restaurant;
     /*
@@ -32,6 +33,9 @@ public class HermitPurple extends JOJOMaps {
         displayMenu();
     }
 
+    public Graph<String, Integer> getMapType(Graph<String, Integer> mapsGraph){
+        return this.maps = mapsGraph;
+    }
     public String getMapName(String MapName) {
         // get Map type after the player choose to enter which Map
 
