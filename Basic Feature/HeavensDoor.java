@@ -2,23 +2,24 @@ package JOJOLands;
 import java.io.*;
 import java.util.*;
 
-//from last sort to first(when insert), bubble sort, read file, stable sort, search
-
 //view resident information
 public class HeavensDoor extends JOJOMaps {
     private List<String[]> residents;
     private List<String[]> stands;
     private String currentLocation;
     //private HermitPurple hermitPurple;
+    private int currentDay;
+    private TheJoestarsChecker JoestarsChecker;
+    private TheJoestars joestars;
 
-    public HeavensDoor(HermitPurple hermitPurple, String currentLocation) {
+    public HeavensDoor(HermitPurple hermitPurple, String currentLocation, int currentDay) {
         //this.hermitPurple = hermitPurple;
         this.currentLocation = currentLocation;
+        this.currentDay = currentDay;
         residents = new ArrayList<>();
         stands = new ArrayList<>();
         readResidentsCSV("residentS.csv");
         readStandsCSV("stands.csv");
-        printResidents();
         select();
     }
 
@@ -113,7 +114,7 @@ public class HeavensDoor extends JOJOMaps {
         return combinedResidents;
     }
     
-    private void printResidents() {
+    public void printResidents() {
         List<String[]> combinedResidents = combineResidentsAndStands();
     
         int no = 1; // To show NO.
@@ -286,7 +287,12 @@ public class HeavensDoor extends JOJOMaps {
             System.out.println("================================================================================");
             switch (choice) {
                 case 1:
-                    printResidents();
+                    System.out.println("Enter resident's name: ");
+                    String name = sc.nextLine();
+                    String residentName = name.toLowerCase();
+                    JoestarsChecker = new TheJoestarsChecker(currentLocation);
+                    JoestarsChecker.readResidentProfiles(residentName);
+                    JoestarsChecker.displayResidentProfiles(residentName);
                     break;
                 case 2:
                     sc.nextLine();
