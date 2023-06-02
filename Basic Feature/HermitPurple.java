@@ -352,7 +352,8 @@ public void LoadGame(String filePath) {
                                 break;
 
                             case "3":
-                                // TheHand theHand = new TheHand;
+                                TheHand theHand = new TheHand();
+                                theHand.display();
                                 break;
 
                             case "4":
