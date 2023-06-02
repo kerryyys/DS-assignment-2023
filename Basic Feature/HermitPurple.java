@@ -591,7 +591,8 @@ public void LoadGame(String filePath) {
                                 break;
 
                             case "3":
-                                // RedHotChiliPepper
+                                RedHotChiliPepper rhcp = new RedHotChiliPepper();
+                                rhcp.display();
                                 break;
                             case "4":
                                 Back();
