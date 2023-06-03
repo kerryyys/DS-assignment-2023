@@ -1,4 +1,4 @@
-***Extra Feature 1 -- Another One Bite of Dust***
+***Extra Feature 1 -- Another One Bite of Dust***<br>
 Requirements<br>
 ● Create a new option Another One Bites the Dust in Angelo Rock.<br>
 ● A player can enter the path of locations Yoshikage Kira remembered he went through.<br>
@@ -7,14 +7,14 @@ Requirements<br>
 ● The path should consist of more than one location.<br>
 ● If there are multiple paths with the same longest length, the system would display any of the paths. <br>
 
-**###Extra Feature 3 -- Chase**
+**###Extra Feature 3 -- Chase**<br>
 Requirementsv
 ● Create a new option Chase in DIO’s Mansion.<br>
 ● A player can enter the initial location where both DIO and Pucci begin in the first turn.<br>
 ● The system should display the positions of DIO and Pucci after they have completed their optimal movements as specified above in each turn.<br>
 ● The game terminates when Pucci reaches the same location as DIO.<br>
 
-**Extra Feature 8 -- Thus Spoke Rohan Kishibe**
+**Extra Feature 8 -- Thus Spoke Rohan Kishibe**<br>
 Requirements<br>
 ● Create a new option Thus Spoke Rohan Kishibe in Morioh Grand Hotel.<br>
 ● A player can enter the locations that Rohan would like to visit.<br>
