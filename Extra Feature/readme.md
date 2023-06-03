@@ -7,8 +7,8 @@ Requirements<br>
 ● The path should consist of more than one location.<br>
 ● If there are multiple paths with the same longest length, the system would display any of the paths. <br>
 
-**###Extra Feature 3 -- Chase**<br>
-Requirementsv
+**Extra Feature 3 -- Chase**<br>
+Requirements<br>
 ● Create a new option Chase in DIO’s Mansion.<br>
 ● A player can enter the initial location where both DIO and Pucci begin in the first turn.<br>
 ● The system should display the positions of DIO and Pucci after they have completed their optimal movements as specified above in each turn.<br>
