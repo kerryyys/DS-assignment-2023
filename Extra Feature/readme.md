@@ -1,4 +1,4 @@
-***Extra Feature 1 -- Another One Bite of Dust***<br>
+**Extra Feature 1 -- Another One Bite of Dust**<br>
 Requirements<br>
 ● Create a new option Another One Bites the Dust in Angelo Rock.<br>
 ● A player can enter the path of locations Yoshikage Kira remembered he went through.<br>
