@@ -202,7 +202,7 @@ public class HermitPurple extends JOJOMaps {
         // Perform any necessary cleanup or saving operations here
         System.exit(0);
     }
-/*
+/* //Darwish
 public void SaveGame(String mapIdentifier) {
     // Create a directory to store the game progress according to the Map
     String directoryPath = mapIdentifier + " directory";
@@ -324,7 +324,7 @@ public void SaveGame(String mapIdentifier) {
         }
     }
 
-    /*
+    /*//Darwish
     public void loadGame(String mapIdentifier) {
     // Create a directory path for the game progress
     String directoryPath = mapIdentifier + " directory";
