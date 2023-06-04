@@ -1,4 +1,4 @@
-package JOJOLands;
+package JOJOLands.JOJO;
 
 import java.util.*;
 
@@ -12,129 +12,94 @@ public class TheJoestars {
     private int totalFoodInMenu;
     private int currentDay;
     private String filename;
-    private List<String[]> WaitingList; // get from WaitingListGenerator
+    private static List<String[]> WaitingList; // get from WaitingListGenerator
     private List<String[]> JonathanJoestarOrder;
     private List<String[]> JosephJoestarOrder;
     private List<String[]> JotaroKujoOrder;
     private List<String[]> JosukeHigashikataOrder;
     private List<String[]> GiornoGiovannaOrder;
     private List<String[]> JolyneCujohOrder;
+    private Map<String, Double> JadeGardenMenu;
+    private Map<String, Double> CafeDeuxMagotsMenu;
+    private Map<String, Double> TrattoriaTrussardiMenu;
+    private Map<String, Double> LibeccioMenu;
+    private Map<String, Double> SavageGardenMenu;
 
     private WaitingListGenerator WaitingListGenerator;
     private TheJoestarsChecker JoestarsChecker;
     private Scanner sc = new Scanner(System.in);
     private Random rand = new Random();
     // direct access food in each restaurant
-    Map<String, Double> JadeGardenMenu = MENU.getMenuByRestaurant("Jade Garden");
-    Map<String, Double> CafeDeuxMagotsMenu = MENU.getMenuByRestaurant("Cafe Deux Magots");
-    Map<String, Double> TrattoriaTrussardiMenu = MENU.getMenuByRestaurant("Trattoria Trussardi");
-    Map<String, Double> LibeccioMenu = MENU.getMenuByRestaurant("Libeccio");
-    Map<String, Double> SavageGardenMenu = MENU.getMenuByRestaurant("Savage Garden");
 
     public TheJoestars(String currentLocation, int currentDay) {
         this.currentLocation = currentLocation;
         this.currentDay = currentDay;
-        filename = "resident_information_" + currentLocation + ".txt";
         Menu MENU = new Menu();
-        this.totalFoodInMenu = JadeGardenMenu.size() + CafeDeuxMagotsMenu.size() + TrattoriaTrussardiMenu.size() + LibeccioMenu.size() + SavageGardenMenu.size();
+        JadeGardenMenu = MENU.getMenuByRestaurant("Jade Garden");
+        CafeDeuxMagotsMenu = MENU.getMenuByRestaurant("Cafe Deux Magots");
+        TrattoriaTrussardiMenu = MENU.getMenuByRestaurant("Trattoria Trussardi");
+        LibeccioMenu = MENU.getMenuByRestaurant("Libeccio");
+        SavageGardenMenu = MENU.getMenuByRestaurant("Savage Garden");
+
+        this.totalFoodInMenu = JadeGardenMenu.size() + CafeDeuxMagotsMenu.size() + TrattoriaTrussardiMenu.size()
+                + LibeccioMenu.size() + SavageGardenMenu.size();
         this.Restaurant = "";
         this.newFood = "";
         this.price = null;
         this.nextJotaroKujoVisitedResturant = null;
         WaitingListGenerator = new WaitingListGenerator(currentLocation, currentDay);
         JoestarsChecker = new TheJoestarsChecker(currentLocation);
+        WaitingListGenerator.addCustomerToWaitingList();
         this.WaitingList = WaitingListGenerator.getResidentFullList();
-        JoestarsChecker.readResidentInformation(filename);
+        WaitingListGenerator.WaitingList();
     }
 
-    // public void Selection() {
-    //     while (true) {
-    //         System.out.println("[1] View Resident's Profile");
-    //         System.out.println("[2] Sort");
-    //         System.out.println("[3] Exit");
-
-    //         System.out.println("Select");
-    //         int input = sc.nextInt();
-
-    //         switch (input) {
-    //             case 1:
-    //                 System.out.println("Enter resident's name: ");
-    //                 String name = sc.nextLine();
-    //                 String residentName = name.toLowerCase();
-    //                 JoestarsChecker.readResidentProfiles(residentName);
-    //                 JoestarsChecker.displayResidentProfiles(residentName);
-    //                 break;
-
-    //             // assume: sort the namelist of the resident following their name
-    //             case 2:
-    //                 System.out.println("Sort the list according: ");
-    //                 System.out.println("[1]: Name");
-    //                 System.out.println("[2]: Age");
-    //                 System.out.println("Sort: ");
-    //                 int sort = sc.nextInt();
-    //                 switch (sort) {
-    //                     case 1:
-    //                         JoestarsChecker.sortResidentsByName();
-    //                         break;
-    //                     case 2:
-    //                         JoestarsChecker.sortResidentsByAge();
-    //                         break;
-    //                 }
-    //                 continue;
-
-    //             case 3:
-    //                 // Exit the TheJoestars, back to Hermit Purple display menu
-    //                 return;
-
-    //             default:
-    //                 System.out.println("Invalid input");
-    //         }
-    //     }
-    // }
-
-    //use when day !=1 since day 1 only need randomly generated
+    // use when day !=1 since day 1 only need randomly generated
     public List<String[]> Filter() {
-        // if day1, dont need apply filter**********************
         // take in parameter to append new content to the waiting list order history
-
+        if(currentDay != 1){
         // Jonathan Joestar
         // does not repeat food that he has eaten after finishing all
-        JoestarsChecker.readResidentProfiles("JonathanJoestar");
+        JoestarsChecker.readOrderHistory("jonathanjoestar");
         JonathanJoestarOrder = JoestarsChecker.getPersonalOrder();
         JonathanJoestarFilter(JonathanJoestarOrder);
 
         // Joseph Joestar
         // wont eat twice no matter week until all have eaten
-        JoestarsChecker.readResidentProfiles("JosephJoestar");
+        JoestarsChecker.readOrderHistory("josephjoestar");
         JosephJoestarOrder = JoestarsChecker.getPersonalOrder();
         JosephJoestarFilter(JosephJoestarOrder);
 
         // Jotaro Kujo
         // x matter week, set the restaurant, then after every dish baru move on
-        JoestarsChecker.readResidentProfiles("JotaroKujo");
+        JoestarsChecker.readOrderHistory("jotarokujo");
         JotaroKujoOrder = JoestarsChecker.getPersonalOrder();
         JotaroKujoFilter(JotaroKujoOrder);
 
         // Josuke Higashikata
         // weekly budget 100, if exceed, then borrow least amount to eat
-        JoestarsChecker.readResidentProfiles("JosukeHigashikata");
+        JoestarsChecker.readOrderHistory("josukehigashikata");
         JosukeHigashikataOrder = JoestarsChecker.getPersonalOrder();
         JosukeHigashikataFilter(JosukeHigashikataOrder);
 
         // Giorno Giovanna
         // visit Trattoria Trussardi twice a week, order different dish from last
         // visit(==dont repeat), except when only 1 option
-        JoestarsChecker.readResidentProfiles("GiornoGiovanna");
+        JoestarsChecker.readOrderHistory("giornogiovanna");
         GiornoGiovannaOrder = JoestarsChecker.getPersonalOrder();
         GiornoGiovannaFilter(GiornoGiovannaOrder);
 
         // Jolyne Cujoh
         // avoid dine in same restaurant repeatedly. Saturday will eat with Jotaro Kujo
         // in same restaurant
-        JoestarsChecker.readResidentProfiles("JolyneCujoh");
+        JoestarsChecker.readOrderHistory("jolynecujoh");
         JolyneCujohOrder = JoestarsChecker.getPersonalOrder();
         JolyneCujohFilter(JolyneCujohOrder);
+        }
+        return WaitingList;
+    }
 
+    public static List<String[]> getWaitingList() {
         return WaitingList;
     }
 
@@ -170,7 +135,7 @@ public class TheJoestars {
                         setNewRestaurant();
                         restaurant = getNewRestaurant();
                         Map<String, Double> menu = MENU.getMenuByRestaurant(restaurant); // this.Restaurant is
-                                                                                                 // updated here
+                                                                                         // updated here
                         newFood = getRandomOrder(menu);
                         price = Double.toString(menu.get(newFood));
                         foodFound = false; // Reset the foodFound flag
@@ -264,15 +229,15 @@ public class TheJoestars {
     public void JotaroKujoFilter(List<String[]> JotaroKujoOrder) {
         List<String[]> originalWaitingList = new ArrayList<>(WaitingList);
 
-        //get size of each menu
+        // get size of each menu
         int lengthOfJG = JadeGardenMenu.size();
         int lengthOfCafe = CafeDeuxMagotsMenu.size();
         int lengthOfTT = TrattoriaTrussardiMenu.size();
         int lengthOfLibeccio = LibeccioMenu.size();
         int lengthOfSG = SavageGardenMenu.size();
-        String previousRestaurant = null; 
+        String previousRestaurant = null;
         String previousFood = null;
-        String latestRestaurant = JotaroKujoOrder.get(JotaroKujoOrder.size())[2];  //get the last visited Restaurant
+        String latestRestaurant = JotaroKujoOrder.get(JotaroKujoOrder.size()-1)[2]; // get the last visited Restaurant
         int lengthOfFood = 0;
         int totalOrder = JotaroKujoOrder.size();
         List<String> JGFoodinOrderHistory = new ArrayList<String>();
@@ -290,215 +255,209 @@ public class TheJoestars {
                 String restaurant = OrderHistory[2];
                 String price = OrderHistory[3];
 
-                for (int j = JotaroKujoOrder.size(); j >=0 ; j--) { //loop from back to check
+                for (int j = JotaroKujoOrder.size()-1; j >= 0; j--) { // loop from back to check
                     String[] JotaroKujoOrderItem = JotaroKujoOrder.get(j);
                     previousFood = JotaroKujoOrderItem[1];
                     previousRestaurant = JotaroKujoOrderItem[2];
 
-                    if(previousRestaurant.equalsIgnoreCase("Jade Garden")){
+                    if (previousRestaurant.equalsIgnoreCase("Jade Garden")) {
                         JGFoodinOrderHistory.add(previousFood);
-                    }
-                    else if(previousRestaurant.equalsIgnoreCase("Cafe Deux Magots")){
+                    } else if (previousRestaurant.equalsIgnoreCase("Cafe Deux Magots")) {
                         CafeFoodinOrderHistory.add(previousFood);
-                    }
-                    else if(previousRestaurant.equalsIgnoreCase("Trattoria Trussardi")){
+                    } else if (previousRestaurant.equalsIgnoreCase("Trattoria Trussardi")) {
                         TTFoodinOrderHistory.add(previousFood);
-                    }
-                    else if(previousRestaurant.equalsIgnoreCase("Libeccio")){
+                    } else if (previousRestaurant.equalsIgnoreCase("Libeccio")) {
                         LibeccioFoodinOrderHistory.add(previousFood);
-                    }
-                    else if(previousRestaurant.equalsIgnoreCase("Savage Garden")){
+                    } else if (previousRestaurant.equalsIgnoreCase("Savage Garden")) {
                         SGFoodinOrderHistory.add(previousFood);
                     }
                 }
 
-                    // if latest same as previous restaurant, check food, same, assign, not same, pass original
-                    if(restaurant.equals(latestRestaurant)){
-                        if(restaurant.equals("Jade Garden")){
-                            if (JGFoodinOrderHistory.contains(food)) {
-                                //assign new food
-                                do{
+                // if latest same as previous restaurant, check food, same, assign, not same,
+                // pass original
+                if (restaurant.equals(latestRestaurant)) {
+                    if (restaurant.equals("Jade Garden")) {
+                        if (JGFoodinOrderHistory.contains(food)) {
+                            // assign new food
+                            do {
                                 food = getRandomOrder(JadeGardenMenu);
                                 price = Double.toString(JadeGardenMenu.get(food));
                                 lengthOfFood++;
-                                }while(!JGFoodinOrderHistory.contains(food));
-                                if(lengthOfFood == lengthOfJG){ //means food fully claim, can move to next
-                                    setNewRestaurant();
-                                    if(getNewRestaurant() != "Jade Garden"){
+                            } while (!JGFoodinOrderHistory.contains(food));
+                            if (lengthOfFood == lengthOfJG) { // means food fully claim, can move to next
+                                setNewRestaurant();
+                                if (getNewRestaurant() != "Jade Garden") {
                                     Map<String, Double> menu = MENU.getMenuByRestaurant(getNewRestaurant());
                                     food = getRandomOrder(menu);
                                     price = Double.toString(menu.get(food));
-                                    }
                                 }
-                            }else{
-                                WaitingList = originalWaitingList;
-                                return;
                             }
-                        }else if(restaurant.equalsIgnoreCase("Cafe Deux Magots")){
-                            if (food.equals(previousFood)) {
-                                //assign new food
-                                do{
+                        } else {
+                            WaitingList = originalWaitingList;
+                            return;
+                        }
+                    } else if (restaurant.equalsIgnoreCase("Cafe Deux Magots")) {
+                        if (food.equals(previousFood)) {
+                            // assign new food
+                            do {
                                 food = getRandomOrder(CafeDeuxMagotsMenu);
                                 price = Double.toString(CafeDeuxMagotsMenu.get(food));
                                 lengthOfFood++;
-                                }while(!CafeFoodinOrderHistory.contains(food));
-                                if(lengthOfFood == lengthOfCafe){ 
-                                    setNewRestaurant();
-                                    if(getNewRestaurant() != "Cafe Deux Magots"){
+                            } while (!CafeFoodinOrderHistory.contains(food));
+                            if (lengthOfFood == lengthOfCafe) {
+                                setNewRestaurant();
+                                if (getNewRestaurant() != "Cafe Deux Magots") {
                                     Map<String, Double> menu = MENU.getMenuByRestaurant(getNewRestaurant());
                                     food = getRandomOrder(menu);
                                     price = Double.toString(menu.get(food));
-                                    }
                                 }
-                            }else{
-                                WaitingList = originalWaitingList;
-                                return;
                             }
-                        }else if(restaurant.equalsIgnoreCase("Trattoria Trussardi")){
-                            if (food.equals(previousFood)) {
-                                do{
+                        } else {
+                            WaitingList = originalWaitingList;
+                            return;
+                        }
+                    } else if (restaurant.equalsIgnoreCase("Trattoria Trussardi")) {
+                        if (food.equals(previousFood)) {
+                            do {
                                 food = getRandomOrder(TrattoriaTrussardiMenu);
                                 price = Double.toString(TrattoriaTrussardiMenu.get(food));
                                 lengthOfFood++;
-                                }while(!TTFoodinOrderHistory.contains(food));
-                            }if(lengthOfFood > lengthOfTT){ 
-                                setNewRestaurant();
-                                if(getNewRestaurant() != "Trattoria Trussardi"){
+                            } while (!TTFoodinOrderHistory.contains(food));
+                        }
+                        if (lengthOfFood > lengthOfTT) {
+                            setNewRestaurant();
+                            if (getNewRestaurant() != "Trattoria Trussardi") {
                                 Map<String, Double> menu = MENU.getMenuByRestaurant(getNewRestaurant());
                                 food = getRandomOrder(menu);
                                 price = Double.toString(menu.get(food));
                             }
-                        }else{
+                        } else {
                             WaitingList = originalWaitingList;
                             return;
                         }
-                        }else if(restaurant.equalsIgnoreCase("Libeccio")){
-                            if (food.equals(previousFood)) {
-                                do{
+                    } else if (restaurant.equalsIgnoreCase("Libeccio")) {
+                        if (food.equals(previousFood)) {
+                            do {
                                 food = getRandomOrder(LibeccioMenu);
                                 price = Double.toString(LibeccioMenu.get(food));
                                 lengthOfFood++;
-                                }while(!LibeccioFoodinOrderHistory.contains(food));
-                            }if(lengthOfFood == lengthOfLibeccio){ 
-                                setNewRestaurant();
-                                if(getNewRestaurant() != "Libeccio"){
+                            } while (!LibeccioFoodinOrderHistory.contains(food));
+                        }
+                        if (lengthOfFood == lengthOfLibeccio) {
+                            setNewRestaurant();
+                            if (getNewRestaurant() != "Libeccio") {
                                 Map<String, Double> menu = MENU.getMenuByRestaurant(getNewRestaurant());
                                 food = getRandomOrder(menu);
                                 price = Double.toString(menu.get(food));
-                                }
-                        }else{
+                            }
+                        } else {
                             WaitingList = originalWaitingList;
                             return;
                         }
-                        }else if(restaurant.equalsIgnoreCase("Savage Garden")){
-                            if (food.equals(previousFood)) {
-                                do{
+                    } else if (restaurant.equalsIgnoreCase("Savage Garden")) {
+                        if (food.equals(previousFood)) {
+                            do {
                                 food = getRandomOrder(SavageGardenMenu);
                                 price = Double.toString(SavageGardenMenu.get(food));
                                 lengthOfFood++;
-                                }while(!SGFoodinOrderHistory.contains(food));
-                            }if(lengthOfFood == lengthOfSG){ 
-                                setNewRestaurant();
-                                if(getNewRestaurant() != "Savage Garden"){
+                            } while (!SGFoodinOrderHistory.contains(food));
+                        }
+                        if (lengthOfFood == lengthOfSG) {
+                            setNewRestaurant();
+                            if (getNewRestaurant() != "Savage Garden") {
                                 Map<String, Double> menu = MENU.getMenuByRestaurant(getNewRestaurant());
                                 food = getRandomOrder(menu);
                                 price = Double.toString(menu.get(food));
                                 break;
                             }
-                        }else{
+                        } else {
                             WaitingList = originalWaitingList;
                             return;
                         }
-                        }else if(totalOrder % totalFoodInMenu ==0){ //all food finished looping, just continue next
+                    } else if (totalOrder % totalFoodInMenu == 0) { // all food finished looping, just continue next
+                        WaitingList = originalWaitingList;
+                        return;
+                    }
+                    orderList[11] = previousRestaurant;
+                    orderList[12] = food;
+                    orderList[13] = price;
+                    orderList[15] = day + "," + food + "," + previousRestaurant + "," + price;
+                    WaitingList.set(i, orderList);
+                } else if (!restaurant.equals(latestRestaurant)) {
+                    boolean JG = latestRestaurant.equals("Jade Garden");
+                    boolean Cafe = latestRestaurant.equals("Cafe Deux Magots");
+                    boolean TT = latestRestaurant.equals("Trattoria Trussardi");
+                    boolean Libeccio = latestRestaurant.equals("Libeccio");
+                    boolean SG = latestRestaurant.equals("Savage Garden");
+                    if (JG) {
+                        if (JGFoodinOrderHistory.size() == JadeGardenMenu.size()) {
                             WaitingList = originalWaitingList;
                             return;
+                        } else { // have not finished loop the restaurant menu
+                            if (!JGFoodinOrderHistory.contains(food)) {
+                                food = getRandomOrder(JadeGardenMenu);
+                                price = Double.toString(JadeGardenMenu.get(food));
+                                break;
+                            }
                         }
-                        orderList[11] = previousRestaurant;
-                        orderList[12] = food;
-                        orderList[13] = price;
-                        orderList[15] = day + "," + food + "," + previousRestaurant + "," + price;
-                        WaitingList.set(i, orderList);
-                    }
-                    else if(!restaurant.equals(latestRestaurant)){
-                        boolean JG = latestRestaurant.equals("Jade Garden");
-                        boolean Cafe = latestRestaurant.equals("Cafe Deux Magots");
-                        boolean TT = latestRestaurant.equals("Trattoria Trussardi");
-                        boolean Libeccio = latestRestaurant.equals("Libeccio");
-                        boolean SG = latestRestaurant.equals("Savage Garden");
-                            if(JG){
-                                if(JGFoodinOrderHistory.size() == JadeGardenMenu.size()){
-                                    WaitingList = originalWaitingList;
-                                    return;
-                                } else{ //have not finished loop the restaurant menu
-                                    if(!JGFoodinOrderHistory.contains(food)){
-                                        food = getRandomOrder(JadeGardenMenu);
-                                        price = Double.toString(JadeGardenMenu.get(food));
-                                        break;
-                                        }
-                                }
+                    } else if (Cafe) {
+                        if (CafeFoodinOrderHistory.size() == CafeDeuxMagotsMenu.size()) {
+                            WaitingList = originalWaitingList;
+                            return;
+                        } else { // have not finished loop the restaurant menu
+                            if (!CafeFoodinOrderHistory.contains(food)) {
+                                food = getRandomOrder(CafeDeuxMagotsMenu);
+                                price = Double.toString(CafeDeuxMagotsMenu.get(food));
+                                break;
                             }
-                            else if(Cafe){
-                                if(CafeFoodinOrderHistory.size() == CafeDeuxMagotsMenu.size()){
-                                    WaitingList = originalWaitingList;
-                                    return;
-                                } else{ //have not finished loop the restaurant menu
-                                    if(!CafeFoodinOrderHistory.contains(food)){
-                                        food = getRandomOrder(CafeDeuxMagotsMenu);
-                                        price = Double.toString(CafeDeuxMagotsMenu.get(food));
-                                        break;
-                                        }
-                                }
-                            }
-                            else if(TT){
-                                if(TTFoodinOrderHistory.size() == TrattoriaTrussardiMenu.size()){
-                                    WaitingList = originalWaitingList;
-                                    return;
-                                } else{ //have not finished loop the restaurant menu
-                                    if(!TTFoodinOrderHistory.contains(food)){
-                                        food = getRandomOrder(TrattoriaTrussardiMenu);
-                                        price = Double.toString(TrattoriaTrussardiMenu.get(food));
-                                        break;
-                                        }
-                                }
-                            }
-                            else if(Libeccio){
-                                if(LibeccioFoodinOrderHistory.size() == LibeccioMenu.size()){
-                                    WaitingList = originalWaitingList;
-                                    return;
-                                } else{ //have not finished loop the restaurant menu
-                                    if(!LibeccioFoodinOrderHistory.contains(food)){
-                                        food = getRandomOrder(LibeccioMenu);
-                                        price = Double.toString(LibeccioMenu.get(food));
-                                        break;
-                                        }
-                                }
-                            }
-                            else if(SG){
-                                if(SGFoodinOrderHistory.size() == SavageGardenMenu.size()){
-                                    WaitingList = originalWaitingList;
-                                    return;
-                                } else{ //have not finished loop the restaurant menu
-                                    if(!SGFoodinOrderHistory.contains(food)){
-                                        food = getRandomOrder(SavageGardenMenu);
-                                        price = Double.toString(SavageGardenMenu.get(food));
-                                        break;
-                                        }
-                                }
-                            }
-                            else{
-                                WaitingList = originalWaitingList;
-                                return;
-                            }
-                            orderList[11] = latestRestaurant;
-                            nextJotaroKujoVisitedResturant = latestRestaurant;
-                            orderList[12] = food;
-                            orderList[13] = price;
-                            orderList[15] = day + "," + food + "," + previousRestaurant + "," + price;
-                            WaitingList.set(i, orderList);
                         }
+                    } else if (TT) {
+                        if (TTFoodinOrderHistory.size() == TrattoriaTrussardiMenu.size()) {
+                            WaitingList = originalWaitingList;
+                            return;
+                        } else { // have not finished loop the restaurant menu
+                            if (!TTFoodinOrderHistory.contains(food)) {
+                                food = getRandomOrder(TrattoriaTrussardiMenu);
+                                price = Double.toString(TrattoriaTrussardiMenu.get(food));
+                                break;
+                            }
+                        }
+                    } else if (Libeccio) {
+                        if (LibeccioFoodinOrderHistory.size() == LibeccioMenu.size()) {
+                            WaitingList = originalWaitingList;
+                            return;
+                        } else { // have not finished loop the restaurant menu
+                            if (!LibeccioFoodinOrderHistory.contains(food)) {
+                                food = getRandomOrder(LibeccioMenu);
+                                price = Double.toString(LibeccioMenu.get(food));
+                                break;
+                            }
+                        }
+                    } else if (SG) {
+                        if (SGFoodinOrderHistory.size() == SavageGardenMenu.size()) {
+                            WaitingList = originalWaitingList;
+                            return;
+                        } else { // have not finished loop the restaurant menu
+                            if (!SGFoodinOrderHistory.contains(food)) {
+                                food = getRandomOrder(SavageGardenMenu);
+                                price = Double.toString(SavageGardenMenu.get(food));
+                                break;
+                            }
+                        }
+                    } else {
+                        WaitingList = originalWaitingList;
+                        return;
                     }
+                    orderList[11] = latestRestaurant;
+                    nextJotaroKujoVisitedResturant = latestRestaurant;
+                    orderList[12] = food;
+                    orderList[13] = price;
+                    orderList[15] = day + "," + food + "," + previousRestaurant + "," + price;
+                    WaitingList.set(i, orderList);
+                }
             }
         }
+    }
 
     public void JosukeHigashikataFilter(List<String[]> JosukeHigashikataOrder) {
 
@@ -698,7 +657,7 @@ public class TheJoestars {
                 day = OrderHistory[0];
                 food = OrderHistory[1]; // did not use
                 restaurant = OrderHistory[2];
-                price = OrderHistory[3]; //the one in class
+                price = OrderHistory[3]; // the one in class
             }
 
             // get the latest order only
@@ -715,9 +674,10 @@ public class TheJoestars {
                     orderList[12] = getRandomOrder(newMenu); // new food
                     orderList[13] = Double.toString(newMenu.get(orderList[12])); // new price
                     orderList[15] = day + "," + orderList[12] + "," + orderList[11] + "," + orderList[13];
-                } while (orderList[11] == visitedRestaurant && orderList[11] != nextJotaroKujoVisitedResturant); // to avoid
-                                                                                                       // crash in
-                                                                                                       // saturday
+                } while (orderList[11] == visitedRestaurant && orderList[11] != nextJotaroKujoVisitedResturant); // to
+                                                                                                                 // avoid
+                // crash in
+                // saturday
             } else if (currentDay % 7 == 6 && !visitedRestaurant.equals(nextJotaroKujoVisitedResturant)) {
                 // It's Saturday and the last visited restaurant is same as Jotaro Kujo's next
                 // Saturday restaurant

@@ -1,4 +1,4 @@
-package JOJOLands;
+package JOJOLands.JOJO;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,12 +30,11 @@ public class Resident {
     private String priceOfFood;
     private String arrivalTime;
     private List<Resident> combinedResidents;
-    private List<String[]> orderHistory;
+    private List<String> orderHistory;
 
     public Resident(){
         this.residents = new ArrayList<>();
         this.stands = new ArrayList<>();
-        this.orderHistory = new ArrayList<>();
     }
     
     public Resident(String name, String age, String gender, String residentialArea, List<String> parents, String standInfo, String destructivePower, String speed, String range, String stamina, String precision, String developmentPotential, String visitedRestaurant, String order, String priceOfFood, String arrivalTime) {
@@ -59,7 +58,7 @@ public class Resident {
 
     public void readResidentsCSV(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
+            String line = reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 residents.add(data);
@@ -254,10 +253,17 @@ public class Resident {
         this.order = order;
         this.visitedRestaurant = restaurant;
         this.priceOfFood = price;
+
+        this.orderHistory = new ArrayList<>();
+        this.orderHistory.add(Integer.toString(currentDay));
+        this.orderHistory.add(order);
+        this.orderHistory.add(restaurant);
+        this.orderHistory.add(price);
+
         //currentDay get in WaitingListGenerator class
     }
 
-    public List<String[]> getOrderHistory() {
+    public List<String> getOrderHistory() {
         return orderHistory;
     }
 }

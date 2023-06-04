@@ -1,4 +1,4 @@
-package JOJOLands;
+package JOJOLands.JOJO;
 
 import java.io.*;
 import java.util.*;
@@ -59,12 +59,12 @@ public class TheJoestarsChecker {
                         continue;
                     }
         
-                    String[] residentDetails = line.split("\\s*\\|\\s*");
+                    String[] residentDetails = line.split("\\|");
                     residentProfiles.add(residentDetails);
 
                     // Store personal order information in PersonalOrder array
                     //used to apply filter in TheJoestars class
-                    String orderHistory = residentDetails[16].trim();
+                    String orderHistory = residentDetails[15].trim();
                 String[] orders = orderHistory.split(";");
                 for (String order : orders) {
                     String[] orderInfo = order.split(",");
@@ -74,6 +74,27 @@ public class TheJoestarsChecker {
         }catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<String[]> readOrderHistory(String name){
+        String filename = name + "_order_history" + ".txt";
+
+        List<String[]> matchingLines = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+    
+            while ((line = br.readLine()) != null) {
+                if (line.matches("\\d+,.*?,\\d+\\.\\d+,.*?;")) {
+                    String[] orderDetails = line.split(",");
+                    matchingLines.add(orderDetails);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+        return matchingLines;
     }
     
     // to display the list of resident information in the current location
@@ -155,28 +176,5 @@ public class TheJoestarsChecker {
     }
     public List<String[]> getPersonalOrder(){
         return PersonalOrder;
-    }
-
-    //method that will be used in TheJoestars class for selection [2]
-    public void sortResidentsByName() {
-        Collections.sort(residentInformation, new Comparator<String[]>() {
-            @Override
-            public int compare(String[] resident1, String[] resident2) {
-                String name1 = resident1[1].trim();
-                String name2 = resident2[1].trim();
-                return name1.compareToIgnoreCase(name2);
-            }
-        });
-    }
-
-    public void sortResidentsByAge() {
-        Collections.sort(residentInformation, new Comparator<String[]>() {
-            @Override
-            public int compare(String[] resident1, String[] resident2) {
-                String age1 = resident1[2].trim();
-                String age2 = resident2[2].trim();
-                return Integer.compare(Integer.parseInt(age1), Integer.parseInt(age2));
-            }
-        });
     }
 }
