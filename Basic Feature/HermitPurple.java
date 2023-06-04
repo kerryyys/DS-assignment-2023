@@ -1,4 +1,4 @@
-package JOJOLands;
+package JOJOLands.JOJO;
 
 import java.util.*;
 import java.io.*;
@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class HermitPurple extends JOJOMaps {
+public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     private String currentLocation;
     private int day;
     private Stack<String> visitedLocation = new Stack<>();
@@ -21,7 +21,9 @@ public class HermitPurple extends JOJOMaps {
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
     private TheJoestars joestars;
+    private WaitingListGenerator GENERATOR;
     private Graph<String, Integer> maps;
+    private String[] restaurantLocation;
 
     // add private Menu restaurant;
     /*
@@ -29,21 +31,26 @@ public class HermitPurple extends JOJOMaps {
      * private JOJOMaps jojomaps = new JOJOMaps();
      */
     public HermitPurple() {
+        restaurantLocation = new String[] { "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "Libeccio",
+                "Savage Garden" };
         this.hermitPurple = this;
         temp = visitedLocation;
         currentLocation = "Town Hall";
+    }
+
+    public void getMapType(Graph<String, Integer> mapsGraph) {
+        this.maps = mapsGraph;
+    }
+
+    public void getMapName(String MapName) {
+        // get Map type after the player choose to enter which Map
+        this.MapName = MapName;
+    }
+
+    public void startGame() {
         storeMission();
         start();
         displayMenu();
-    }
-
-    public Graph<String, Integer> getMapType(Graph<String, Integer> mapsGraph){
-        return this.maps = mapsGraph;
-    }
-    public String getMapName(String MapName) {
-        // get Map type after the player choose to enter which Map
-
-        return this.MapName = MapName;
     }
 
     // used to display option
@@ -165,11 +172,9 @@ public class HermitPurple extends JOJOMaps {
     // starts at the Town Hall at the start of each day
     public void start() {
         startNewDay();
-        if (currentDay != 1) {
-            joestars = new TheJoestars(currentLocation, currentDay);
-            joestars.Filter();
-        }
-        // `System.out.println("Current Location: "+currentLocation);
+            joestars = new TheJoestars(currentLocation, currentDay-1);  //the current day is increase after startNewDay
+            joestars.Filter();  //to reset the waiting list
+
     }
 
     private int currentDay;
@@ -196,103 +201,37 @@ public class HermitPurple extends JOJOMaps {
         moveTo();
     }
 
-    // Used to terminate the program
-    public void Exit() {
-        System.out.println("Exiting the game...");
-        // Perform any necessary cleanup or saving operations here
-        System.exit(0);
-    }
-/* //Darwish
-public void SaveGame(String mapIdentifier) {
-    // Create a directory to store the game progress according to the Map
-    String directoryPath = mapIdentifier + " directory";
-    File directory = new File(directoryPath);
-    if (!directory.exists()) {
-        directory.mkdir();
-    }
-
-    // Save the game progress
-    try {
-        // Create a JSON object to hold the game state
-        JSONObject gameState = new JSONObject();
-        gameState.put("visitedLocation", visitedLocation);
-        gameState.put("currentLocation", currentLocation);
-        gameState.put("previousLocation", previousLocation);
-        gameState.put("currentDay", currentDay);
-
-        // Serialize the JSON object to a string
-        String jsonString = gameState.toJSONString();
-
-        // Write the JSON string to a file
-        FileWriter fileWriter = new FileWriter(directoryPath + "/game_save.json");
-        fileWriter.write(jsonString);
-        fileWriter.close();
-
-        // Move the waiting list of each location file to the game directory
-        List<File> waitingListForEachLocation = new ArrayList<>();
-
-        for (int i = 0; i < visitedLocation.size(); i++) {
-            // Generate the file name
-            String fileName = "waiting_list_" + visitedLocation.get(i) + ".txt";
-
-            // Create the File object
-            File waitingListFile = new File(fileName);
-
-            // Add the File object to the list
-            waitingListForEachLocation.add(waitingListFile);
-
-            // Move the file to the destination directory
-            File destinationFile = new File(directoryPath + "/" + fileName);
-            waitingListFile.renameTo(destinationFile);
-        }
-
-        // Move the resident information files to the game directory
-        List<File> residentInformationFiles = new ArrayList<>();
-
-        for (int i = 0; i < visitedLocation.size(); i++) {
-            String fileName = "resident_information_" + visitedLocation.get(i) + ".txt";
-            File residentInformationFile = new File(fileName);
-            residentInformationFiles.add(residentInformationFile);
-            File destinationFile = new File(directoryPath + "/" + fileName);
-            residentInformationFile.renameTo(destinationFile);
-        }
-
-        // Move the FullWaitingList.txt file to the game directory
-        File fullWaitingListFile = new File("FullWaitingList.txt");
-        File fullWaitingListDestinationFile = new File(directoryPath + "/FullWaitingList.txt");
-        fullWaitingListFile.renameTo(fullWaitingListDestinationFile);
-
-        System.out.println("Game progress for map " + mapIdentifier + " saved successfully.");
-    } catch (IOException e) {
-        System.out.println("Failed to save the game progress: " + e.getMessage());
-    }
-}
-*/
     public void SaveGame(String mapIdentifier) {
         // Create a directory to store the game progress according to the Map
-        String directoryPath = MapName + " directory";
+        String directoryPath = mapIdentifier + " directory";
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdir();
         }
+
         // Save the game progress
         try {
-            FileOutputStream fileOut = new FileOutputStream(directoryPath + "/game_save.ser");
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(visitedLocation);
-            objectOut.writeObject(currentLocation);
-            objectOut.writeObject(previousLocation);
-            objectOut.writeObject(currentDay);
-            objectOut.close();
-            fileOut.close();
+            // Create a JSON object to hold the game state
+            JSONObject gameState = new JSONObject();
+            gameState.put("visitedLocation", visitedLocation);
+            gameState.put("currentLocation", currentLocation);
+            gameState.put("previousLocation", previousLocation);
+            gameState.put("currentDay", currentDay);
+
+            // Serialize the JSON object to a string
+            String jsonString = gameState.toJSONString();
+
+            // Write the JSON string to a file
+            FileWriter fileWriter = new FileWriter(directoryPath + "/game_save.json");
+            fileWriter.write(jsonString);
+            fileWriter.close();
 
             // Move the waiting list of each location file to the game directory
             List<File> waitingListForEachLocation = new ArrayList<>();
 
-            // actually not every visited location has waiting list
-            for (int i = 0; i < visitedLocation.size(); i++) {
+            for (int i = 0; i < restaurantLocation.length; i++) {
                 // Generate the file name
-                String fileName = "waiting_list_" + visitedLocation.get(i) + ".txt";
+                String fileName = "waiting_list_" + restaurantLocation[i] + ".txt";
 
                 // Create the File object
                 File waitingListFile = new File(fileName);
@@ -304,19 +243,22 @@ public void SaveGame(String mapIdentifier) {
                 File destinationFile = new File(directoryPath + "/" + fileName);
                 waitingListFile.renameTo(destinationFile);
             }
-            // Create a list to store the File objects
+
+            // Move the resident information files to the game directory
             List<File> residentInformationFiles = new ArrayList<>();
 
             for (int i = 0; i < visitedLocation.size(); i++) {
                 String fileName = "resident_information_" + visitedLocation.get(i) + ".txt";
                 File residentInformationFile = new File(fileName);
                 residentInformationFiles.add(residentInformationFile);
-                File destinationFiles = new File(directoryPath + "/" + fileName);
-                residentInformationFile.renameTo(destinationFiles);
+                File destinationFile = new File(directoryPath + "/" + fileName);
+                residentInformationFile.renameTo(destinationFile);
             }
-            File FullWaitingListFile = new File("FullWaitingList.txt");
-            File FullWatingListDestinationFile = new File(directoryPath + "/FullWaitingList.txt");
-            FullWaitingListFile.renameTo(FullWatingListDestinationFile);
+
+            // Move the FullWaitingList.txt file to the game directory
+            File fullWaitingListFile = new File("FullWaitingList.txt");
+            File fullWaitingListDestinationFile = new File(directoryPath + "/FullWaitingList.txt");
+            fullWaitingListFile.renameTo(fullWaitingListDestinationFile);
 
             System.out.println("Game progress for map " + mapIdentifier + " saved successfully.");
         } catch (IOException e) {
@@ -324,40 +266,30 @@ public void SaveGame(String mapIdentifier) {
         }
     }
 
-    /*//Darwish
-    public void loadGame(String mapIdentifier) {
-    // Create a directory path for the game progress
-    String directoryPath = mapIdentifier + " directory";
-
-    // Load the game progress from the JSON file
-    try {
-        // Read the JSON file into a JSON object
-        JSONParser parser = new JSONParser();
-        FileReader fileReader = new FileReader(directoryPath + "/game_save.json");
-        JSONObject gameState = (JSONObject) parser.parse(fileReader);
-        fileReader.close();
-
-        // Retrieve the game state data from the JSON object
-        List<String> visitedLocationList = (List<String>) gameState.get("visitedLocation");
-        currentLocation = (String) gameState.get("currentLocation");
-        previousLocation = (String) gameState.get("previousLocation");
-        currentDay = Math.toIntExact((Long) gameState.get("currentDay"));
-
-        // Create a new Stack<String> and populate it with the elements from visitedLocationList
-        visitedLocation = new Stack<>();
-        for (String location : visitedLocationList) {
-            visitedLocation.push(location);
-        }
-
-        System.out.println("Game progress for map " + mapIdentifier + " loaded successfully.");
-    } catch (IOException e) {
-        System.out.println("Failed to load the game progress: " + e.getMessage());
-    } catch (ParseException e) {
-        System.out.println("Failed to parse the game save file: " + e.getMessage());
+    // Used to terminate the program
+    public void Exit() {
+        System.out.println("Exiting the game...");
+        // Perform any necessary cleanup or saving operations here
+        System.exit(0);
     }
-}
-    */
-    
+
+    public void LoadGame(String filePath) {
+        try {
+            FileInputStream fileIn = new FileInputStream(filePath + "game_save.ser");
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+            // Read the serialized object from the file
+            objectIn.readObject();
+
+            objectIn.close();
+            fileIn.close();
+            System.out.println("Game progress loaded successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to load the game progress: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Failed to load the game progress: " + e.getMessage());
+        }
+    }
 
     public void Select() {
         while (true) {
@@ -433,10 +365,10 @@ public void SaveGame(String mapIdentifier) {
                     case "Morioh Grand Hotel":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-
+                                GENERATOR.ResidentInformation("Morioh Grand Hotel");
                                 break;
 
                             case "3":
@@ -445,14 +377,17 @@ public void SaveGame(String mapIdentifier) {
                                 break;
 
                             case "4":
+                                ThusSpokeRohanKishibe spoke = new ThusSpokeRohanKishibe(maps);
+
+                            case "5":
                                 Back();
                                 break;
 
-                            case "5":
+                            case "6":
                                 BackTownHall();
                                 break;
 
-                            case "6":
+                            case "7":
                                 Exit();
                                 break;
                         }
@@ -462,6 +397,7 @@ public void SaveGame(String mapIdentifier) {
 
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayList();
                                 visitedLocation.pop(); // to pop the currentLocation that have been added since it will
                                                        // back to here to avoid previous location=currentLocation
                                 temp.pop();
@@ -470,20 +406,20 @@ public void SaveGame(String mapIdentifier) {
                                 break;
 
                             case "3":
-                                Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                menuPearlJam.displayMenu(currentLocation); 
+                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                                // menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
-                                MondayBlue mondayBlues = new MondayBlue(hermitPurple, input, currentDay);
-                                mondayBlues.readSalesDataFromFile();
-                                mondayBlues.ViewSalesInformation();
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                moodyBlues.readSalesDataFromFile();
+                                moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
+                                // milargoMan.modifyFoodPrices();
                                 break;
 
                             case "6":
@@ -508,6 +444,7 @@ public void SaveGame(String mapIdentifier) {
 
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayList();
                                 visitedLocation.pop(); // to pop the currentLocation that have been added since it will
                                                        // back to here to avoid previous location=currentLocation
                                 temp.pop();
@@ -516,20 +453,20 @@ public void SaveGame(String mapIdentifier) {
                                 break;
 
                             case "3":
-                            Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                            menuPearlJam.displayMenu(currentLocation); 
+                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                                // menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
-                                MondayBlue mondayBlues = new MondayBlue(hermitPurple, input, currentDay);
-                                mondayBlues.readSalesDataFromFile();
-                                mondayBlues.ViewSalesInformation();
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                moodyBlues.readSalesDataFromFile();
+                                moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
+                                // milargoMan.modifyFoodPrices();
                                 break;
 
                             case "6":
@@ -551,6 +488,7 @@ public void SaveGame(String mapIdentifier) {
 
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayList();
                                 visitedLocation.pop(); // to pop the currentLocation that have been added since it will
                                                        // back to here to avoid previous location=currentLocation
                                 temp.pop();
@@ -559,20 +497,20 @@ public void SaveGame(String mapIdentifier) {
                                 break;
 
                             case "3":
-                            Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                            menuPearlJam.displayMenu(currentLocation);
+                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                                // menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
-                                MondayBlue mondayBlues = new MondayBlue(hermitPurple, input, currentDay);
-                                mondayBlues.readSalesDataFromFile();
-                                mondayBlues.ViewSalesInformation();
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                moodyBlues.readSalesDataFromFile();
+                                moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
+                                // milargoMan.modifyFoodPrices();
                                 break;
 
                             case "6":
@@ -593,28 +531,28 @@ public void SaveGame(String mapIdentifier) {
                         switch (input) {
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
-                                visitedLocation.pop(); // to pop the currentLocation that have been added since it will
-                                                       // back to here to avoid previous location=currentLocation
+                                pearlJam.displayList();
+                                visitedLocation.pop();
                                 temp.pop();
                                 previousLocation = visitedLocation.peek();
                                 hermitPurple.displayMenu();
                                 break;
 
                             case "3":
-                                Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                menuPearlJam.displayMenu(currentLocation);
+                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                                // menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
-                                MondayBlue mondayBlues = new MondayBlue(hermitPurple, input, currentDay);
-                                mondayBlues.readSalesDataFromFile();
-                                mondayBlues.ViewSalesInformation();
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                moodyBlues.readSalesDataFromFile();
+                                moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
+                                // milargoMan.modifyFoodPrices();
                                 break;
 
                             case "6":
@@ -635,27 +573,27 @@ public void SaveGame(String mapIdentifier) {
                         switch (input) {
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
-                                visitedLocation.pop(); // to pop the currentLocation that have been added since it will
-                                                       // back to here to avoid previous location=currentLocation
+                                pearlJam.displayList();
+                                visitedLocation.pop();
                                 temp.pop();
                                 previousLocation = visitedLocation.peek();
                                 hermitPurple.displayMenu();
                                 break;
 
                             case "3":
-                                Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                menuPearlJam.displayMenu(currentLocation);
+                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
+                                // menuPearlJam.displayMenu(currentLocation);
 
                             case "4":
-                                MondayBlue mondayBlues = new MondayBlue(hermitPurple, input, currentDay);
-                                mondayBlues.readSalesDataFromFile();
-                                mondayBlues.ViewSalesInformation();
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                moodyBlues.readSalesDataFromFile();
+                                moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
+                                // milargoMan.modifyFoodPrices();
                                 break;
 
                             case "6":
@@ -674,39 +612,45 @@ public void SaveGame(String mapIdentifier) {
                     case "Angelo Rock":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
+                                GENERATOR.ResidentInformation("Angelo Rock");
                                 break;
 
                             case "3":
                                 RedHotChiliPepper rhcp = new RedHotChiliPepper();
                                 rhcp.display();
                                 break;
+
                             case "4":
+                                // Another One Bites the Dust
+
+                            case "5":
                                 Back();
                                 break;
 
-                            case "5":
+                            case "6":
                                 BackTownHall();
                                 break;
 
-                            case "6":
+                            case "7":
                                 Exit();
                                 break;
                         }
                         break;
 
-                        case "DIO's Mansion":
+                    case "DIO's Mansion":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
+                                GENERATOR.ResidentInformation("DIO's Mansion");
                                 break;
 
                             case "3":
-                                //Chase
+                                // Chase
                                 Chase chase = new Chase();
                                 System.out.print("Enter the initial location: ");
                                 String initialLocation = sc.nextLine();
@@ -730,16 +674,17 @@ public void SaveGame(String mapIdentifier) {
                         }
                         break;
 
-                        case "Green Dolphin Street Prison":
+                    case "Green Dolphin Street Prison":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
+                                GENERATOR.ResidentInformation("Green Dolphin Street Prison");
                                 break;
 
                             case "3":
-                                //Extra feature 4
+                                // Extra feature 4
                                 DirtyDeedsDoneDirtCheap DDDDC = new DirtyDeedsDoneDirtCheap();
                                 DDDDC.RunDDDDC();
                                 break;
@@ -763,9 +708,10 @@ public void SaveGame(String mapIdentifier) {
                         switch (input) {
 
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
+                                GENERATOR.ResidentInformation(currentLocation);
                                 break;
 
                             case "3":
@@ -779,11 +725,9 @@ public void SaveGame(String mapIdentifier) {
                             case "5":
                                 Exit();
                                 break;
-
                         }
                 }
                 break;
-
             }
         }
     }
@@ -817,6 +761,7 @@ public void SaveGame(String mapIdentifier) {
     public void storeMission() {
         addMission("Morioh Grand Hotel", "View Resident Information");
         addMission("Morioh Grand Hotel", "The Hand");
+        addMission("Morioh Grand Hotel", "Thus Spoke Rohan Kishibe");
 
         addMission("Trattoria Trussardi", "View Waiting List and Order Processing List");
         addMission("Trattoria Trussardi", "View Menu");
@@ -852,11 +797,14 @@ public void SaveGame(String mapIdentifier) {
         addMission("Polnareff Land", "View Resident Information");
 
         addMission("DIO's Mansion", "View Resident Information");
+        addMission("DIO's Mansion", "Chase");
 
         addMission("Angelo Rock", "View Resident Information");
         addMission("Angelo Rock", "Red Hot Chili Pepper");
+        addMission("Angelo Rock", "Another One Bites the Dust");
 
         addMission("Green Dolphin Street Prison", "View Resident Information");
+        addMission("Green Dolphin Street Prison", "Dirty Deeds Done Dirt Cheap");
 
         addMission("Vineyard", "View Resident Information");
 
