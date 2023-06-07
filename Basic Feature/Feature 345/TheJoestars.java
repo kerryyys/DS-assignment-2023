@@ -50,8 +50,8 @@ public class TheJoestars {
         WaitingListGenerator = new WaitingListGenerator(currentLocation, currentDay);
         JoestarsChecker = new TheJoestarsChecker(currentLocation);
         WaitingListGenerator.addCustomerToWaitingList();
-        this.WaitingList = WaitingListGenerator.getResidentFullList();
-        WaitingListGenerator.WaitingList();
+        WaitingList = WaitingListGenerator.getResidentFullList();
+        WaitingListGenerator.WaitingList();   
     }
 
     // use when day !=1 since day 1 only need randomly generated
@@ -676,12 +676,10 @@ public class TheJoestars {
                     orderList[15] = day + "," + orderList[12] + "," + orderList[11] + "," + orderList[13];
                 } while (orderList[11] == visitedRestaurant && orderList[11] != nextJotaroKujoVisitedResturant); // to
                                                                                                                  // avoid
-                // crash in
-                // saturday
+                // crash in saturday
             } else if (currentDay % 7 == 6 && !visitedRestaurant.equals(nextJotaroKujoVisitedResturant)) {
                 // It's Saturday and the last visited restaurant is same as Jotaro Kujo's next
-                // Saturday restaurant
-                // Assign a new restaurant
+                // Saturday restaurant. Assign a new restaurant
                 setNewRestaurant();
                 Map<String, Double> newMenu = MENU.getMenuByRestaurant(nextJotaroKujoVisitedResturant);
                 orderList[11] = nextJotaroKujoVisitedResturant; // new restaurant
@@ -710,34 +708,3 @@ public class TheJoestars {
         return this.Restaurant;
     }
 }
-
-/*
- * Jonathan Joestar
- * does not repeat food that he has eaten in one week //assume one week
- * 
- * Joseph Joestar
- * wont eat twice no matter week until all have eaten
- * 
- * Jotaro Kujo
- * x matter week, set the restaurant, then after every dish baru move on
- * 
- * Josuke Higashikata
- * weekly budget 100, if exceed, then borrow least amount to eat
- * 
- * Giorno Giovanna
- * visit Trattoria Trussardi twice a week, order different dish from last
- * visit(==dont repeat), except when only 1 option
- * 
- * Jolyne Cujoh
- * avoid dine in same restaurant repeatedly. Saturday will eat with Jotaro Kujo
- * in same restaurant
- * 
- * 
- * Here need to have method that can combined the residents and stands csv,
- * 1 method to show the general in fo from combined csv
- * then if choose view resident profile, need enter name(ignorecase), then run
- * all info, then have order history
- * (means here can search waiting list that include the current day for the
- * resident name then take out the day, food, restaurant, price)
- * can match resident name, then get the info of the resident
- */
