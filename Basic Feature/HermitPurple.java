@@ -184,7 +184,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         currentDay = 1;
         String dayofWeek = getDay(currentDay);
         System.out.println("It's Day " + currentDay + "(" + dayofWeek + ") of our journey in JOJOLands!");
-        this.day = currentDay; // *****need to confirm
+        this.day = currentDay; 
         currentDay++;
     }
 
@@ -411,7 +411,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 break;
 
                             case "4":
-                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
@@ -458,7 +458,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 break;
 
                             case "4":
-                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
@@ -502,7 +502,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 break;
 
                             case "4":
-                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
@@ -544,7 +544,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 break;
 
                             case "4":
-                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
@@ -585,7 +585,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 // menuPearlJam.displayMenu(currentLocation);
 
                             case "4":
-                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, input, currentDay);
+                                MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
                                 hermitPurple.displayMenu();
