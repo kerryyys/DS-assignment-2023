@@ -14,6 +14,13 @@ Requirements<br>
 ● The system should display the positions of DIO and Pucci after they have completed their optimal movements as specified above in each turn.<br>
 ● The game terminates when Pucci reaches the same location as DIO.<br>
 
+**Extra Feature 6 -- Stay The Hell Away From Me**<br>
+● Create a new option Stay the Hell Away from Me! in San Giorgio Maggiore.<br>
+● A player can enter the starting and ending points for Diavolo’s great journey, along with the locations where people might notice him as predicted using Epitaph.<br>
+● Each time Diavolo passes through one of the identified locations, he has to use King Crimson’s ability to erase the time frame.<br>
+● The system should display the optimal path with the least number of times Diavolo has to activate his Stand’s ability and total distance.<br>
+● The system should only display the path with the shortest distance if there are multiple paths with the same number of activation.<br>
+
 **Extra Feature 8 -- Thus Spoke Rohan Kishibe**<br>
 Requirements<br>
 ● Create a new option Thus Spoke Rohan Kishibe in Morioh Grand Hotel.<br>
