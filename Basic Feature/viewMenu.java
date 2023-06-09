@@ -1,12 +1,12 @@
-package MilargoMan;
+package JOJOLands;
 
 import java.util.*;
-public class viewMenu {
+public class viewMenu extends Menu {
     private String restaurant;
     private ArrayList<ArrayList<Food>> foodList;
 
-    public viewMenu(String restaurant) {
-        this.restaurant = restaurant;
+    public viewMenu(String[] restaurant) {
+        this.restaurant = Arrays.toString(restaurant);
         foodList = new ArrayList<>();
     }
     public String getRestaurant() {
@@ -88,9 +88,8 @@ public class viewMenu {
             }
         }
         System.out.println("\n[1] Add Food");
-        System.out.println("[2] Modify Food Price");
-        System.out.println("[3] Remove Food");
-        System.out.println("[4] Exit View Menu");
+        System.out.println("[2] Remove Food");
+        System.out.println("[3] Exit View Menu");
         Scanner sc = new Scanner(System.in);
         System.out.println("Select : ");
         int choice = sc.nextInt();
@@ -113,5 +112,18 @@ public class viewMenu {
                 break;
         }
     }
-}
 
+    public void displayMenu(String currentLocation) {
+         Map<String, Double> restaurantMenu = getMenuByRestaurant(currentLocation);
+         System.out.println("Menu for " + currentLocation + ":");
+         System.out.println("+-----------------------------------------------+-----------+");
+         System.out.println("Food                                            |   Price   |");
+         System.out.println("+-----------------------------------------------+-----------+");
+         for (Map.Entry<String, Double> entry : restaurantMenu.entrySet()) {
+             String menuItem = entry.getKey();
+             Double price = entry.getValue();
+             System.out.printf("| %-45s | $%8.2f |\n", menuItem, price);
+         }
+         System.out.println("+-----------------------------------------------+-----------+");
+     }
+}
