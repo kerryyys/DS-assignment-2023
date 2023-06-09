@@ -15,6 +15,8 @@ public class Player extends JOJOMaps {
         System.out.print("\nSelect: ");
         int input = sc.nextInt();
 
+        HermitPurple hermitPurple = new HermitPurple();
+
         switch (input) {
             case 1:
                 System.out.println("[1] Default Map");
@@ -26,21 +28,20 @@ public class Player extends JOJOMaps {
                 //constructor of Hermit may be change to get better code structure
                 switch (mapchoice) {
                     case 1:
-                        HermitPurple hermitPurple1 = new HermitPurple();
-                        hermitPurple1.getMapType(jojo.getDefaultMap());
+                        hermitPurple.getMapType(jojo.getDefaultMap());
                         break;
 
                     case 2:
-                        HermitPurple hermitPurple2 = new HermitPurple();
-                        hermitPurple2.getMapType(jojo.getParallelMap());
+                        hermitPurple.getMapType(jojo.getParallelMap());
                         break;
 
                     case 3:
-                        HermitPurple hermitPurple3 = new HermitPurple();
-                        hermitPurple3.getMapType(jojo.getAlternateMap());
+                        hermitPurple.getMapType(jojo.getAlternateMap());
                         break;
                 }
-
+                if (hermitPurple != null) {
+                    hermitPurple.startGame();
+                }
                 break;
 
             case 2:
@@ -56,7 +57,5 @@ public class Player extends JOJOMaps {
         // run the world to choose map, then
         // if option = 1, getDefaultMap
         // then hermitPurple.getMapType(); in each case
-        HermitPurple hermitPurple = new HermitPurple();
-        hermitPurple.getMapName(null); // insert into each option case
     }
 }
