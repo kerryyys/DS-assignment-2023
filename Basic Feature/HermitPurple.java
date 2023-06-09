@@ -39,7 +39,11 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         currentLocation = "Town Hall";
         currentDay = 1;
     }
-
+    
+    public Graph<String,Integer> getMaps(){
+        return maps;
+    }
+    
     public void getMapType(Graph<String, Integer> mapsGraph) {
         this.maps = mapsGraph;
     }
@@ -371,7 +375,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "3":
                                 TheHand theHand = new TheHand();
-                                theHand.display();
+                                theHand.display(maps);
                                 visitedLocation.pop(); 
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
@@ -620,7 +624,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "3":
                                 RedHotChiliPepper rhcp = new RedHotChiliPepper();
-                                rhcp.display();
+                                rhcp.display(maps);
                                 visitedLocation.pop(); 
                                 displayMenu();
                                 break;
