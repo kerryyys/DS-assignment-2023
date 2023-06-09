@@ -257,8 +257,8 @@ public class Resident {
         this.orderHistory = new ArrayList<>();
         this.orderHistory.add(Integer.toString(currentDay));
         this.orderHistory.add(order);
-        this.orderHistory.add(restaurant);
         this.orderHistory.add(price);
+        this.orderHistory.add(restaurant);
 
         //currentDay get in WaitingListGenerator class
     }

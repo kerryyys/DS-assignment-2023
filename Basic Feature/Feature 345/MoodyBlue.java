@@ -21,8 +21,8 @@ public class MoodyBlue {
     }
 
     public void readSalesDataFromFile() {
-        for (int day = 1; day < currentDay; day++) {
-            String filename = "waiting_list_" + currentLocation + "_" + day + ".txt";
+        for (int day = 1; day < currentDay; day++) {  //Kerry: need to test again why is < not <=
+            String filename = "D:/JOJOLands/waiting_list_" + currentLocation + "_" + day + ".txt";
             try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
                 String line;
                 boolean startReading = false;
@@ -32,24 +32,33 @@ public class MoodyBlue {
                 // To skip header and retrieve data
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith("Waiting List")) {
-                        startReading = true;
-                        continue;
-                    }
-                    if (line.startsWith("+----")) {
                         startReading = false;
                         continue;
                     }
-    
-                    if (startReading && line.startsWith("|")) {
+
+                    if (line.startsWith("+----")) {
+                        startReading = true;
+                        continue;
+                    }
+
+                    if (startReading && line.startsWith("|") && !line.contains("Order")) {
                         if (isFirstLine) {
                             isFirstLine = false;
                             continue; // Skip the first line
                         }
-                        String[] rowData = line.split("\\s{2,}");
     
+                        // Modify the split regex to handle inconsistent column spacing
+                        String[] rowData = line.split("\\|");
+    
+                        // Trim each element in rowData and remove leading/trailing whitespaces
+                        for (int i = 0; i < rowData.length; i++) {
+                            rowData[i] = rowData[i].trim();
+                        }
+                        
                         // Retrieve the order and price from the corresponding columns
-                        String order = rowData[5].trim();
-                        double price = Double.parseDouble(rowData[7].trim());  //use double here because the below code need to use MAX_VALUE to compare
+                        String order = rowData[6];
+                        double price = Double.parseDouble(rowData[8].replaceAll("[^\\d.]", ""));
+                    
     
                         // Check if the order already exists in the salesByFood map
                         if (salesByFood.containsKey(order)) {
@@ -109,6 +118,10 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
+                    if(endday >currentDay){
+                        System.out.println("End day should until the current day.");
+                        continue;
+                    }
                     minimumSales(startday, endday);
                     continue;
                 case "2B":
@@ -129,6 +142,10 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
+                    if(endday >currentDay){
+                        System.out.println("End day should until the current day.");
+                        continue;
+                    }
                     topKHighestSales(startday, endday);
                     continue;
                 case "2D":
@@ -139,6 +156,10 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
+                    if(endday >currentDay){
+                        System.out.println("End day should until the current day.");
+                        continue;
+                    }
                     totalAndAverageSales(startday, endday);
                     continue;
                 case "3":
@@ -153,7 +174,6 @@ public class MoodyBlue {
 
     // Used to print the Sales Record on certain Day of the restaurant
     public void viewSales(int day) {
-        System.out.println("Restaurant: " + currentLocation);
         String dayKey = String.valueOf(day);
 
         // Retrieve the sales data for the specified day and location
@@ -176,16 +196,16 @@ public class MoodyBlue {
             SalesRecord record = entry.getValue();
 
             int quantity = record.getQuantity();
-            double totalPrice = record.getPrice(); // dont need to *quantity
+            double totalPrice = record.getPrice(); 
 
-            System.out.printf("| %-35s | %8d | $%9.2f |\n", food, quantity, totalPrice);
+            System.out.printf("| %-35s | %8d | $%9.2f  |\n", food, quantity, totalPrice);
 
             totalSales += totalPrice;
         }
 
         // Print the total sales
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.printf("| Total Sales                         |          | $%9.2f |\n", totalSales);
+        System.out.printf("| Total Sales                         |          | $%9.2f  |\n", totalSales);
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("======================================================================");
     }
@@ -241,7 +261,7 @@ public class MoodyBlue {
         System.out.println("+-------------------------------------+-------------+");
         System.out.println("| Food                                | Total Sales |");
         System.out.println("+-------------------------------------+-------------+");
-        System.out.printf("| %-35s | $%9.2f |\n", foodWithMinimumSales, minimumSales);
+        System.out.printf("| %-35s | $%9.2f  |\n", foodWithMinimumSales, minimumSales);
         System.out.println("+-------------------------------------+-------------+");
         System.out.println("======================================================");
     }
@@ -297,7 +317,7 @@ public class MoodyBlue {
         System.out.println("+-------------------------------------+-------------+");
         System.out.println("| Food                                | Total Sales |");
         System.out.println("+-------------------------------------+-------------+");
-        System.out.printf("| %-35s | $%9.2f |\n", foodWithMaximumSales, maximumSales);
+        System.out.printf("| %-35s | $%9.2f  |\n", foodWithMaximumSales, maximumSales);
         System.out.println("+-------------------------------------+-------------+");
         System.out.println("======================================================");
     }
@@ -357,13 +377,13 @@ public class MoodyBlue {
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("| Food                                | Quantity | Price       |");
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.printf("| %-35s | %8d | $%9.2f |\n", foodWithHighestPrice.getKey(), foodWithHighestPrice.getValue().getQuantity(), foodWithHighestPrice.getValue().getPrice());
-        System.out.println("+-------------------------------------+----------+-------------+");
+        System.out.printf("| %-35s | %8d | $%9.2f  |\n", foodWithHighestPrice.getKey(), foodWithHighestPrice.getValue().getQuantity(), foodWithHighestPrice.getValue().getPrice());
+        System.out.println("\n+-------------------------------------+----------+-------------+");
         System.out.println("Food with Highest Quantity:");
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("| Food                                | Quantity | Price       |");
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.printf("| %-35s | %8d | $%9.2f |\n", foodWithHighestQuantity.getKey(), foodWithHighestQuantity.getValue().getQuantity(), foodWithHighestQuantity.getValue().getPrice());
+        System.out.printf("| %-35s | %8d | $%9.2f  |\n", foodWithHighestQuantity.getKey(), foodWithHighestQuantity.getValue().getQuantity(), foodWithHighestQuantity.getValue().getPrice());
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("======================================================");
     }
@@ -400,6 +420,7 @@ public class MoodyBlue {
                     // If it's a new food, add it to the total sales map
                     totalSalesByFood.put(food, new SalesRecord(quantity, price));
                 }
+                totalPrice += price;
             }
         }
 
@@ -417,17 +438,16 @@ public class MoodyBlue {
             int quantity = record.getQuantity();
             double totalFoodPrice = record.getPrice();
 
-            System.out.printf("| %-35s | %8d | $%9.2f |\n", food, quantity, totalFoodPrice);
+            System.out.printf("| %-35s | %8d | $%9.2f  |\n", food, quantity, totalFoodPrice);
         }
 
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.printf("| Total Sales                         |          | $%9.2f |\n", totalPrice);
-        System.out.printf("| Average Sales                       |          | $%9.2f |\n",
+        System.out.printf("| Total Sales                         |          | $%9.2f  |\n", totalPrice);
+        System.out.printf("| Average Sales                       |          | $%9.2f  |\n",
                 totalPrice / totalSalesByFood.size());
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("======================================================================");
     }
-
 }
 
 // used as Object to save the content from file

@@ -6,7 +6,6 @@ import java.util.*;
 //Once this class is call, it will work to assign list for all resident, just call the method to generate the waiting list
 public class WaitingListGenerator {
     private List<String[]> ResidentFullList;
-    private static LinkedList<String[]> waitingListPearlJam;
     private List<Resident> residents;
     private Menu MENU;
     private Random rand;
@@ -38,7 +37,6 @@ public class WaitingListGenerator {
         TrattoriaTrussardiWaitingList = new ArrayList<>();
         LibeccioWaitingList = new ArrayList<>();
         SavageGardenWaitingList = new ArrayList<>();
-        this.waitingListPearlJam = new LinkedList<>();
         this.currentLocation = currentLocation;
         this.currentDay = currentDay;
         MENU = new Menu();
@@ -171,7 +169,7 @@ public class WaitingListGenerator {
             appendOrderHistoryToFile(residentInfo[15], residentInfo[0]);
         }
         waitingListContent.append(
-                "+----+------------------------+-----+--------+---------------+-------------------------------------+---------------------+\n");
+                "+----+-------------------------+-----+--------+---------------+-------------------------------------+-------------------------+----------+\n");
         String content = waitingListContent.toString();
         writeWaitingListToFile(content, "FullWaitingList.txt");
 
@@ -179,7 +177,6 @@ public class WaitingListGenerator {
         for (int i = 0; i < restaurantLocation.length; i++) {
             WaitingList(restaurantLocation[i]);
         }
-
     }
 
     // for specific restaurant waiting list of each day
@@ -187,7 +184,7 @@ public class WaitingListGenerator {
         FilteredWaitingList = TheJoestars.getWaitingList();
         StringBuilder waitingList = new StringBuilder();
         waitingList.append("Day ").append(currentDay).append("\n");
-        waitingList.append("Waiting List").append(Restaurant).append(" Day").append(currentDay).append("\n");
+        waitingList.append("Waiting List ").append(Restaurant).append(" Day ").append(currentDay).append("\n");
         waitingList.append(
                 "+----+-----------------------+-----+--------+---------------+-------------------------------------+-------------------------+---------+\n");
         waitingList.append(
@@ -250,53 +247,6 @@ public class WaitingListGenerator {
         return null;
     }
 
-    // to display and store the information of the resident
-    // only once to be generated
-    public void ResidentInformation(String Location) {
-        FilteredWaitingList = TheJoestars.getWaitingList();
-
-        StringBuilder residentInformation = new StringBuilder();
-
-        residentInformation.append("Resident Information in ").append(Location).append("\n");
-        residentInformation.append(
-                "+----+-------------------------+-------+--------+------------------------------+-------------------+\n");
-        residentInformation.append(
-                "| No |          Name           |  Age  | Gender |         Parents              |       Stand       | \n");
-        residentInformation.append(
-                "+----+-------------------------+-------+--------+------------------------------+-------------------+ \n");
-
-        int count = 1;
-        for (String[] residentInfo : FilteredWaitingList) {
-            String name = residentInfo[0];
-            String age = residentInfo[1];
-            String gender = residentInfo[2];
-            List<String> parents = Arrays.asList(residentInfo[10].split(","));
-            String standInfo = residentInfo[3];
-
-            residentInformation.append("| ")
-                    .append(String.format("%-3s", count))
-                    .append(" | ")
-                    .append(String.format("%-23s", name))
-                    .append(" | ")
-                    .append(String.format("%-4s", age))
-                    .append(" | ")
-                    .append(String.format("%-6s", gender))
-                    .append(" | ")
-                    .append(String.format("%-28s", String.join(", ", parents)))
-                    .append(" | ")
-                    .append(String.format("%-19s", standInfo))
-                    .append(" |\n");
-
-            count++;
-        }
-        residentInformation
-                .append("+----+-------------------------+-------+--------+------------------------------+-------------------+\n");
-
-        String content = residentInformation.toString();
-        String filename = "resident_information_" + Location + ".txt";
-        writeProfileToFile(content, filename);
-    }
-
     // to save the profile of the person
     public void ResidentProfile(String ResidentName) {
         FilteredWaitingList = TheJoestars.getWaitingList();
@@ -323,25 +273,33 @@ public class WaitingListGenerator {
             String developmentPotential = residentInfo[9];
             String orderHistoryString = residentInfo[15]; // Extract the order history string
 
-            profile.append("\n").append(name).append("'s Profile\n");
-            profile.append("Name: ").append(name).append("\n");
-            profile.append("Age: ").append(age).append("\n");
-            profile.append("Gender: ").append(gender).append("\n");
-            profile.append("Parents: ").append(String.join(", ", parents)).append("\n");
-            profile.append("Stand: ").append(standInfo).append("\n");
-            profile.append("Destructive Power: ").append(destructivePower).append("\n");
-            profile.append("Speed: ").append(speed).append("\n");
-            profile.append("Range: ").append(range).append("\n");
-            profile.append("Stamina: ").append(stamina).append("\n");
-            profile.append("Precision: ").append(precision).append("\n");
-            profile.append("Development Potential: ").append(developmentPotential).append("\n");
+            if (currentDay == 1) {
+                int labelWidth = 25; // Adjust the width as needed
 
-            // Order History
-            profile.append("Order History\n");
-            profile.append("+-----+---------------------------------------+------------+------------------------+\n");
-            profile.append("| Day |               Order                   |   Price    |        Restaurant      |\n");
-            profile.append("+-----+---------------------------------------+------------+------------------------+\n");
+                profile.append("\n").append(name).append("'s Profile\n");
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Name", name));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Age", age));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Gender", gender));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Parents", String.join(", ", parents)));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Stand", standInfo));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Destructive Power", destructivePower));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Speed", speed));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Range", range));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Stamina", stamina));
+                profile.append(String.format("%-" + labelWidth + "s: %s\n", "Precision", precision));
+                profile.append(
+                        String.format("%-" + labelWidth + "s: %s\n", "Development Potential", developmentPotential));
 
+                // Order History
+                profile.append("Order History\n");
+                profile.append(
+                        "+-----+---------------------------------------+------------+------------------------+\n");
+                profile.append(
+                        "| Day |               Order                   |   Price    |        Restaurant      |\n");
+                profile.append(
+                        "+-----+---------------------------------------+------------+------------------------+\n");
+            }
+            // continue to overwrite in file
             // Split the order history string into individual orders
             String[] orders = orderHistoryString.split(";");
 
@@ -375,7 +333,7 @@ public class WaitingListGenerator {
     }
 
     public void appendOrderHistoryToFile(String orderHistory, String residentname) {
-        String fileName = residentname + "_order_history.txt";
+        String fileName = residentname.replaceAll(" ", "").toLowerCase() + "_order_history.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(orderHistory);
         } catch (IOException e) {
