@@ -1,11 +1,9 @@
 package JOJOLands.JOJO;
 
-import java.util.*;
-import java.io.*;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
+import java.io.*;
+import java.util.*;
 
 public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     private String currentLocation;
@@ -39,11 +37,11 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         currentLocation = "Town Hall";
         currentDay = 1;
     }
-    
+
     public Graph<String,Integer> getMaps(){
         return maps;
     }
-    
+
     public void getMapType(Graph<String, Integer> mapsGraph) {
         this.maps = mapsGraph;
     }
@@ -62,11 +60,11 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     // used to display option
     public void displayMenu() {
         if(!temp.isEmpty()){
-        holdTopLocation = temp.pop();
+            holdTopLocation = temp.pop();
             if(!temp.isEmpty())
-            previousLocation = temp.peek();
+                previousLocation = temp.peek();
             else
-            previousLocation = null;
+                previousLocation = null;
         }
         if (currentLocation.equals("Town Hall")) {
             if (previousLocation != null) {
@@ -87,7 +85,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
             displayMission();
             System.out.println("[" + lastNumber + "] Back" + "(" + previousLocation + ")");
             System.out.println("[" + (lastNumber + 1) + "] Back To Town Hall");
-            temp.push(holdTopLocation); 
+            temp.push(holdTopLocation);
 
         }
         Select();
@@ -101,18 +99,18 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         for (int i = 0; i < adjacentVertices.size(); i++) {
             char alphabet = (char) (i + 'A');
             if(!visitedLocation.contains(adjacentVertices.get(i)))
-            System.out.printf("[" + alphabet + "] %-23s", adjacentVertices.get(i));
+                System.out.printf("[" + alphabet + "] %-23s", adjacentVertices.get(i));
         }
         System.out.println();
     }
 
     // travel back to the most recent location visited
     public void Back() {
-        if (!temp.isEmpty()) { 
+        if (!temp.isEmpty()) {
             visitedLocation.pop();//repeated currentLocation twice since Select() will push in currentLocation again
             holdTopLocation = visitedLocation.pop();
-                previousLocation = visitedLocation.peek();
-        }   
+            previousLocation = visitedLocation.peek();
+        }
         String forwardLocation = holdTopLocation;
         System.out.println("Back to " + previousLocation);
         System.out.println("[Forward(" + forwardLocation + ")]: Do you want to move forward?: yes / no");
@@ -122,7 +120,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
             visitedLocation.push(holdTopLocation);
             moveForward();
         } else if (input.equalsIgnoreCase("no")) { //go to new location
-          currentLocation = visitedLocation.pop(); //clears a player’s forward history when he decides to move to a new location
+            currentLocation = visitedLocation.pop(); //clears a player’s forward history when he decides to move to a new location
             displayMenu();
             Select();
         } else {
@@ -136,7 +134,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                     moveForward();
                     validInput = true; // valid input, exit the loop
                 } else if (input.equalsIgnoreCase("no")) {
-                    currentLocation = visitedLocation.pop(); 
+                    currentLocation = visitedLocation.pop();
                     displayMenu();
                     Select();
                     validInput = true; // valid input, exit the loop
@@ -148,7 +146,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
     // A player can move forward again to last visited location
     public void moveForward() {
-        currentLocation = visitedLocation.peek(); 
+        currentLocation = visitedLocation.peek();
         displayMenu();
         Select(); // select to continue
     }
@@ -167,8 +165,8 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     // starts at the Town Hall at the start of each day
     public void start() {
         startNewDay();
-            joestars = new TheJoestars(currentLocation, currentDay-1);  //the current day is increase after startNewDay
-            joestars.Filter();  //to reset the waiting list
+        joestars = new TheJoestars(currentLocation, currentDay-1);  //the current day is increase after startNewDay
+        joestars.Filter();  //to reset the waiting list
 
     }
 
@@ -178,7 +176,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     public void startNewDay() {
         String dayofWeek = getDay(currentDay);
         System.out.println("It's Day " + currentDay + "(" + dayofWeek + ") of our journey in JOJOLands!");
-        this.day = currentDay; 
+        this.day = currentDay;
         currentDay++;
     }
 
@@ -295,8 +293,8 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
             previousLocation = currentLocation;
 
             if (input.isEmpty()) {
-            System.out.println("Please enter a valid selection.");
-            continue; // Continue to loop back and ask for input again
+                System.out.println("Please enter a valid selection.");
+                continue; // Continue to loop back and ask for input again
             }
 
             // if the player choose moveTo
@@ -368,7 +366,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
                                 break;
@@ -376,14 +374,14 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "3":
                                 TheHand theHand = new TheHand();
                                 theHand.display(maps);
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
                                 break;
 
                             case "4":
                                 ThusSpokeRohanKishibe spoke = new ThusSpokeRohanKishibe(maps);
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
                                 break;
@@ -408,26 +406,26 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayList();
                                 visitedLocation.pop(); // to pop the currentLocation that have been added since it will
-                                                       // back to here to avoid previous location=currentLocation
+                                // back to here to avoid previous location=currentLocation
                                 displayMenu();
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu menuPearlJam = new viewMenu(restaurantLocation);
+                                menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milagroMan = new MilagroMan(currentLocation);
+                                milagroMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -453,26 +451,26 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayList();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu menuPearlJam = new viewMenu(restaurantLocation);
+                                menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milagroMan = new MilagroMan(currentLocation);
+                                milagroMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -495,26 +493,26 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayList();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu menuPearlJam = new viewMenu(restaurantLocation);
+                                menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milagroMan = new MilagroMan(currentLocation);
+                                milagroMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -536,26 +534,26 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayList();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu menuPearlJam = new viewMenu(restaurantLocation);
+                                menuPearlJam.displayMenu(currentLocation);
                                 break;
 
                             case "4":
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milagroMan = new MilagroMan(currentLocation);
+                                milagroMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -578,25 +576,25 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayList();
                                 visitedLocation.pop();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu menuPearlJam = new viewMenu(restaurantLocation);
+                                menuPearlJam.displayMenu(currentLocation);
 
                             case "4":
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milagroMan = new MilagroMan(currentLocation);
+                                milagroMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -618,19 +616,20 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
                                 RedHotChiliPepper rhcp = new RedHotChiliPepper();
                                 rhcp.display(maps);
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "4":
-                                // Another One Bites the Dust
+                                BiteTheDusts btd = new BiteTheDusts();
+                                btd.checkBiteTheClass();
 
                             case "5":
                                 Back();
@@ -652,7 +651,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -662,7 +661,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 String initialLocation = sc.nextLine();
 
                                 Chase.playChase(initialLocation);
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
                             case "4":
@@ -688,7 +687,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -696,7 +695,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 // Extra feature 4
                                 DirtyDeedsDoneDirtCheap DDDDC = new DirtyDeedsDoneDirtCheap();
                                 DDDDC.RunDDDDC();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -722,7 +721,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop(); 
+                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
