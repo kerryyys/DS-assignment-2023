@@ -6,6 +6,7 @@ public class viewMenu extends Menu {
     private ArrayList<ArrayList<Food>> foodList;
 
     public viewMenu(String[] restaurant) {
+        // JS: because restaurant is array, so need to have this function;
         this.restaurant = Arrays.toString(restaurant);
         foodList = new ArrayList<>();
     }
