@@ -5,11 +5,11 @@ import java.util.*;
 public class Player extends JOJOMaps {
 
     public static Graph<String,Integer> mainMap1 = new Graph<>();
-    
+
     public static Graph<String,Integer> mainMap2 = new Graph<>();
-    
+
     public static Graph<String,Integer> mainMap3 = new Graph<>();
-    
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         JOJOMaps jojo = new JOJOMaps();
@@ -23,8 +23,8 @@ public class Player extends JOJOMaps {
         System.out.println("================================================================================");
         if(!input.equals("1") && !input.equals("2") && !input.equals("3") || input.isEmpty()){
             System.out.println("Please choose valid input.");
-                return; 
-            }
+            return;
+        }
 
         switch (input) {
             case "1":
@@ -36,9 +36,9 @@ public class Player extends JOJOMaps {
                 System.out.println("================================================================================");
                 if(!mapchoice.equals("1") && !mapchoice.equals("2") && !mapchoice.equals("3") ||mapchoice.isEmpty()){
                     System.out.println("Please choose valid input.");
-                return; 
-            }
-
+                    return;
+                }
+                HermitPurple hermitPurple = new HermitPurple();
                 //constructor of Hermit may be change to get better code structure
                 switch (mapchoice) {
                     case "1":
@@ -72,7 +72,7 @@ public class Player extends JOJOMaps {
                 System.out.print("Enter the path of your save file: ");
                 String filepath =sc.nextLine();
                 System.out.println("======================================================================");
-                HermitPurple hermitPurple = new HermitPurple();
+                hermitPurple = new HermitPurple();
                 hermitPurple.LoadGame(filepath);
                 break;
 
