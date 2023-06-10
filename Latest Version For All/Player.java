@@ -43,7 +43,7 @@ public class Player extends JOJOMaps {
                     case "1":
                         HermitPurple hermitPurple1 = new HermitPurple();
                         hermitPurple1.getMapType(jojo.getDefaultMap());
-                        mainMap1 = hermitPurple.getMaps();
+                        mainMap1 = hermitPurple1.getMaps();
                         hermitPurple1.getMapName("Default Map");
                         hermitPurple1.startGame();
                         break;
@@ -51,7 +51,7 @@ public class Player extends JOJOMaps {
                     case "2":
                         HermitPurple hermitPurple2 = new HermitPurple();
                         hermitPurple2.getMapType(jojo.getParallelMap());
-                        mainMap2 = hermitPurple.getMaps();
+                        mainMap2 = hermitPurple2.getMaps();
                         hermitPurple2.getMapName("Parallel Map");
                         hermitPurple2.startGame();
                         break;
@@ -59,7 +59,7 @@ public class Player extends JOJOMaps {
                     case "3":
                         HermitPurple hermitPurple3 = new HermitPurple();
                         hermitPurple3.getMapType(jojo.getAlternateMap());
-                        mainMap3 = hermitPurple.getMaps();
+                        mainMap3 = hermitPurple3.getMaps();
                         hermitPurple3.getMapName("Alternate Map");
                         hermitPurple3.startGame();
                         break;
