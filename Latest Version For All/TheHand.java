@@ -15,7 +15,7 @@ class EdgeTheHand {
     }
 }
 
-public class TheHand{
+public class TheHand extends Player{
     public static List<EdgeTheHand> assignGraph(String graphStr) {
         List<EdgeTheHand> edges = new ArrayList<>();
         String[] edgeList = graphStr.split(",");
@@ -70,8 +70,13 @@ public class TheHand{
         return vertices.size();
     }
 
-    public void display() {
-
+   public void display(Graph<String,Integer> map) {
+        Graph<String, Integer> a = Player.mainMap1;
+        Graph<String, Integer> b = Player.mainMap2;
+        Graph<String, Integer> c = Player.mainMap3;
+        
+        if(map.equals(mainMap1)){
+            
         String graphStr = "Town Hall-Morioh Grand Hotel:5,Town Hall-Jade Garden:5,Town Hall-Cafe Deux Magots:4,"
                 + "Morioh Grand Hotel-Trattoria Trussardi:6,Morioh Grand Hotel-Jade Garden:3,"
                 + "Jade Garden-San Giorgio Maggiore:2,Jade Garden-Joestar Mansion:2,"
@@ -96,6 +101,61 @@ int count = 1;
 
         System.out.println("Total Length: " + totalLength +"km");
     }
-}
+        else if(map.equals(mainMap2)){
+            
+            String graphStr = "Town Hall-Vineyard:3,Town Hall-Libeccio:2,Town Hall-Cafe Deux Magots:4,Town Hall-Trattoria Trussardi:6,"
+                              +"Morioh Grand Hotel-Cafe Deux Magots:6,Morioh Grand Hotel-Joestar Mansion:4,"
+                              +"Jade Garden-Cafe Deux Magots:3,Jade Garden-Savage Garden:4,Jade Garden-Joestar Mansion:3,"
+                              +"Cafe Deux Magots-Polnareff Land:2,Cafe Deux Magots-Savage Garden:5,"
+                              +"Trattoria Trussardi-DIO's Mansion:4,Trattoria Trussardi-Angelo Rock:3,Trattoria Trussardi-Joestar Mansion:5,"
+                              +"Green Dolphin Street Prison-DIO's Mansion:6,Green Dolphin Street Prison-Angelo Rock:8,"
+                              +"Libeccio-Vineyard:3,"
+                              +"Angelo Rock-DIO's Mansion:1,"
+                              +"Savage Garden-San Giorgio Maggiore:6,"
+                              +"Joestar Mansion-San Giorgio Maggiore:5";
+            
+            String rootVertex = "Town Hall"; // Set the desired root vertex
+        List<EdgeTheHand> minimumSpanningTree = prim(graphStr, rootVertex);
+        System.out.println("Unnecessary water connections to be removed :");
+        
+int count = 1;
+        int totalLength = 0;
+        for (EdgeTheHand edge : minimumSpanningTree) {
+            System.out.println(count + ". " + edge.vertex1 + "--" + edge.vertex2 + "(" + edge.weight +"km)");
+            totalLength += edge.weight;
+            count++;
+        }
+
+        System.out.println("Total Length: " + totalLength +"km");
+    }
+        else{
+            String graphStr = "Town Hall-Morioh Grand Hotel:2,Town Hall-Green Dolphin Street Prison:3,Town Hall-Libeccio:7,"
+                              +"Morioh Grand Hotel-Green Dolphin Street Prison:2,Morioh Grand Hotel-San Giorgio Maggiore:3,Morioh Grand Hotel-Joestar Mansion:4,"
+                              +"Jade Garden-Angelo Rock:1,Jade Garden-Polnareff Land:2,"
+                              +"Cafe Deux Magots-Libeccio:4,Cafe Deux Magots-DIO's Mansion:1,Cafe Deux Magots-Vineyard:4,"
+                              +"Trattoria Trussardi-Joestar Mansion:5,Trattoria Trussardi-Green Dolphin Street Prison:4,Trattoria Trussardi-Libeccio:1,"
+                              +"Angelo Rock-Libeccio:6,Angelo Rock-Polnareff Land:2,"
+                              +"Savage Garden-San Giorgio Maggiore:6,Savage Garden-Vineyard:4,"
+                              +"DIO's Mansion-Libeccio:2,DIO's Mansion-Polnareff Land:2,";
+            
+            String rootVertex = "Town Hall"; // Set the desired root vertex
+        List<EdgeTheHand> minimumSpanningTree = prim(graphStr, rootVertex);
+        System.out.println("Unnecessary water connections to be removed :");
+        
+int count = 1;
+        int totalLength = 0;
+        for (EdgeTheHand edge : minimumSpanningTree) {
+            System.out.println(count + ". " + edge.vertex1 + "--" + edge.vertex2 + "(" + edge.weight +"km)");
+            totalLength += edge.weight;
+            count++;
+        }
+
+        System.out.println("Total Length: " + totalLength +"km");
+        }
+   }
+ }
+
+
+    
 
     
