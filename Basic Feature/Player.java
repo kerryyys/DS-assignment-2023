@@ -38,6 +38,7 @@ public class Player extends JOJOMaps {
                     System.out.println("Please choose valid input.");
                     return;
                 }
+                // JS: did changes here, because if has no declared this instance, the line "mainMap = hermitPurple.getMaps()" will have error;
                 HermitPurple hermitPurple = new HermitPurple();
                 //constructor of Hermit may be change to get better code structure
                 switch (mapchoice) {
