@@ -411,6 +411,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 break;
 
                             case "3":
+                                // JS: for displayMenu, the viewMenu class has this parameters. Changes made in viewMenu class, got comment there.
                                 viewMenu menuPearlJam = new viewMenu(restaurantLocation);
                                 menuPearlJam.displayMenu(currentLocation);
                                 break;
