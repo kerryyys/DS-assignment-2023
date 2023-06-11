@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     private String currentLocation;
     private int day;
+    private int currentDay;
     private Stack<String> visitedLocation = new Stack<>();
     private Stack<String> temp = new Stack<>();
     private String previousLocation;
@@ -39,10 +40,12 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         currentLocation = "Town Hall";
         currentDay = 1;
     }
-    public Graph<String,Integer> getMaps(){
+
+    //used in F7
+     public Graph<String,Integer> getMaps(){
         return maps;
     }
-    
+
     public void getMapType(Graph<String, Integer> mapsGraph) {
         this.maps = mapsGraph;
     }
@@ -108,8 +111,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     // travel back to the most recent location visited
     public void Back() {
         if (!temp.isEmpty()) {
-            visitedLocation.pop();// repeated currentLocation twice since Select() will push in currentLocation
-                                  // again
+            visitedLocation.pop();// repeated currentLocation twice since Select() will push in currentLocation again
             holdTopLocation = visitedLocation.pop();
             previousLocation = visitedLocation.peek();
         }
@@ -122,8 +124,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
             visitedLocation.push(holdTopLocation);
             moveForward();
         } else if (input.equalsIgnoreCase("no")) { // go to new location
-            currentLocation = visitedLocation.pop(); // clears a player’s forward history when he decides to move to a
-                                                     // new location
+            currentLocation = visitedLocation.pop(); // clears a player’s forward history when he decides to move to a new location
             displayMenu();
             Select();
         } else {
@@ -163,7 +164,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         previousLocation = null;
         displayMenu();
         Select();
-
     }
 
     // starts at the Town Hall at the start of each day
@@ -171,10 +171,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         startNewDay();
         joestars = new TheJoestars(currentLocation, currentDay - 1); // the current day is increase after startNewDay
         joestars.Filter(); // to reset the waiting list
-
     }
-
-    private int currentDay;
 
     // recognises the first day as Day 1, which represents Sunday
     public void startNewDay() {
@@ -190,8 +187,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         return daysofWeek[index];
     }
 
-    // advance to the next day by selecting the corresponding option at the Town
-    // Hall
+    // advance to the next day by selecting the corresponding option at the Town Hall
     public void advanceToNextDay() {
         start();
     }
@@ -205,7 +201,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         }
 
         // Save the game progress
-        try {
+         try {
             // Create a JSON object to hold the game state
             JSONObject gameState = new JSONObject();
             gameState.put("visitedLocation", visitedLocation);
@@ -393,10 +389,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "6":
                                 BackTownHall();
                                 break;
-
-                            case "7":
-                                Exit();
-                                break;
                         }
                         break;
                     case "Cafe Deux Magots":
@@ -434,10 +426,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "7":
                                 BackTownHall();
-                                break;
-
-                            case "8":
-                                Exit();
                                 break;
                         }
                         break;
@@ -480,10 +468,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "7":
                                 BackTownHall();
                                 break;
-
-                            case "8":
-                                Exit();
-                                break;
                         }
                         break;
 
@@ -522,10 +506,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "7":
                                 BackTownHall();
                                 break;
-
-                            case "8":
-                                Exit();
-                                break;
                         }
                         break;
 
@@ -562,10 +542,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "7":
                                 BackTownHall();
-                                break;
-
-                            case "8":
-                                Exit();
                                 break;
                         }
                         break;
@@ -604,10 +580,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "7":
                                 BackTownHall();
                                 break;
-
-                            case "8":
-                                Exit();
-                                break;
                         }
 
                     case "Angelo Rock":
@@ -636,10 +608,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "6":
                                 BackTownHall();
-                                break;
-
-                            case "7":
-                                Exit();
                                 break;
                         }
                         break;
@@ -674,40 +642,9 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 BackTownHall();
                                 break;
 
-                            case "7":
-                                Exit();
-                                break;
                         }
                         break;
-                    case "Joestar Mansion":
-                        switch (input) {
-                            case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
-                                heavensDoor.printResidents();
-                                heavensDoor.select();
-                                visitedLocation.pop();
-                                displayMenu();
-                                break;
 
-                            case "3":
-                                TheGoldenSpirit tgs = new TheGoldenSpirit();
-                                tgs.LCAJoestarFamily();
-                                visitedLocation.pop();
-                                displayMenu();
-                                break;
-                            case "4":
-                                Back();
-                                break;
-
-                            case "5":
-                                BackTownHall();
-                                break;
-
-                            case "6":
-                                Exit();
-                                break;
-                        }
-                        break;
                     case "Green Dolphin Street Prison":
                         switch (input) {
                             case "2":
@@ -733,9 +670,31 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                             case "5":
                                 BackTownHall();
                                 break;
+                        }
+                        break;
 
-                            case "6":
-                                Exit();
+                    case "Joestar Mansion":
+                    switch (input){
+                        case "2":
+                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                heavensDoor.printResidents();
+                                heavensDoor.select();
+                                visitedLocation.pop();
+                                displayMenu();
+                                break;
+                        
+                        case "3":
+                                //The Golden Spirit
+
+                                displayMenu();
+                                break;
+
+                        case "4":
+                                Back();
+                                break;
+
+                        case "5":
+                                BackTownHall();
                                 break;
                         }
                         break;
@@ -758,10 +717,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "4":
                                 BackTownHall();
-                                break;
-
-                            case "5":
-                                Exit();
                                 break;
                         }
                 }
@@ -831,12 +786,13 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         addMission("Savage Garden", "Milagro Man");
 
         addMission("Joestar Mansion", "View Resident Information");
-        addMission("Joestar Mansion", "The Golden Spitit");
+        addMission("Joestar Mansion", "The Golden Spirit");
 
         addMission("Polnareff Land", "View Resident Information");
 
         addMission("DIO's Mansion", "View Resident Information");
         addMission("DIO's Mansion", "Chase");
+        addMission("DIO's Mansion", "Another One Bites the Dust");
 
         addMission("Angelo Rock", "View Resident Information");
         addMission("Angelo Rock", "Red Hot Chili Pepper");
