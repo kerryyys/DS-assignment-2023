@@ -67,12 +67,54 @@ public class Player extends JOJOMaps {
                 break;
 
             case "2":
-                // load game
+                // Load game
                 System.out.print("Enter the path of your save file: ");
-                String filepath =sc.nextLine();
-                System.out.println("======================================================================");
-                HermitPurple hermitPurple = new HermitPurple();
-                hermitPurple.LoadGame(filepath);
+                String filepath = sc.nextLine();
+                System.out.println("================================================================================");
+                String mapIdentifier = null;
+
+                System.out.println("[1] Default Map");
+                System.out.println("[2] Parallel Map");
+                System.out.println("[3] Alternate Map");
+                System.out.print("\nSelect the map for the saved game: ");
+                String savedMapChoice = sc.nextLine();
+                System.out.println("================================================================================");
+
+                switch (savedMapChoice) {
+                        
+                    case "1":
+                        mapIdentifier = "Default Map";
+                        HermitPurple savedHermitPurple1 = new HermitPurple();
+                        savedHermitPurple1.getMapType(jojo.getDefaultMap());
+                        savedHermitPurple1.getMapName(mapIdentifier);
+                        savedHermitPurple1.LoadGame(filepath);
+                        savedHermitPurple1.startGame();
+                        break;
+
+                    case "2":
+                        mapIdentifier = "Parallel Map";
+                        HermitPurple savedHermitPurple2 = new HermitPurple();
+                        savedHermitPurple2.getMapType(jojo.getParallelMap());
+                        savedHermitPurple2.getMapName(mapIdentifier);
+                        savedHermitPurple2.LoadGame(filepath);
+                        savedHermitPurple2.startGame();
+                        break;
+
+                    case "3":
+                        mapIdentifier = "Alternate Map";
+                        HermitPurple savedHermitPurple3 = new HermitPurple();
+                        savedHermitPurple3.getMapType(jojo.getAlternateMap());
+                        savedHermitPurple3.getMapName(mapIdentifier);
+                        savedHermitPurple3.LoadGame(filepath);
+                        savedHermitPurple3.startGame();
+                        break;
+
+                    default:
+                        System.out.println("Invalid map choice.");
+                        return;
+                }
+
+                
                 break;
 
             case "3":
