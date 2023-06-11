@@ -45,5 +45,4 @@ public class TheJoestarsChecker {
 
         return matchingLines;
     }
-
 }

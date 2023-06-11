@@ -184,11 +184,11 @@ public class WaitingListGenerator {
         waitingList.append("Day ").append(currentDay).append("\n");
         waitingList.append("Waiting List ").append(Restaurant).append(" Day ").append(currentDay).append("\n");
         waitingList.append(
-                "+----+-----------------------+-----+--------+---------------+-------------------------------------+-------------------------+---------+\n");
+                "+----+------------------------+-----+--------+---------------+------------------------------------+-------------------------+---------+\n");
         waitingList.append(
-                "| No |         Name          | Age | Gender | Arrival Time  | Order                               |   Visited Restaurant    | Price $ |\n");
+                "| No |          Name          | Age | Gender | Arrival Time  |   Order                            |   Visited Restaurant    | Price $ |\n");
         waitingList.append(
-                "+----+-----------------------+-----+--------+---------------+-------------------------------------+-------------------------+---------+\n");
+                "+----+------------------------+-----+--------+---------------+------------------------------------+-------------------------+---------+\n");
 
         int count = 1;
         for (String[] residentInfo : FilteredWaitingList) {
@@ -202,7 +202,7 @@ public class WaitingListGenerator {
                 String order = residentInfo[12];
                 String price = residentInfo[13];
 
-                waitingList.append(String.format("| %-3s| %-23s| %-4s| %-7s| %-14s| %-35s| %-24s| $%-7s |\n",
+                waitingList.append(String.format("| %-3s| %-23s| %-4s| %-7s| %-14s| %-35s| %-24s| $%-6s |\n",
                         number, name, age, gender, arrivalTime, order, visitedRestaurant, price));
 
                 count++;
@@ -358,6 +358,7 @@ public class WaitingListGenerator {
         String fileName = residentname.replaceAll(" ", "").toLowerCase() + "_order_history.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(orderHistory);
+            writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

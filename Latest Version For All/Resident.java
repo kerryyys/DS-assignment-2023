@@ -31,6 +31,8 @@ public class Resident {
     private String arrivalTime;
     private List<Resident> combinedResidents;
     private List<String> orderHistory;
+    private List<String> foodPreference;
+    private List<String> restaurantHistory;
 
     public Resident(){
         this.residents = new ArrayList<>();
