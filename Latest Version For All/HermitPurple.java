@@ -679,7 +679,35 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 break;
                         }
                         break;
+                    case "Joestar Mansion":
+                        switch (input) {
+                            case "2":
+                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                heavensDoor.printResidents();
+                                heavensDoor.select();
+                                visitedLocation.pop();
+                                displayMenu();
+                                break;
 
+                            case "3":
+                                TheGoldenSpirit tgs = new TheGoldenSpirit();
+                                tgs.LCAJoestarFamily();
+                                visitedLocation.pop();
+                                displayMenu();
+                                break;
+                            case "4":
+                                Back();
+                                break;
+
+                            case "5":
+                                BackTownHall();
+                                break;
+
+                            case "6":
+                                Exit();
+                                break;
+                        }
+                        break;
                     case "Green Dolphin Street Prison":
                         switch (input) {
                             case "2":
@@ -803,6 +831,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         addMission("Savage Garden", "Milagro Man");
 
         addMission("Joestar Mansion", "View Resident Information");
+        addMission("Joestar Mansion", "The Golden Spitit");
 
         addMission("Polnareff Land", "View Resident Information");
 
