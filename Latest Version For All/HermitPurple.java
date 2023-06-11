@@ -201,21 +201,15 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         }
 
         // Save the game progress
-         try {
-            // Create a JSON object to hold the game state
-            JSONObject gameState = new JSONObject();
-            gameState.put("visitedLocation", visitedLocation);
-            gameState.put("currentLocation", currentLocation);
-            gameState.put("previousLocation", previousLocation);
-            gameState.put("currentDay", currentDay);
+        try {
+            // Create a GameState object to hold the game state
+            GameState gameState = new GameState(visitedLocation, currentLocation, previousLocation, currentDay);
 
-            // Serialize the JSON object to a string
-            String jsonString = gameState.toJSONString();
-
-            // Write the JSON string to a file
-            FileWriter fileWriter = new FileWriter(directoryPath + "/game_save.json");
-            fileWriter.write(jsonString);
-            fileWriter.close();
+            // Serialize the GameState object to a binary file
+            FileOutputStream fileOutputStream = new FileOutputStream(directoryPath + "/game_save.bin");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(gameState);
+            objectOutputStream.close();
 
             // Move the waiting list of each location file to the game directory
             List<File> waitingListForEachLocation = new ArrayList<>();
@@ -250,6 +244,11 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
             File fullWaitingListFile = new File("FullWaitingList.txt");
             File fullWaitingListDestinationFile = new File(directoryPath + "/FullWaitingList.txt");
             fullWaitingListFile.renameTo(fullWaitingListDestinationFile);
+            
+            File fullResidentInfoFile = new File("FullResidentInfo.txt");
+            File fullResidentInfoDestinationFile = new File(directoryPath + "/FullResidentInfo.txt");
+            fullResidentInfoFile.renameTo(fullResidentInfoDestinationFile);
+            
 
             System.out.println("Game progress for map " + mapIdentifier + " saved successfully.");
         } catch (IOException e) {
@@ -264,21 +263,29 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         System.exit(0);
     }
 
-    public void LoadGame(String filePath) {
+    public void LoadGame(String mapIdentifier) {
+        // Create a directory path for the game progress
+        String directoryPath = mapIdentifier;
+
+        // Load the game progress from the binary file
         try {
-            FileInputStream fileIn = new FileInputStream(filePath + "game_save.ser");
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            // Read the GameState object from the binary file
+            FileInputStream fileInputStream = new FileInputStream(directoryPath + "/game_save.bin");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            GameState gameState = (GameState) objectInputStream.readObject();
+            objectInputStream.close();
 
-            // Read the serialized object from the file
-            objectIn.readObject();
+            // Retrieve the game state data from the GameState object
+            visitedLocation = gameState.getVisitedLocation();
+            currentLocation = gameState.getCurrentLocation();
+            previousLocation = gameState.getPreviousLocation();
+            currentDay = gameState.getCurrentDay();
 
-            objectIn.close();
-            fileIn.close();
-            System.out.println("Game progress loaded successfully.");
+            System.out.println("Game progress for map " + mapIdentifier + " loaded successfully.");
         } catch (IOException e) {
             System.out.println("Failed to load the game progress: " + e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Failed to load the game progress: " + e.getMessage());
+            System.out.println("Failed to deserialize the game save file: " + e.getMessage());
         }
     }
 
@@ -828,3 +835,34 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     }
 
 }
+class GameState implements Serializable{
+    private Stack<String> visitedLocation;
+    private String currentLocation;
+    private String previousLocation;
+    private int currentDay;
+
+    public GameState(Stack<String> visitedLocation, String currentLocation, String previousLocation, int currentDay) {
+        this.visitedLocation = visitedLocation;
+        this.currentLocation = currentLocation;
+        this.previousLocation = previousLocation;
+        this.currentDay = currentDay;
+    }
+
+    public Stack<String> getVisitedLocation() {
+        return visitedLocation;
+    }
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public String getPreviousLocation() {
+        return previousLocation;
+    }
+
+    public int getCurrentDay() {
+        return currentDay;
+    }
+}
+
+
