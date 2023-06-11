@@ -3,10 +3,8 @@ package JOJOLands.JOJO;
 import java.io.*;
 import java.util.*;
 
-import storeClass.displayMenu;
-
 //view resident information
-public class HeavensDoor extends JOJOMaps {
+public class HeavensDoor {
     private List<String[]> residents;
     private List<String[]> stands;
     private String currentLocation;
@@ -14,8 +12,9 @@ public class HeavensDoor extends JOJOMaps {
     private ArrayList<String> residentInCurrentArea;
     private TheJoestarsChecker JoestarsChecker;
     private HermitPurple hermitPurple;
+    private List<String[]> combinedResidents;
 
-    public HeavensDoor(HermitPurple hermit,String currentLocation, int currentDay) {
+    public HeavensDoor(HermitPurple hermit, String currentLocation, int currentDay) {
         this.hermitPurple = hermit;
         this.currentLocation = currentLocation;
         this.currentDay = currentDay;
@@ -24,6 +23,7 @@ public class HeavensDoor extends JOJOMaps {
         stands = new ArrayList<>();
         readResidentsCSV("residentS.csv");
         readStandsCSV("stands.csv");
+        this.combinedResidents = combineResidentsAndStands();
     }
 
     private void readResidentsCSV(String filename) {
@@ -119,8 +119,6 @@ public class HeavensDoor extends JOJOMaps {
     }
 
     public void printResidents() {
-        List<String[]> combinedResidents = combineResidentsAndStands();
-
         int no = 1; // To show NO.
 
         System.out.println("Resident Information in " + currentLocation);
@@ -172,8 +170,12 @@ public class HeavensDoor extends JOJOMaps {
     }
 
     private void sortResidents(String sortingOrder) {
+        if (combinedResidents == null) {
+            System.out
+                    .println("Residents list is not initialized. Please call combineResidentsAndStands method first.");
+            return;
+        }
         String[] sortingCriteria = sortingOrder.split(";");
-        List<String[]> combinedResidents = combineResidentsAndStands();
 
         for (String criteria : sortingCriteria) {
             String[] parts = criteria.trim().split("\\(");
@@ -229,12 +231,11 @@ public class HeavensDoor extends JOJOMaps {
 
         for (int i = 0; i < combinedResidents.size(); i++) {
             String[] resident = combinedResidents.get(i);
-            System.out.printf("| %-2d | %-21s | %-3s | %-6s | %-20s | %-17s | %-5s | %-5s | %-7s | %-9s | %-21s |\n",
+            System.out.printf("| %-2d | %-21s | %-3s | %-6s | %-21s | %-17s | %-5s | %-5s | %-7s | %-9s | %-21s |\n",
                     no, resident[0], resident[1], resident[2], resident[3], resident[4], resident[5], resident[6],
                     resident[7], resident[8], resident[9]);
             no++;
         }
-
         System.out.println(
                 "+----+-----------------------+-----+--------+-----------------------+-------------------+-------+-------+---------+-----------+-----------------------+");
     }
@@ -246,7 +247,8 @@ public class HeavensDoor extends JOJOMaps {
                 String[] resident1 = residents.get(j);
                 String[] resident2 = residents.get(j + 1);
 
-                if (compareResidents(resident1, resident2, fieldIndex, sortOrder) > 0) {
+                if (resident1 != null && resident2 != null
+                        && compareResidents(resident1, resident2, fieldIndex, sortOrder) > 0) {
                     // Swap residents
                     residents.set(j, resident2);
                     residents.set(j + 1, resident1);
@@ -257,7 +259,7 @@ public class HeavensDoor extends JOJOMaps {
         int nullIndex = -1;
         for (int i = n - 1; i >= 0; i--) {
             String[] resident = residents.get(i);
-            if (resident[fieldIndex] == null) {
+            if (resident == null) {
                 if (nullIndex == -1) {
                     nullIndex = i;
                 }
@@ -270,18 +272,18 @@ public class HeavensDoor extends JOJOMaps {
     }
 
     private int compareResidents(String[] resident1, String[] resident2, int fieldIndex, String sortOrder) {
-        String value1 = resident1[fieldIndex];
-        String value2 = resident2[fieldIndex];
+        String value1 = resident1[fieldIndex] != null ? resident1[fieldIndex] : "";
+        String value2 = resident2[fieldIndex] != null ? resident2[fieldIndex] : "";
 
-        if (value1 == null && value2 == null) {
+        if (value1.isEmpty() && value2.isEmpty()) {
             return 0;
         }
 
-        if (value1 == null) {
+        if (value1.isEmpty()) {
             return sortOrder.equalsIgnoreCase("asc") ? 1 : -1;
         }
 
-        if (value2 == null) {
+        if (value2.isEmpty()) {
             return sortOrder.equalsIgnoreCase("asc") ? -1 : 1;
         }
 
@@ -332,7 +334,7 @@ public class HeavensDoor extends JOJOMaps {
                 case 2:
                     sc.nextLine();
                     System.out.println(
-                            "Enter the sorting order (comma-separated criteria) (e.g., Stamina (ASC); Precision (DESC); Stand (ASC);):");
+                            "Enter the sorting order (comma-separated criteria) (e.g., Stamina(ASC);Precision(DESC);Stand(ASC);):");
                     String sortingOrder = sc.nextLine();
                     if (!sortingOrder.matches("^(\\s*[a-zA-Z]+\\s*\\((?i:ASC|DESC)\\)\\s*;\\s*)+$")) {
                         System.out.println("Please follow the correct format.");
