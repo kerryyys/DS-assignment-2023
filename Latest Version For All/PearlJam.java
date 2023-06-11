@@ -7,10 +7,12 @@ public class PearlJam {
     private LinkedList<String[]> waitingList;
     private LinkedList<String[]> processedList;
     private int processedDay;
+    private String currentLocation;
 
     public PearlJam(String currentLocation, int day) {
         this.waitingList = new LinkedList<>(WaitingListGenerator.getWaitingListPearlJam(currentLocation));
         this.processedDay = day;
+        this.currentLocation = currentLocation;
         // Process orders based on the restaurant's rule
         this.processedList = new LinkedList<>();
         
@@ -244,8 +246,38 @@ public class PearlJam {
         }
     }
 
+    public void displayWaitingList(){
+        List<String[]> waitinglist = WaitingListGenerator.getWaitingListPearlJam(currentLocation);
+
+        System.out.println("Waiting List of " + currentLocation);
+        System.out.println(
+                "+----+-------------------------+-----+--------+---------------+-------------------------------------+");
+        System.out.println(
+                "| No |          Name           | Age | Gender | Arrival Time  |                Order                |");
+        System.out.println(
+                "+----+-------------------------+-----+--------+---------------+-------------------------------------+");
+
+        for (int i = 0; i < waitinglist.size(); i++) { 
+            String[] customer = waitinglist.get(i);
+            String index = customer[0];
+            String name = customer[1];
+            String age = customer[2];
+            String gender = customer[3];
+            String arrivalTime = customer[4];
+            String order = customer[5];  
+
+            System.out.printf("| %-2s | %-23s | %-3s | %-6s | %-14s| %-35s |\n", index, name, age, gender,arrivalTime, order);
+        }
+        System.out.println(
+                "+----+-------------------------+-----+--------+---------------+-------------------------------------+");
+        System.out
+                .println("============================================================================");
+        System.out.println();
+
+    }
+
     public void displayList() {
-        System.out.println("Order Processing List:");
+        System.out.println("Order Processing List of "+ currentLocation);
         System.out.println(
                 "+----+-------------------------+-----+--------+-------------------------------------+");
         System.out.println(
@@ -254,12 +286,12 @@ public class PearlJam {
                 "+----+-------------------------+-----+--------+-------------------------------------+");
 
         int index = 1;
-        for (int i = 0; i < processedList.size(); i++) {  //Kerry: sure i=0?
+        for (int i = 0; i < processedList.size(); i++) { 
             String[] customer = processedList.get(i);
             String name = customer[1];
             String age = customer[2];
             String gender = customer[3];
-            String order = customer[5];  //Kerry: 4 or 5?
+            String order = customer[5];  
 
             System.out.printf("| %-2d | %-23s | %-3s | %-6s | %-35s |\n", index, name, age, gender, order);
             index++;
