@@ -657,7 +657,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "3":
                                 // Extra feature 4
-                                DirtyDeedsDoneDirtCheap DDDDC = new DirtyDeedsDoneDirtCheap();
+                                DirtyDeedsDoneDirtCheap DDDDC = new DirtyDeedsDoneDirtCheap(maps);
                                 DDDDC.RunDDDDC();
                                 visitedLocation.pop();
                                 displayMenu();
