@@ -838,3 +838,33 @@ public class HermitPurple {
     }
 
 }
+
+class GameState implements Serializable{ // please dont remove this because it is for the save and load -Darwish-
+    private Stack<String> visitedLocation;
+    private String currentLocation;
+    private String previousLocation;
+    private int currentDay;
+
+    public GameState(Stack<String> visitedLocation, String currentLocation, String previousLocation, int currentDay) {
+        this.visitedLocation = visitedLocation;
+        this.currentLocation = currentLocation;
+        this.previousLocation = previousLocation;
+        this.currentDay = currentDay;
+    }
+
+    public Stack<String> getVisitedLocation() {
+        return visitedLocation;
+    }
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public String getPreviousLocation() {
+        return previousLocation;
+    }
+
+    public int getCurrentDay() {
+        return currentDay;
+    }
+}
