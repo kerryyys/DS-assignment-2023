@@ -108,12 +108,23 @@ public class TheJoestars {
                 String food = OrderHistory[1];
                 String restaurant = OrderHistory[2];
                 String price = OrderHistory[3];
-                for (String[] JonathanJoestarOrderItem : JonathanJoestarOrder) { // loop each line
-                    String FoodOrder = JonathanJoestarOrderItem[1]; // get the previous food order in that line
-                    PreviousFoodList.add(FoodOrder);
+                if (currentDay <= totalFoodInMenu) {
+                    for (String[] JonathanJoestarOrderItem : JonathanJoestarOrder) {
+                        String FoodOrder = JonathanJoestarOrderItem[1]; // get the previous food order in that line
+                        PreviousFoodList.add(FoodOrder);
+                    }
+                } else if (currentDay > totalFoodInMenu) {
+                    if (currentDay == (totalFoodInMenu + 1)) {
+                        foodFound = false;
+                    } else {
+                        for (int x = totalFoodInMenu; x < currentDay; x++) {
+                            String[] JonathanJoestarOrderItem = JonathanJoestarOrder.get(x - 1);
+                            String FoodOrder = JonathanJoestarOrderItem[1];
+                            PreviousFoodList.add(FoodOrder);
+                        }
+                    }
                 }
-                if (PreviousFoodList.contains(food)) { // if found out the order is the same as the previous order, then
-                                                       // will return true
+                if (PreviousFoodList.contains(food)) { // if found out the order is the same as the previous order, then will return true
                     foodFound = true;
                 }
                 if (foodFound && PreviousFoodList.size() < totalFoodInMenu) {
@@ -126,8 +137,7 @@ public class TheJoestars {
 
                     } while (PreviousFoodList.contains(newFood));
                 } else if (!foodFound || PreviousFoodList.size() >= totalFoodInMenu) {
-                    // don't need make change, direct break so WaitingList will remain unchange
-                    WaitingList = originalWaitingList;
+                    WaitingList = originalWaitingList; // don't need make change, direct break so WaitingList will remain unchange
                     break;
                 }
                 orderList[15] = day + "," + newFood + "," + restaurant + "," + price;
@@ -157,9 +167,21 @@ public class TheJoestars {
                 String restaurant = OrderHistory[2];
                 String price = OrderHistory[3];
 
-                for (String[] JosephJoestarOrderItem : JosephJoestarOrder) {
-                    String FoodOrder = JosephJoestarOrderItem[1];
-                    PreviousFoodList.add(FoodOrder);
+                if (currentDay <= totalFoodInMenu) {
+                    for (String[] JosephJoestarOrderItem : JosephJoestarOrder) {
+                        String FoodOrder = JosephJoestarOrderItem[1]; // get the previous food order in that line
+                        PreviousFoodList.add(FoodOrder);
+                    }
+                } else if (currentDay > totalFoodInMenu) {
+                    if (currentDay == (totalFoodInMenu + 1)) {
+                        foodFound = false;
+                    } else {
+                        for (int x = totalFoodInMenu; x < currentDay; x++) {
+                            String[] JosephJoestarOrderItem = JosephJoestarOrder.get(x-1);
+                            String FoodOrder = JosephJoestarOrderItem[1];
+                            PreviousFoodList.add(FoodOrder);
+                        }
+                    }
                 }
                 if (PreviousFoodList.contains(food)) {
                     foodFound = true;
@@ -413,7 +435,7 @@ public class TheJoestars {
                 food = orderHistory[1];
                 LatestRestaurant = orderHistory[2];
 
-                if (visitedTrattoriaTrussardiCount == 0 || visitedTrattoriaTrussardiCount ==1 && currentDay % 6 == 0) {
+                if (visitedTrattoriaTrussardiCount == 0 || visitedTrattoriaTrussardiCount == 1 && currentDay % 6 == 0) {
                     Map<String, Double> menu = MENU.getMenuByRestaurant("Trattoria Trussardi");
                     Restaurant = "Trattoria Trussardi";
                     newFood = getRandomOrder(menu);
@@ -425,7 +447,7 @@ public class TheJoestars {
                     WaitingList.set(i, orderList);
                     break;
 
-                } else if (visitedTrattoriaTrussardiCount == 1 && currentDay % 6 != 0 ) { // before Saturday
+                } else if (visitedTrattoriaTrussardiCount == 1 && currentDay % 6 != 0) { // before Saturday
 
                     if (LatestRestaurant.equals("Trattoria Trussardi")) {
                         if (foodinTrattoriaTrussardi.contains(food)) {
@@ -440,7 +462,7 @@ public class TheJoestars {
                             WaitingList.set(i, orderList);
                             break;
                         }
-                    } else if (!LatestRestaurant.equals("Trattoria Trussardi" )) {
+                    } else if (!LatestRestaurant.equals("Trattoria Trussardi")) {
                         for (int x = currentDay - today; x < GiornoGiovannaOrder.size(); x++) {
                             if (GiornoGiovannaOrder.get(x)[1].equals(food)) {
                                 do {
@@ -572,17 +594,17 @@ public class TheJoestars {
             }
         }
         if (!CujohRestaurant.equals(KujoRestaurant)) {
-                for (int i = 0; i < WaitingList.size(); i++) {
-                    String[] orderList = WaitingList.get(i);
+            for (int i = 0; i < WaitingList.size(); i++) {
+                String[] orderList = WaitingList.get(i);
                 Map<String, Double> newMenu = MENU.getMenuByRestaurant(KujoRestaurant);
-                    if (orderList[0].equals("Jolyne Cujoh")) {
-                            orderList[11] = KujoRestaurant;
-                            orderList[12] = getRandomOrder(newMenu);
-                            orderList[13] = Double.toString(newMenu.get(orderList[12]));
-                            orderList[15] = currentDay + "," + orderList[12] + "," + orderList[11] + ","+ orderList[13];
-                            WaitingList.set(i, orderList);
-                    }
+                if (orderList[0].equals("Jolyne Cujoh")) {
+                    orderList[11] = KujoRestaurant;
+                    orderList[12] = getRandomOrder(newMenu);
+                    orderList[13] = Double.toString(newMenu.get(orderList[12]));
+                    orderList[15] = currentDay + "," + orderList[12] + "," + orderList[11] + "," + orderList[13];
+                    WaitingList.set(i, orderList);
                 }
+            }
             if (KujoRestaurant.equals(JolyneCujohOrder.get(currentDay - 2)[2])) {
                 setNewRestaurant();
                 String newRestaurant = getNewRestaurant();
@@ -590,26 +612,25 @@ public class TheJoestars {
                 for (int i = 0; i < WaitingList.size(); i++) {
                     String[] orderList = WaitingList.get(i);
                     if (orderList[0].equals("Jolyne Cujoh")) {
-                            orderList[11] = newRestaurant;
-                            orderList[12] = getRandomOrder(newMenu);
-                            orderList[13] = Double.toString(newMenu.get(orderList[12]));
-                            orderList[15] = currentDay + "," + orderList[12] + "," + orderList[11] + ","+ orderList[13];
-                            WaitingList.set(i, orderList);
+                        orderList[11] = newRestaurant;
+                        orderList[12] = getRandomOrder(newMenu);
+                        orderList[13] = Double.toString(newMenu.get(orderList[12]));
+                        orderList[15] = currentDay + "," + orderList[12] + "," + orderList[11] + "," + orderList[13];
+                        WaitingList.set(i, orderList);
                     }
                     if (orderList[0].equals("Jotaro Kujo")) {
-                            orderList[11] = newRestaurant;
-                            orderList[12] = getRandomOrder(newMenu);
-                            orderList[13] = Double.toString(newMenu.get(orderList[12]));
-                            orderList[15] = currentDay + "," + orderList[12] + "," + orderList[11] + ","+ orderList[13];
-                            WaitingList.set(i, orderList);
+                        orderList[11] = newRestaurant;
+                        orderList[12] = getRandomOrder(newMenu);
+                        orderList[13] = Double.toString(newMenu.get(orderList[12]));
+                        orderList[15] = currentDay + "," + orderList[12] + "," + orderList[11] + "," + orderList[13];
+                        WaitingList.set(i, orderList);
                     }
                 }
             }
-                }else{
-                    WaitingList = originalWaitingList;
-                }
-            }
-        
+        } else {
+            WaitingList = originalWaitingList;
+        }
+    }
 
     private String getRandomOrder(Map<String, Double> menu) {
         List<String> orders = new ArrayList<>(menu.keySet());
