@@ -694,8 +694,8 @@ public class HermitPurple {
                                 break;
                         
                         case "3":
-                                //The Golden Spirit
-
+                                TheGoldenSpirit tgs = new TheGoldenSpirit();// already upload the golden spirit
+                                tgs.LCAJoestarFamily();
                                 displayMenu();
                                 break;
 
