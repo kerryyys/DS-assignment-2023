@@ -375,7 +375,7 @@ public class HermitPurple {
 
                             case "3":
                                 TheHand theHand = new TheHand();
-       ///////////////////////////////////////    theHand.display(maps);
+                                theHand.display(maps);
                                 visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
@@ -603,8 +603,8 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                RedHotChiliPepper rhcp = new RedHotChiliPepper(map);
-                             //   rhcp.display(maps);
+                                RedHotChiliPepper rhcp = new RedHotChiliPepper();
+                                rhcp.display(maps);
                                 visitedLocation.pop();
                                 displayMenu();
                                 break;
