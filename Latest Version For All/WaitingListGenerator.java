@@ -185,7 +185,7 @@ public class WaitingListGenerator {
         }
     }
 
-    // for specific restaurant waiting list of each day
+   // for specific restaurant waiting list of each day
     public void WaitingList(String Restaurant) {
         FilteredWaitingList = TheJoestars.getWaitingList();
         StringBuilder waitingList = new StringBuilder();
@@ -235,7 +235,11 @@ public class WaitingListGenerator {
                 "+----+------------------------+-----+--------+---------------+-------------------------------------+-------------------------+-------+\n");
         String content = waitingList.toString();
         String filename = "waiting_list_" + Restaurant + "_" + currentDay + ".txt";
-        writeWaitingListToFile(content, filename,true);
+        if(currentDay==1){
+        writeWaitingListToFile(content, filename,false);
+        }else{
+            writeWaitingListToFile(content, filename,true);
+        }
     }
 
     public static List<String[]> getWaitingListPearlJam(String currentLocation) {
