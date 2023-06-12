@@ -164,12 +164,20 @@ public class WaitingListGenerator {
             count++;
 
             ResidentProfile(residentInfo[0]);
-            appendOrderHistoryToFile(residentInfo[15], residentInfo[0]);
+            if(currentDay != 1){
+            appendOrderHistoryToFile(residentInfo[15], residentInfo[0],true);
+            }else{
+                appendOrderHistoryToFile(residentInfo[15], residentInfo[0],false);
+            }
         }
         waitingListContent.append(
                 "+----+-------------------------+-----+--------+---------------+-------------------------------------+-------------------------+----------+\n");
         String content = waitingListContent.toString();
-        writeWaitingListToFile(content, "FullWaitingList.txt");
+        if(currentDay == 1){
+        writeWaitingListToFile(content, "FullWaitingList.txt", false);
+        }else{
+            writeWaitingListToFile(content, "FullWaitingList.txt", true);
+        }
 
         // append each restaurant waiting list into file
         for (int i = 0; i < restaurantLocation.length; i++) {
@@ -227,7 +235,7 @@ public class WaitingListGenerator {
                 "+----+------------------------+-----+--------+---------------+-------------------------------------+-------------------------+-------+\n");
         String content = waitingList.toString();
         String filename = "waiting_list_" + Restaurant + "_" + currentDay + ".txt";
-        writeWaitingListToFile(content, filename);
+        writeWaitingListToFile(content, filename,true);
     }
 
     public static List<String[]> getWaitingListPearlJam(String currentLocation) {
@@ -341,7 +349,6 @@ public class WaitingListGenerator {
                     profile.append(
                             "+-----+---------------------------------------+------------+------------------------+\n");
                 }
-
             }
 
             String content = profile.toString();
@@ -354,9 +361,9 @@ public class WaitingListGenerator {
         }
     }
 
-    public void appendOrderHistoryToFile(String orderHistory, String residentname) {
+    public void appendOrderHistoryToFile(String orderHistory, String residentname,boolean append) {
         String fileName = residentname.replaceAll(" ", "").toLowerCase() + "_order_history.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, append))) {
             writer.write(orderHistory);
             writer.newLine();
         } catch (IOException e) {
@@ -364,8 +371,8 @@ public class WaitingListGenerator {
         }
     }
 
-    private void writeWaitingListToFile(String content, String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
+    private void writeWaitingListToFile(String content, String filename,boolean append) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
             writer.write(content);
             writer.newLine(); // Add a new line after appending the content
         } catch (IOException e) {

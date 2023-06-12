@@ -299,7 +299,7 @@ public class HermitPurple {
             visitedLocation.push(currentLocation);
             previousLocation = currentLocation;
 
-            if (input.isEmpty()) {
+            if (input.isEmpty() || input.equals("1")) {
                 System.out.println("Please enter a valid selection.");
                 continue; // Continue to loop back and ask for input again
             }
@@ -603,7 +603,7 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                RedHotChiliPepper rhcp = new RedHotChiliPepper();
+                                RedHotChiliPepper rhcp = new RedHotChiliPepper(maps);
                                 rhcp.display(maps);
                                 visitedLocation.pop();
                                 displayMenu();
@@ -694,8 +694,8 @@ public class HermitPurple {
                                 break;
                         
                         case "3":
-                                TheGoldenSpirit tgs = new TheGoldenSpirit();// already upload the golden spirit
-                                tgs.LCAJoestarFamily();
+                                //The Golden Spirit
+
                                 displayMenu();
                                 break;
 
@@ -837,33 +837,4 @@ public class HermitPurple {
         return this.temp;
     }
 
-}
-class GameState implements Serializable{ // please dont remove this because it is for the save and load -Darwish-
-    private Stack<String> visitedLocation;
-    private String currentLocation;
-    private String previousLocation;
-    private int currentDay;
-
-    public GameState(Stack<String> visitedLocation, String currentLocation, String previousLocation, int currentDay) {
-        this.visitedLocation = visitedLocation;
-        this.currentLocation = currentLocation;
-        this.previousLocation = previousLocation;
-        this.currentDay = currentDay;
-    }
-
-    public Stack<String> getVisitedLocation() {
-        return visitedLocation;
-    }
-
-    public String getCurrentLocation() {
-        return currentLocation;
-    }
-
-    public String getPreviousLocation() {
-        return previousLocation;
-    }
-
-    public int getCurrentDay() {
-        return currentDay;
-    }
 }
