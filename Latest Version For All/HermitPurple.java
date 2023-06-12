@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
+public class HermitPurple { 
     private String currentLocation;
     private int day;
     private int currentDay;
@@ -23,7 +23,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     private Scanner sc = new Scanner(System.in);
     private HermitPurple hermitPurple;
     private TheJoestars joestars;
-    private WaitingListGenerator GENERATOR;
     private Graph<String, Integer> maps;
     private String[] restaurantLocation;
 
@@ -33,8 +32,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
      * private JOJOMaps jojomaps = new JOJOMaps();
      */
     public HermitPurple() {
-        restaurantLocation = new String[] { "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "Libeccio",
-                "Savage Garden" };
+        restaurantLocation = new String[] { "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "Libeccio", "Savage Garden" };
         this.hermitPurple = this;
         temp = visitedLocation;
         currentLocation = "Town Hall";
@@ -263,7 +261,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
         System.exit(0);
     }
 
-    public void LoadGame(String mapIdentifier) {
+     public void LoadGame(String mapIdentifier) {
         // Create a directory path for the game progress
         String directoryPath = mapIdentifier;
 
@@ -288,6 +286,8 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
             System.out.println("Failed to deserialize the game save file: " + e.getMessage());
         }
     }
+
+
 
     public void Select() {
         while (true) {
@@ -315,7 +315,6 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                     if (currentLocation.equals("Town Hall")) {
                         if (previousLocation != null) {
                             moveTo();
-                     //       SaveGame(MapName);   Kerry: does this necessary?
                             System.out.println("[2] Advance to Next Day");
                             System.out.println("[4] Back" + "(" + previousLocation + ")");
                             System.out.println("[5] Exit");
@@ -376,7 +375,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "3":
                                 TheHand theHand = new TheHand();
-                                theHand.display(maps);
+       ///////////////////////////////////////    theHand.display(maps);
                                 visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
@@ -403,6 +402,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayWaitingList();
                                 pearlJam.displayList();
                                 visitedLocation.pop(); // to pop the currentLocation that have been added since it will
                                                        // back to here to avoid previous location=currentLocation
@@ -445,6 +445,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayWaitingList();
                                 pearlJam.displayList();
                                 visitedLocation.pop();
                                 displayMenu();
@@ -483,6 +484,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
 
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayWaitingList();
                                 pearlJam.displayList();
                                 visitedLocation.pop();
                                 displayMenu();
@@ -520,6 +522,7 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                         switch (input) {
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayWaitingList();
                                 pearlJam.displayList();
                                 visitedLocation.pop();
                                 displayMenu();
@@ -557,8 +560,8 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                         switch (input) {
                             case "2":
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
+                                pearlJam.displayWaitingList();
                                 pearlJam.displayList();
-                                visitedLocation.pop();
                                 visitedLocation.pop();
                                 displayMenu();
                                 break;
@@ -600,8 +603,8 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
                                 break;
 
                             case "3":
-                                RedHotChiliPepper rhcp = new RedHotChiliPepper();
-                                rhcp.display(maps);
+                                RedHotChiliPepper rhcp = new RedHotChiliPepper(map);
+                             //   rhcp.display(maps);
                                 visitedLocation.pop();
                                 displayMenu();
                                 break;
@@ -835,34 +838,3 @@ public class HermitPurple extends JOJOMaps { // Kerry: need to extends?
     }
 
 }
-class GameState implements Serializable{
-    private Stack<String> visitedLocation;
-    private String currentLocation;
-    private String previousLocation;
-    private int currentDay;
-
-    public GameState(Stack<String> visitedLocation, String currentLocation, String previousLocation, int currentDay) {
-        this.visitedLocation = visitedLocation;
-        this.currentLocation = currentLocation;
-        this.previousLocation = previousLocation;
-        this.currentDay = currentDay;
-    }
-
-    public Stack<String> getVisitedLocation() {
-        return visitedLocation;
-    }
-
-    public String getCurrentLocation() {
-        return currentLocation;
-    }
-
-    public String getPreviousLocation() {
-        return previousLocation;
-    }
-
-    public int getCurrentDay() {
-        return currentDay;
-    }
-}
-
-
