@@ -305,18 +305,17 @@ public class HeavensDoor {
 
     public void select() {
         Scanner sc = new Scanner(System.in);
-        int choice;
+        String choice;
 
         do {
             System.out.println("[1] View Resident's Profile");
             System.out.println("[2] Sort");
             System.out.println("[3] Exit");
             System.out.print("Select: ");
-            choice = sc.nextInt();
+            choice = sc.nextLine();
             System.out.println("================================================================================");
             switch (choice) {
-                case 1:
-                    sc.nextLine();
+                case "1":
                     System.out.println("Enter resident's name: ");
                     String name = sc.nextLine();
                     String residentName = name.replaceAll(" ", "").toLowerCase();
@@ -331,8 +330,7 @@ public class HeavensDoor {
                     System.out.println(
                             "================================================================================");
                     break;
-                case 2:
-                    sc.nextLine();
+                case "2":
                     System.out.println(
                             "Enter the sorting order (comma-separated criteria) (e.g., Stamina(ASC);Precision(DESC);Stand(ASC);):");
                     String sortingOrder = sc.nextLine();
@@ -344,7 +342,7 @@ public class HeavensDoor {
                             "================================================================================");
                     sortResidents(sortingOrder);
                     break;
-                case 3:
+                case "3":
                     return;
 
                 default:
