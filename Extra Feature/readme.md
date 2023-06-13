@@ -7,19 +7,20 @@ Requirements<br>
 ● The path should consist of more than one location.<br>
 ● If there are multiple paths with the same longest length, the system would display any of the paths. <br>
 
-**Extra Feature 3 -- Chase**<br>
+**Extra Feature 4 -- Dirty Deeds Done Dirt Cheap**<br>
 Requirements<br>
-● Create a new option Chase in DIO’s Mansion.<br>
-● A player can enter the initial location where both DIO and Pucci begin in the first turn.<br>
-● The system should display the positions of DIO and Pucci after they have completed their optimal movements as specified above in each turn.<br>
-● The game terminates when Pucci reaches the same location as DIO.<br>
+● Create a new option Dirty Deeds Done Dirt Cheap in Green Dolphin Street Prison.<br>
+● A player can enter a source and a destination as inputs.<br>
+● The system displays the top three shortest paths with their respective total distances between the source and destination.<br>
+● If two paths have the same total distance, the one with fewer locations is given priority.<br>
+● The paths should not visit any location more than once.<br>
 
-**Extra Feature 6 -- Stay The Hell Away From Me**<br>
-● Create a new option Stay the Hell Away from Me! in San Giorgio Maggiore.<br>
-● A player can enter the starting and ending points for Diavolo’s great journey, along with the locations where people might notice him as predicted using Epitaph.<br>
-● Each time Diavolo passes through one of the identified locations, he has to use King Crimson’s ability to erase the time frame.<br>
-● The system should display the optimal path with the least number of times Diavolo has to activate his Stand’s ability and total distance.<br>
-● The system should only display the path with the shortest distance if there are multiple paths with the same number of activation.<br>
+**Extra Feature 7 -- The Golden Spirit**<br>
+Requirements<br>
+● Create a new option The Golden Spirit in Joestar Mansion.<br>
+● A player can enter the names of any two Joestars to search for their lowest common ancestors.<br>
+● The system should display all lowest common ancestors of the two Joestars entered.<br>
+● Note that there might be more than one lowest common ancestor.<br>
 
 **Extra Feature 8 -- Thus Spoke Rohan Kishibe**<br>
 Requirements<br>
