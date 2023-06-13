@@ -21,7 +21,7 @@ public class MoodyBlue {
     }
 
     public void readSalesDataFromFile() {
-        for (int day = 1; day < currentDay; day++) {  //Kerry: need to test again why is < not <=
+        for (int day = 1; day < currentDay; day++) {  
             String filename = "D:/JOJOLands/waiting_list_" + currentLocation + "_" + day + ".txt";
             try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
                 String line;
@@ -406,17 +406,13 @@ public class MoodyBlue {
                 int quantity = record.getQuantity();
                 double price = record.getPrice();
 
-
-                // Check if the food already exists in the total sales map
                 if (totalSalesByFood.containsKey(food)) {
-                    // If it exists, update the quantity and total price
                     SalesRecord existingRecord = totalSalesByFood.get(food);
                     int updatedQuantity = existingRecord.getQuantity() + quantity;
                     double updatedTotalPrice = existingRecord.getPrice() + price;
 
                     totalSalesByFood.put(food, new SalesRecord(updatedQuantity, updatedTotalPrice));
                 } else {
-                    // If it's a new food, add it to the total sales map
                     totalSalesByFood.put(food, new SalesRecord(quantity, price));
                 }
                 totalPrice += price;
@@ -476,33 +472,12 @@ class SalesRecord {
 }
 
 /*
- * Assumption:
- * need use file to save the waiting list
- * use table
- * extract waiting list, then calculate total sales, if the search key match
- * with the FOOD, then count++, then total price add
- * create new sales list, then create method to view the total and type of food
- * and price each day
- * create a method that can specify the day range, then a method that used to
- * count the total sale food and price
- * create a method that can print the sales list for day range, loop day ? to
- * day ? then displayList
- * total sales and price for day range, add on all for the food
- * VIEW SALE = can only for one day
- * VIEW AGGREGATE Sale, here make assumption:
- * show whole record for ? day
- * max= choose day with highest sale
- * min = day with lowest sale
- * top k highest = top ?food to show it has highest sales, whch food sold
- * highest price
- * 
+
  * 
  * The code snippet salesData.computeIfAbsent(currentLocation, k -> new
  * HashMap<>()).put(String.valueOf(day), salesDataByDay); is responsible for
  * organizing and storing the sales data in a nested data structure.
- * 
- * Let's break down the code:
- * 
+
  * salesData: It is a Map object that stores the sales data for different
  * restaurants. It has the following structure: Map<String, Map<String,
  * List<String[]>>>. The outer Map is keyed by the restaurant's name (String),
@@ -518,8 +493,4 @@ class SalesRecord {
  * restaurant, we put the salesDataByDay list (which contains the sales
  * information for a specific day) into the inner Map. The key for this entry is
  * the string representation of the day.
- * 
- * In summary, this code segment ensures that the sales data is organized and
- * stored in a nested structure, allowing easy retrieval and access to the sales
- * information for a specific restaurant and day.
  */

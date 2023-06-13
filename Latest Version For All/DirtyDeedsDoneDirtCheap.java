@@ -20,7 +20,7 @@ public class DirtyDeedsDoneDirtCheap{
         String source = sc.nextLine();
         System.out.print("\nDestination: ");
         String destination = sc.nextLine();
-        System.out.println("\n======================================================================");
+        System.out.println("\n================================================================================");
 
         currentPath.add(source);
         findPossiblePaths(source, destination, currentPath, paths);
@@ -45,13 +45,12 @@ public class DirtyDeedsDoneDirtCheap{
             }
         System.out.printf(" (%.2f km)\n", distance);
     }
-        System.out.println("======================================================================");
+        System.out.println("================================================================================");
         System.out.println();
     }
 
     // find possible paths using depth first search
-    public static void findPossiblePaths(String currentVertex, String targetVertex,
-            List<String> currentPath, List<List<String>> paths) {
+    public static void findPossiblePaths(String currentVertex, String targetVertex,List<String> currentPath, List<List<String>> paths) {
         if (currentVertex.equals(targetVertex)) {
             paths.add(new ArrayList<>(currentPath));
             return;

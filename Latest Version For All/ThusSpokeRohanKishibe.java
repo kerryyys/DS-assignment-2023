@@ -2,34 +2,54 @@ package JOJOLands.JOJO;
 
 import java.util.*;
 
-    public class ThusSpokeRohanKishibe {
-        private Graph<String, Integer> map;
-    
-        public ThusSpokeRohanKishibe(Graph<String, Integer> mapsGraph) {
-            this.map = mapsGraph;
-            Scanner sc = new Scanner(System.in);
-    
-            while (true) {
-                System.out.println("First alphabet of location must in upper case (ex: Jade Garden)");
-                System.out.print("Enter a location (or 'done' to finish): ");
-                String locationInput = sc.nextLine();
-    
-                if (locationInput.equalsIgnoreCase("done")) {
-                    return; //need return to hermit
-                }
-    
-                String[] locations = locationInput.split(", ");
-                List<String> uniqueLocations = new ArrayList<>(new HashSet<>(Arrays.asList(locations)));
-                List<String> shortestPath = findShortestPath(uniqueLocations);
-    
+public class ThusSpokeRohanKishibe {
+    private Graph<String, Integer> map;
+
+    public ThusSpokeRohanKishibe(Graph<String, Integer> mapsGraph) {
+        this.map = mapsGraph;
+
+        while (true) {
+            List<String> locations = getUserInputLocations();
+            if (locations.isEmpty()) {
+                System.out.println("Exit Thus Spoke Rohan Kishibe");
                 System.out.println("======================================================================");
-                System.out.println("Shortest Path:");
-                printPath(shortestPath);
-                int totalDistance = calculateDistance(shortestPath);
-                System.out.printf(" (%d km)\n", totalDistance);
-                System.out.println("======================================================================");
+                return; // Exit if no locations are entered
+            }
+
+            List<String> shortestPath = findShortestPath(locations);
+
+            System.out.println("======================================================================");
+            System.out.println("Shortest Path:");
+            printPath(shortestPath);
+            int totalDistance = calculateDistance(shortestPath);
+            System.out.printf(" (%d km)\n", totalDistance);
+            System.out.println("======================================================================");
+        }
+    }
+
+    private List<String> getUserInputLocations() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("First alphabet of location must be in upper case (e.g., Jade Garden)");
+        System.out.print("Enter the locations (separated by commas or Enter only to quit): ");
+        String input = sc.nextLine().trim();
+
+        if (input.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String[] locations = input.split(",");
+        List<String> uniqueLocations = new ArrayList<>(new HashSet<>(Arrays.asList(locations)));
+
+        // Validate user input
+        for (String location : uniqueLocations) {
+            if (!map.getAllVertices().contains(new Vertex<>(location, null))) {
+                System.out.println("\nInvalid location: " + location + ". Please enter a valid location.\n");
+                return getUserInputLocations(); // Recursively call the method to re-prompt for input
             }
         }
+
+        return uniqueLocations;
+    }
 
     private List<String> findShortestPath(List<String> locations) {
         List<String> shortestPath = new ArrayList<>();
