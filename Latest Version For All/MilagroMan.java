@@ -50,6 +50,7 @@ public class MilagroMan {
     private int sDay;
     private int eDay;
     private Map<String, Map<String, Map<String, SalesRecord>>> salesData;
+    private String directory = HermitPurple.directoryPath;
 
     public MilagroMan(HermitPurple hermit, String currentLocation, int currentDay) {
         this.currentLocation = currentLocation;
@@ -92,7 +93,7 @@ public class MilagroMan {
     }
     public void readSalesDataFromFile() {
         for (int day = 1; day < currentDay; day++) {
-            String filename = "C:\\Users\\Lenovo\\IdeaProjects\\JOJOLANDS.JOJO\\waiting_list_" + currentLocation + "_" + day + ".txt";
+            String filename = directory + "\\waiting_list_" + currentLocation + "_" + day + ".txt";
             try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
                 String line;
                 boolean startReading = false;
