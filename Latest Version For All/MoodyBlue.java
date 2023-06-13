@@ -11,7 +11,7 @@ public class MoodyBlue {
     private Scanner sc = new Scanner(System.in);
 
     private Map<String, Map<String, Map<String, SalesRecord>>> salesData;
-
+    private String directory = HermitPurple.directoryPath;
     public MoodyBlue(HermitPurple hermit, String currentLocation, int currentDay) {
         //this.hermitPurple = hermit;
         this.currentLocation = currentLocation;
@@ -22,7 +22,7 @@ public class MoodyBlue {
 
     public void readSalesDataFromFile() {
         for (int day = 1; day < currentDay; day++) {  
-            String filename = "D:/JOJOLands/waiting_list_" + currentLocation + "_" + day + ".txt";
+            String filename = directory + "/waiting_list_" + currentLocation + "_" + day + ".txt";
             try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
                 String line;
                 boolean startReading = false;

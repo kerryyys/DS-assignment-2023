@@ -24,7 +24,7 @@ public class HermitPurple {
     private HermitPurple hermitPurple;
     private TheJoestars joestars;
     private Graph<String, Integer> maps;
-    private String[] restaurantLocation;
+    public static String directoryPath;
 
     // add private Menu restaurant;
     /*
@@ -32,7 +32,6 @@ public class HermitPurple {
      * private JOJOMaps jojomaps = new JOJOMaps();
      */
     public HermitPurple() {
-        restaurantLocation = new String[] { "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "Libeccio", "Savage Garden" };
         this.hermitPurple = this;
         temp = visitedLocation;
         currentLocation = "Town Hall";
@@ -48,12 +47,21 @@ public class HermitPurple {
         this.maps = mapsGraph;
     }
 
-    public void getMapName(String MapName) {
+    public void setMapName(String MapName) {
         // get Map type after the player choose to enter which Map
         this.MapName = MapName;
     }
 
+    public void setFileDirectory(){
+        directoryPath = "D:/JOJOLands/" + MapName + " directory";
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+    }
+
     public void startGame() {
+        setFileDirectory();
         storeMission();
         start();
         displayMenu();
@@ -191,12 +199,6 @@ public class HermitPurple {
     }
 
     public void SaveGame(String mapIdentifier) {
-        // Create a directory to store the game progress according to the Map
-        String directoryPath = mapIdentifier + " directory";
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
 
         // Save the game progress
         try {
@@ -209,49 +211,12 @@ public class HermitPurple {
             objectOutputStream.writeObject(gameState);
             objectOutputStream.close();
 
-            // Move the waiting list of each location file to the game directory
-            List<File> waitingListForEachLocation = new ArrayList<>();
-
-            for (int i = 0; i < restaurantLocation.length; i++) {
-                // Generate the file name
-                String fileName = "waiting_list_" + restaurantLocation[i] + ".txt";
-
-                // Create the File object
-                File waitingListFile = new File(fileName);
-
-                // Add the File object to the list
-                waitingListForEachLocation.add(waitingListFile);
-
-                // Move the file to the destination directory
-                File destinationFile = new File(directoryPath + "/" + fileName);
-                waitingListFile.renameTo(destinationFile);
-            }
-
-            // Move the resident information files to the game directory
-            List<File> residentInformationFiles = new ArrayList<>();
-
-            for (int i = 0; i < visitedLocation.size(); i++) {
-                String fileName = "resident_information_" + visitedLocation.get(i) + ".txt";
-                File residentInformationFile = new File(fileName);
-                residentInformationFiles.add(residentInformationFile);
-                File destinationFile = new File(directoryPath + "/" + fileName);
-                residentInformationFile.renameTo(destinationFile);
-            }
-
-            // Move the FullWaitingList.txt file to the game directory
-            File fullWaitingListFile = new File("FullWaitingList.txt");
-            File fullWaitingListDestinationFile = new File(directoryPath + "/FullWaitingList.txt");
-            fullWaitingListFile.renameTo(fullWaitingListDestinationFile);
-            
-            File fullResidentInfoFile = new File("FullResidentInfo.txt");
-            File fullResidentInfoDestinationFile = new File(directoryPath + "/FullResidentInfo.txt");
-            fullResidentInfoFile.renameTo(fullResidentInfoDestinationFile);
-            
-
             System.out.println("Game progress for map " + mapIdentifier + " saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save the game progress: " + e.getMessage());
         }
+        System.out.println("Exit the game");
+        System.exit(0);
     }
 
     // Used to terminate the program
@@ -603,7 +568,7 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                RedHotChiliPepper rhcp = new RedHotChiliPepper(maps);
+                                RedHotChiliPepper rhcp = new RedHotChiliPepper();
                                 rhcp.display(maps);
                                 visitedLocation.pop();
                                 displayMenu();
@@ -694,8 +659,8 @@ public class HermitPurple {
                                 break;
                         
                         case "3":
-                                TheGoldenSpirit tgs = new TheGoldenSpirit();
-                                tgs.LCAJoestarFamily();
+                                //The Golden Spirit
+
                                 displayMenu();
                                 break;
 
@@ -838,7 +803,6 @@ public class HermitPurple {
     }
 
 }
-
 class GameState implements Serializable{ // please dont remove this because it is for the save and load -Darwish-
     private Stack<String> visitedLocation;
     private String currentLocation;

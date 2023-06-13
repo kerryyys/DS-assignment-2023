@@ -3,11 +3,6 @@ package JOJOLands.JOJO;
 import java.util.*;
 
 public class Player extends JOJOMaps {
-    public static Graph<String,Integer> mainMap1 = new Graph<>();
-    
-    public static Graph<String,Integer> mainMap2 = new Graph<>();
-    
-    public static Graph<String,Integer> mainMap3 = new Graph<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -43,24 +38,21 @@ public class Player extends JOJOMaps {
                     case "1":
                         HermitPurple hermitPurple1 = new HermitPurple();
                         hermitPurple1.getMapType(jojo.getDefaultMap());
-                        mainMap1 = hermitPurple1.getMaps();
-                        hermitPurple1.getMapName("Default Map");
+                        hermitPurple1.setMapName("Default Map");
                         hermitPurple1.startGame();
                         break;
 
                     case "2":
                         HermitPurple hermitPurple2 = new HermitPurple();
                         hermitPurple2.getMapType(jojo.getParallelMap());
-                        mainMap2 = hermitPurple2.getMaps();
-                        hermitPurple2.getMapName("Parallel Map");
+                        hermitPurple2.setMapName("Parallel Map");
                         hermitPurple2.startGame();
                         break;
 
                     case "3":
                         HermitPurple hermitPurple3 = new HermitPurple();
                         hermitPurple3.getMapType(jojo.getAlternateMap());
-                        mainMap3 = hermitPurple3.getMaps();
-                        hermitPurple3.getMapName("Alternate Map");
+                        hermitPurple3.setMapName("Alternate Map");
                         hermitPurple3.startGame();
                         break;
                 }
@@ -76,7 +68,7 @@ public class Player extends JOJOMaps {
                 System.out.println("[1] Default Map");
                 System.out.println("[2] Parallel Map");
                 System.out.println("[3] Alternate Map");
-                System.out.print("\nSelect the map for the saved game: ");
+                System.out.print("\nSelect the map for the saved game(Must be same as the directory map): ");
                 String savedMapChoice = sc.nextLine();
                 System.out.println("================================================================================");
 
@@ -86,7 +78,7 @@ public class Player extends JOJOMaps {
                         mapIdentifier = "Default Map";
                         HermitPurple savedHermitPurple1 = new HermitPurple();
                         savedHermitPurple1.getMapType(jojo.getDefaultMap());
-                        savedHermitPurple1.getMapName(mapIdentifier);
+                        savedHermitPurple1.setMapName(mapIdentifier);
                         savedHermitPurple1.LoadGame(filepath);
                         savedHermitPurple1.startGame();
                         break;
@@ -95,7 +87,7 @@ public class Player extends JOJOMaps {
                         mapIdentifier = "Parallel Map";
                         HermitPurple savedHermitPurple2 = new HermitPurple();
                         savedHermitPurple2.getMapType(jojo.getParallelMap());
-                        savedHermitPurple2.getMapName(mapIdentifier);
+                        savedHermitPurple2.setMapName(mapIdentifier);
                         savedHermitPurple2.LoadGame(filepath);
                         savedHermitPurple2.startGame();
                         break;
@@ -104,7 +96,7 @@ public class Player extends JOJOMaps {
                         mapIdentifier = "Alternate Map";
                         HermitPurple savedHermitPurple3 = new HermitPurple();
                         savedHermitPurple3.getMapType(jojo.getAlternateMap());
-                        savedHermitPurple3.getMapName(mapIdentifier);
+                        savedHermitPurple3.setMapName(mapIdentifier);
                         savedHermitPurple3.LoadGame(filepath);
                         savedHermitPurple3.startGame();
                         break;

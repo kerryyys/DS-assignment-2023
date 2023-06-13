@@ -5,11 +5,12 @@ import java.util.*;
 
 public class TheJoestarsChecker {
 
+    private String directory = HermitPurple.directoryPath;
     public TheJoestarsChecker() {
     }
 
     public String readResidentProfiles(String nameSaved) {
-        String filename = "D:/JOJOLands/profile_" + nameSaved + ".txt";
+        String filename =  directory + "/profile_" + nameSaved + ".txt";
 
         StringBuilder content = new StringBuilder();
 
@@ -27,7 +28,7 @@ public class TheJoestarsChecker {
     }
 
     public List<String[]> readOrderHistory(String name) {
-        String filename = "D:/JOJOLands/" + name + "_order_history" + ".txt";
+        String filename = directory + "/" + name + "_order_history" + ".txt";
         List<String[]> matchingLines = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {

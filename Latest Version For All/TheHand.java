@@ -1,5 +1,4 @@
-package JOJOLands;
-
+package JOJOLands.JOJO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,6 +154,3 @@ int count = 1;
         }
    }
  }
-
-
-    
