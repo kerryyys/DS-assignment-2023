@@ -3,6 +3,12 @@ package JOJOLands.JOJO;
 import java.util.*;
 
 public class Player extends JOJOMaps {
+    
+    public static Graph<String,Integer> mainMap1 = new Graph<>();
+    
+    public static Graph<String,Integer> mainMap2 = new Graph<>();
+    
+    public static Graph<String,Integer> mainMap3 = new Graph<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -38,6 +44,7 @@ public class Player extends JOJOMaps {
                     case "1":
                         HermitPurple hermitPurple1 = new HermitPurple();
                         hermitPurple1.getMapType(jojo.getDefaultMap());
+                        mainMap1 = hermitPurple1.getMaps();
                         hermitPurple1.setMapName("Default Map");
                         hermitPurple1.startGame();
                         break;
@@ -45,6 +52,7 @@ public class Player extends JOJOMaps {
                     case "2":
                         HermitPurple hermitPurple2 = new HermitPurple();
                         hermitPurple2.getMapType(jojo.getParallelMap());
+                        mainMap2 = hermitPurple2.getMaps();
                         hermitPurple2.setMapName("Parallel Map");
                         hermitPurple2.startGame();
                         break;
@@ -52,6 +60,7 @@ public class Player extends JOJOMaps {
                     case "3":
                         HermitPurple hermitPurple3 = new HermitPurple();
                         hermitPurple3.getMapType(jojo.getAlternateMap());
+                        mainMap3 = hermitPurple3.getMaps();
                         hermitPurple3.setMapName("Alternate Map");
                         hermitPurple3.startGame();
                         break;
