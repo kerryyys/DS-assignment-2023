@@ -235,11 +235,8 @@ public class WaitingListGenerator {
                 "+----+------------------------+-----+--------+---------------+-------------------------------------+-------------------------+-------+\n");
         String content = waitingList.toString();
         String filename = "waiting_list_" + Restaurant + "_" + currentDay + ".txt";
-        if(currentDay==1){
+
         writeWaitingListToFile(content, filename,false);
-        }else{
-            writeWaitingListToFile(content, filename,true);
-        }
     }
 
     public static List<String[]> getWaitingListPearlJam(String currentLocation) {
