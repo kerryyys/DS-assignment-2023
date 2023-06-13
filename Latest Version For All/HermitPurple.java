@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class HermitPurple { 
+public class HermitPurple{
     private String currentLocation;
     private int day;
     private int currentDay;
@@ -24,7 +24,7 @@ public class HermitPurple {
     private HermitPurple hermitPurple;
     private TheJoestars joestars;
     private Graph<String, Integer> maps;
-    public static String directoryPath;
+    private String[] restaurantLocation;
 
     // add private Menu restaurant;
     /*
@@ -32,6 +32,7 @@ public class HermitPurple {
      * private JOJOMaps jojomaps = new JOJOMaps();
      */
     public HermitPurple() {
+        restaurantLocation = new String[] { "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "Libeccio", "Savage Garden" };
         this.hermitPurple = this;
         temp = visitedLocation;
         currentLocation = "Town Hall";
@@ -39,7 +40,7 @@ public class HermitPurple {
     }
 
     //used in F7
-     public Graph<String,Integer> getMaps(){
+    public Graph<String,Integer> getMaps(){
         return maps;
     }
 
@@ -47,21 +48,12 @@ public class HermitPurple {
         this.maps = mapsGraph;
     }
 
-    public void setMapName(String MapName) {
+    public void getMapName(String MapName) {
         // get Map type after the player choose to enter which Map
         this.MapName = MapName;
     }
 
-    public void setFileDirectory(){
-        directoryPath = "D:/JOJOLands/" + MapName + " directory";
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-    }
-
     public void startGame() {
-        setFileDirectory();
         storeMission();
         start();
         displayMenu();
@@ -106,7 +98,7 @@ public class HermitPurple {
         adjacentVertices = maps.getNeighbours(currentLocation);
         System.out.println("Current Location: " + currentLocation);
         System.out.print("[1] Move to: \n\t");
-        
+
         for (int i = 0; i < adjacentVertices.size(); i++) {
             char alphabet = (char) (i + 'A');
             System.out.printf("[%c] %-23s", alphabet, adjacentVertices.get(i));
@@ -199,6 +191,12 @@ public class HermitPurple {
     }
 
     public void SaveGame(String mapIdentifier) {
+        // Create a directory to store the game progress according to the Map
+        String directoryPath = mapIdentifier + " directory";
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
 
         // Save the game progress
         try {
@@ -211,12 +209,49 @@ public class HermitPurple {
             objectOutputStream.writeObject(gameState);
             objectOutputStream.close();
 
+            // Move the waiting list of each location file to the game directory
+            List<File> waitingListForEachLocation = new ArrayList<>();
+
+            for (int i = 0; i < restaurantLocation.length; i++) {
+                // Generate the file name
+                String fileName = "waiting_list_" + restaurantLocation[i] + ".txt";
+
+                // Create the File object
+                File waitingListFile = new File(fileName);
+
+                // Add the File object to the list
+                waitingListForEachLocation.add(waitingListFile);
+
+                // Move the file to the destination directory
+                File destinationFile = new File(directoryPath + "/" + fileName);
+                waitingListFile.renameTo(destinationFile);
+            }
+
+            // Move the resident information files to the game directory
+            List<File> residentInformationFiles = new ArrayList<>();
+
+            for (int i = 0; i < visitedLocation.size(); i++) {
+                String fileName = "resident_information_" + visitedLocation.get(i) + ".txt";
+                File residentInformationFile = new File(fileName);
+                residentInformationFiles.add(residentInformationFile);
+                File destinationFile = new File(directoryPath + "/" + fileName);
+                residentInformationFile.renameTo(destinationFile);
+            }
+
+            // Move the FullWaitingList.txt file to the game directory
+            File fullWaitingListFile = new File("FullWaitingList.txt");
+            File fullWaitingListDestinationFile = new File(directoryPath + "/FullWaitingList.txt");
+            fullWaitingListFile.renameTo(fullWaitingListDestinationFile);
+
+            File fullResidentInfoFile = new File("FullResidentInfo.txt");
+            File fullResidentInfoDestinationFile = new File(directoryPath + "/FullResidentInfo.txt");
+            fullResidentInfoFile.renameTo(fullResidentInfoDestinationFile);
+
+
             System.out.println("Game progress for map " + mapIdentifier + " saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save the game progress: " + e.getMessage());
         }
-        System.out.println("Exit the game");
-        System.exit(0);
     }
 
     // Used to terminate the program
@@ -226,7 +261,7 @@ public class HermitPurple {
         System.exit(0);
     }
 
-     public void LoadGame(String mapIdentifier) {
+    public void LoadGame(String mapIdentifier) {
         // Create a directory path for the game progress
         String directoryPath = mapIdentifier;
 
@@ -290,11 +325,11 @@ public class HermitPurple {
                             System.out.println("[4] Exit");
                         }
                     } else {
-                            moveTo();
-                            displayMission();
-                            System.out.println("[" + lastNumber + "] Back" + "(" + previousLocation + ")");
-                            System.out.println("[" + (lastNumber + 1) + "] Back To Town Hall");
-                        }
+                        moveTo();
+                        displayMission();
+                        System.out.println("[" + lastNumber + "] Back" + "(" + previousLocation + ")");
+                        System.out.println("[" + (lastNumber + 1) + "] Back To Town Hall");
+                    }
                 }
                 visitedLocation.push(currentLocation); // can only be updated during this time
             }
@@ -370,13 +405,13 @@ public class HermitPurple {
                                 pearlJam.displayWaitingList();
                                 pearlJam.displayList();
                                 visitedLocation.pop(); // to pop the currentLocation that have been added since it will
-                                                       // back to here to avoid previous location=currentLocation
+                                // back to here to avoid previous location=currentLocation
                                 displayMenu();
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu view = new viewMenu(restaurantLocation);
+                                view.displayMenu(currentLocation);
                                 break;
 
                             case "4":
@@ -388,8 +423,11 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
+                                milargoMan.enterExperimentalMode();
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -417,8 +455,8 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu view = new viewMenu(restaurantLocation);
+                                view.displayMenu(currentLocation);
                                 break;
 
                             case "4":
@@ -430,8 +468,11 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
+                                milargoMan.enterExperimentalMode();
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -456,8 +497,8 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu view = new viewMenu(restaurantLocation);
+                                view.displayMenu(currentLocation);
                                 break;
 
                             case "4":
@@ -469,8 +510,11 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
+                                milargoMan.enterExperimentalMode();
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -494,8 +538,8 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                                viewMenu view = new viewMenu(restaurantLocation);
+                                view.displayMenu(currentLocation);
                                 break;
 
                             case "4":
@@ -507,8 +551,11 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
+                                milargoMan.enterExperimentalMode();
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -532,8 +579,9 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                // Menu_PearlJam menuPearlJam = new Menu_PearlJam();
-                                // menuPearlJam.displayMenu(currentLocation);
+                               viewMenu view = new viewMenu(restaurantLocation);
+                               view.displayMenu(currentLocation);
+                                break;
 
                             case "4":
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
@@ -544,8 +592,11 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                // MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                // milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
+                                milargoMan.enterExperimentalMode();
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -575,8 +626,8 @@ public class HermitPurple {
                                 break;
 
                             case "4":
-                                // Another One Bites the Dust
-
+                                BiteTheDusts btd = new BiteTheDusts();
+                                btd.checkBiteTheClass();
                             case "5":
                                 Back();
                                 break;
@@ -598,7 +649,6 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                // Chase
                                 System.out.print("Enter the initial location: ");
                                 String initialLocation = sc.nextLine();
 
@@ -607,7 +657,8 @@ public class HermitPurple {
                                 displayMenu();
                                 break;
                             case "4":
-                                // Another One Bites the Dust
+                                BiteTheDusts btd = new BiteTheDusts();
+                                btd.checkBiteTheClass();
 
                             case "5":
                                 Back();
@@ -631,7 +682,6 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                // Extra feature 4
                                 DirtyDeedsDoneDirtCheap DDDDC = new DirtyDeedsDoneDirtCheap(maps);
                                 DDDDC.RunDDDDC();
                                 visitedLocation.pop();
@@ -649,26 +699,26 @@ public class HermitPurple {
                         break;
 
                     case "Joestar Mansion":
-                    switch (input){
-                        case "2":
+                        switch (input){
+                            case "2":
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
                                 visitedLocation.pop();
                                 displayMenu();
                                 break;
-                        
-                        case "3":
-                                //The Golden Spirit
 
+                            case "3":
+                                TheGoldenSpirit tgs = new TheGoldenSpirit();
+                                tgs.LCAJoestarFamily();
                                 displayMenu();
                                 break;
 
-                        case "4":
+                            case "4":
                                 Back();
                                 break;
 
-                        case "5":
+                            case "5":
                                 BackTownHall();
                                 break;
                         }
@@ -714,11 +764,6 @@ public class HermitPurple {
             return;
         }
     }
-
-    public int getLastNumber() {
-        return lastNumber;
-    }
-
     // assign mission to each location
     public void addMission(String location, String mission) {
         List<String> missions = missionMap.getOrDefault(location, new ArrayList<>());
@@ -803,6 +848,7 @@ public class HermitPurple {
     }
 
 }
+
 class GameState implements Serializable{ // please dont remove this because it is for the save and load -Darwish-
     private Stack<String> visitedLocation;
     private String currentLocation;
