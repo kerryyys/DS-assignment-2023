@@ -369,7 +369,6 @@ public class MoodyBlue {
         }
     
         // Print the results
-        System.out.println("======================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Top K Highest Sales (Day " + startDay + " - " + endDay + ")");
         System.out.println("---------------------------------------------------------");
