@@ -655,9 +655,10 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                //The Golden Spirit
-
+                                TheGoldenSpirit tgs = new TheGoldenSpirit();
+                                tgs.LCAJoestarFamily();
                                 displayMenu();
+                                break;
                                 break;
 
                             case "4":
