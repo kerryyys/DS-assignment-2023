@@ -1,5 +1,5 @@
 # DS-assignment-2023
-## GROUP 5 OCC 9 - Group Coffee or Java<br>
+### GROUP 5 OCC 9 - Group Coffee or Java<br>
 
 Welcome to JOJOLands, the ultimate destination for thrilling adventures and unforgettable experiences. <br><br>
 In this program, we will explore the fascinating world of JOJOLands through a series of problem-solving questions, designed to challenge and engage your problem-solving skills.<br><br>
