@@ -604,6 +604,7 @@ public class HermitPurple {
                                 BiteTheDusts biteTheDusts = new BiteTheDusts();
                                 biteTheDusts.checkBiteTheClass();
                                 visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "5":
