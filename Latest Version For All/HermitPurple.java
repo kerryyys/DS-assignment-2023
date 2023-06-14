@@ -53,7 +53,7 @@ public class HermitPurple {
     }
 
     public void setFileDirectory(){
-        directoryPath = "D:/JOJOLands/" + MapName + " directory";
+        directoryPath = "C:\\Users\\Lenovo\\IdeaProjects\\JOJOLANDS.JOJO" + MapName + " directory";
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdir();
@@ -339,11 +339,11 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                TheHand theHand = new TheHand();
-                                theHand.display(maps);
-                                visitedLocation.pop();
-                                previousLocation = visitedLocation.peek();
-                                displayMenu();
+//                                TheHand theHand = new TheHand();
+//                                theHand.display(maps);
+//                                visitedLocation.pop();
+//                                previousLocation = visitedLocation.peek();
+//                                displayMenu();
                                 break;
 
                             case "4":
@@ -377,6 +377,8 @@ public class HermitPurple {
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "4":
@@ -422,6 +424,8 @@ public class HermitPurple {
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "4":
@@ -464,6 +468,8 @@ public class HermitPurple {
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "4":
@@ -505,6 +511,8 @@ public class HermitPurple {
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "4":
@@ -546,6 +554,8 @@ public class HermitPurple {
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
+                                visitedLocation.pop();
+                                displayMenu();
                                 break;
 
                             case "4":
@@ -584,15 +594,16 @@ public class HermitPurple {
                                 break;
 
                             case "3":
-                                RedHotChiliPepper rhcp = new RedHotChiliPepper();
-                                rhcp.display(maps);
-                                visitedLocation.pop();
-                                displayMenu();
+//                                RedHotChiliPepper rhcp = new RedHotChiliPepper();
+//                                rhcp.display(maps);
+//                                visitedLocation.pop();
+//                                displayMenu();
                                 break;
 
                             case "4":
                                 BiteTheDusts biteTheDusts = new BiteTheDusts();
                                 biteTheDusts.checkBiteTheClass();
+                                visitedLocation.pop();
                                 break;
 
                             case "5":
@@ -619,14 +630,16 @@ public class HermitPurple {
                                 // Chase
                                 System.out.print("Enter the initial location: ");
                                 String initialLocation = sc.nextLine();
-
                                 Chase.playChase(initialLocation);
                                 visitedLocation.pop();
                                 displayMenu();
                                 break;
+
                             case "4":
                                 BiteTheDusts biteTheDusts = new BiteTheDusts();
                                 biteTheDusts.checkBiteTheClass();
+                                visitedLocation.pop();
+                                displayMenu();
 
                             case "5":
                                 Back();
