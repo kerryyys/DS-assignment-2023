@@ -616,42 +616,6 @@ public class HermitPurple {
                         }
                         break;
 
-                    case "DIO's Mansion":
-                        switch (input) {
-                            case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
-                                heavensDoor.printResidents();
-                                heavensDoor.select();
-                                visitedLocation.pop();
-                                displayMenu();
-                                break;
-
-                            case "3":
-                                // Chase
-                                System.out.print("Enter the initial location: ");
-                                String initialLocation = sc.nextLine();
-                                Chase.playChase(initialLocation);
-                                visitedLocation.pop();
-                                displayMenu();
-                                break;
-
-                            case "4":
-                                BiteTheDusts biteTheDusts = new BiteTheDusts();
-                                biteTheDusts.checkBiteTheClass();
-                                visitedLocation.pop();
-                                displayMenu();
-
-                            case "5":
-                                Back();
-                                break;
-
-                            case "6":
-                                BackTownHall();
-                                break;
-
-                        }
-                        break;
-
                     case "Green Dolphin Street Prison":
                         switch (input) {
                             case "2":
@@ -798,8 +762,6 @@ public class HermitPurple {
         addMission("Polnareff Land", "View Resident Information");
 
         addMission("DIO's Mansion", "View Resident Information");
-        addMission("DIO's Mansion", "Chase");
-        addMission("DIO's Mansion", "Another One Bites the Dust");
 
         addMission("Angelo Rock", "View Resident Information");
         addMission("Angelo Rock", "Red Hot Chili Pepper");
