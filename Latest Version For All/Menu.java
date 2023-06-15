@@ -106,7 +106,6 @@ public class Menu {
     }
 
     public Map<String, Double> getMenuByRestaurant(String restaurant) {
-        Map<String, Double> restaurantMenu = menu.getOrDefault(restaurant, new HashMap<>());
-        return new HashMap<>(restaurantMenu);
+        return menu.getOrDefault(restaurant, new HashMap<>());
     }
 }
