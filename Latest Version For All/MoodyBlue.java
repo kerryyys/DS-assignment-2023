@@ -462,10 +462,6 @@ class SalesRecord {
     public double getPrice() {
         return price;
     }
-    public void setPrice(double price) {
-        this.price = price;
-    }
-}
 // JS:    public double getSales() {
 //         return Sales;
 //     }
@@ -473,27 +469,4 @@ class SalesRecord {
 //     public void setPrice(double price) {
 //         this.price = price;
 //     }
-
-/*
-
- * 
- * The code snippet salesData.computeIfAbsent(currentLocation, k -> new
- * HashMap<>()).put(String.valueOf(day), salesDataByDay); is responsible for
- * organizing and storing the sales data in a nested data structure.
-
- * salesData: It is a Map object that stores the sales data for different
- * restaurants. It has the following structure: Map<String, Map<String,
- * List<String[]>>>. The outer Map is keyed by the restaurant's name (String),
- * and the corresponding value is an inner Map that stores the sales data for
- * each day.
- * 
- * computeIfAbsent(currentLocation, k -> new HashMap<>()): This method is used
- * to retrieve the inner Map for the given currentLocation (restaurant name). If
- * the inner Map already exists for the restaurant, it is returned. Otherwise, a
- * new empty HashMap is created and associated with the restaurant name.
- * 
- * .put(String.valueOf(day), salesDataByDay): Once we have the inner Map for the
- * restaurant, we put the salesDataByDay list (which contains the sales
- * information for a specific day) into the inner Map. The key for this entry is
- * the string representation of the day.
- */
+}

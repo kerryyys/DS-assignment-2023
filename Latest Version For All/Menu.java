@@ -2,13 +2,43 @@ package JOJOLands.JOJO;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.io.*;
 
 public class Menu {
-
     protected Map<String, Map<String, Double>> menu;
+    private String menuFilePath;
+    private String directory = HermitPurple.directoryPath;
 
-    public Menu(){
-        menu = new HashMap<>(); // Initialize the menu map
+    public Menu() {
+        this.menuFilePath = directory + "/menu.txt";
+        loadMenu();
+    }
+
+    private void loadMenu() {
+        // Load the menu data from the file
+        try {
+            FileInputStream fis = new FileInputStream(menuFilePath);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            menu = (Map<String, Map<String, Double>>) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            initializeMenu(); // Initialize the menu with default values
+            saveMenu(); // Save the initial menu to the file
+        }
+    }
+
+    private void saveMenu() {
+        try (FileOutputStream fos = new FileOutputStream(menuFilePath);
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(menu);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initializeMenu() {
+        menu = new HashMap<>();
 
         Map<String, Double> JadeGardenMenu = new HashMap<>();
         JadeGardenMenu.put("Braised Chicken in Black Bean Sauce", 15.00);
@@ -51,23 +81,32 @@ public class Menu {
         SavageGardenMenu.put("Kakyoin's Porridge", 4.44);
         menu.put("Savage Garden", SavageGardenMenu);
     }
-    
+
+    public void addFoodItem(String restaurant, String foodItem, double price) {
+        Map<String, Double> restaurantMenu = menu.getOrDefault(restaurant, new HashMap<>());
+        restaurantMenu.put(foodItem, price);
+        menu.put(restaurant, restaurantMenu);
+        saveMenu(); // Save the updated menu
+    }
+
+    public void deleteFoodItem(String restaurant, String foodItem) {
+        Map<String, Double> restaurantMenu = menu.get(restaurant);
+        if (restaurantMenu != null) {
+            restaurantMenu.remove(foodItem);
+            saveMenu(); // Save the updated menu
+        }
+    }
+
+    public void setFoodPrice(String restaurant, String foodItem, double price) {
+        Map<String, Double> restaurantMenu = menu.get(restaurant);
+        if (restaurantMenu != null) {
+            restaurantMenu.put(foodItem, price);
+            saveMenu(); // Save the updated menu
+        }
+    }
+
     public Map<String, Double> getMenuByRestaurant(String restaurant) {
-        return menu.getOrDefault(restaurant, new HashMap<>());
+        Map<String, Double> restaurantMenu = menu.getOrDefault(restaurant, new HashMap<>());
+        return new HashMap<>(restaurantMenu);
     }
 }
-
-//  Display the menu when choosing "viewMenu"
-//    public void displayMenu(String currentLocation) {
-//         Map<String, Double> restaurantMenu = getMenuByRestaurant(currentLocation);
-//         System.out.println("Menu for " + currentLocation + ":");
-//         System.out.println("+-----------------------------------------------+-----------+");
-//         System.out.println("Food                                            |   Price   |");
-//         System.out.println("+-----------------------------------------------+-----------+");
-//         for (Map.Entry<String, Double> entry : restaurantMenu.entrySet()) {
-//             String menuItem = entry.getKey();
-//             Double price = entry.getValue();
-//             System.out.printf("| %-45s | $%8.2f |\n", menuItem, price);
-//         }
-//         System.out.println("+-----------------------------------------------+-----------+");
-//     }

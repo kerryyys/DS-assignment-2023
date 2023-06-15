@@ -332,9 +332,7 @@ public class TheJoestars {
             String[] orderList = WaitingList.get(i);
             if (orderList[0].equals("Josuke Higashikata")) {
                 latestOrderHistory = orderList[15].split(",");
-                price = Double.parseDouble(latestOrderHistory[3].substring(0, latestOrderHistory[3].length() - 1)); // New
-                                                                                                                    // order's
-                                                                                                                    // price
+                price = Double.parseDouble(latestOrderHistory[3].substring(0, latestOrderHistory[3].length() - 1)); // New order's price
             }
         }
         // Iterate through the JosukeHigashikataOrder
@@ -435,7 +433,7 @@ public class TheJoestars {
                 food = orderHistory[1];
                 LatestRestaurant = orderHistory[2];
 
-                if (visitedTrattoriaTrussardiCount == 0 || visitedTrattoriaTrussardiCount == 1 && currentDay % 6 == 0) {
+                if (visitedTrattoriaTrussardiCount == 0 || visitedTrattoriaTrussardiCount == 1 && currentDay % 7 == 0) {
                     Map<String, Double> menu = MENU.getMenuByRestaurant("Trattoria Trussardi");
                     Restaurant = "Trattoria Trussardi";
                     newFood = getRandomOrder(menu);
@@ -447,7 +445,7 @@ public class TheJoestars {
                     WaitingList.set(i, orderList);
                     break;
 
-                } else if (visitedTrattoriaTrussardiCount == 1 && currentDay % 6 != 0) { // before Saturday
+                } else if (visitedTrattoriaTrussardiCount == 1 && currentDay % 7 != 0) { // before Saturday
 
                     if (LatestRestaurant.equals("Trattoria Trussardi")) {
                         if (foodinTrattoriaTrussardi.contains(food)) {
@@ -481,7 +479,7 @@ public class TheJoestars {
                             }
                         }
                     }
-                } else if (visitedTrattoriaTrussardiCount == 2 || currentDay % 7 == 0) {
+                } else if (visitedTrattoriaTrussardiCount == 2) {
                     if (LatestRestaurant.equals("Trattoria Trussardi")) {
                         do {
                             setNewRestaurant();
@@ -537,13 +535,10 @@ public class TheJoestars {
                 day = OrderHistory[0];
                 Newrestaurant = OrderHistory[2];
 
-                // get the latest order only
                 String visitedRestaurant = JolyneCujohOrder.get(currentDay - 2)[2]; // because the index is start from 0
 
-                if (Newrestaurant.equals(visitedRestaurant) && currentDay % 7 != 0
-                        || nextJotaroKujoVisitedResturant == null) {
-                    // Assign a new restaurant since it's the same as the previous one and not
-                    // saturday, dad next visit is unknown
+                if (Newrestaurant.equals(visitedRestaurant) && currentDay % 7 != 0 || nextJotaroKujoVisitedResturant == null) {
+                    // Assign a new restaurant since it's the same as the previous one and not/ saturday, dad next visit is unknown
                     do {
                         setNewRestaurant();
                         Map<String, Double> newMenu = MENU.getMenuByRestaurant(orderList[11]);
@@ -552,12 +547,9 @@ public class TheJoestars {
                         orderList[13] = Double.toString(newMenu.get(orderList[12])); // new price
                         orderList[15] = day + "," + orderList[12] + "," + orderList[11] + "," + orderList[13];
                         WaitingList.set(i, orderList);
-                    } while (orderList[11].equals(visitedRestaurant)
-                            && !orderList[11].equals(nextJotaroKujoVisitedResturant)); // to avoid crash in saturday
-                } else if (currentDay % 7 == 0 && nextJotaroKujoVisitedResturant != null
-                        && !visitedRestaurant.equals(nextJotaroKujoVisitedResturant)) {
-                    // It's Saturday and the last visited restaurant is same as Jotaro Kujo's next
-                    // Saturday restaurant. Assign a new restaurant
+                    } while (orderList[11].equals(visitedRestaurant) && !orderList[11].equals(nextJotaroKujoVisitedResturant)); // to avoid crash in saturday
+                } else if (currentDay % 7 == 0 && nextJotaroKujoVisitedResturant != null && !visitedRestaurant.equals(nextJotaroKujoVisitedResturant)) {
+                    // It's Saturday and the last visited restaurant is same as Jotaro Kujo's next Saturday restaurant. Assign a new restaurant
                     setNewRestaurant();
                     Map<String, Double> newMenu = MENU.getMenuByRestaurant(nextJotaroKujoVisitedResturant);
                     orderList[11] = nextJotaroKujoVisitedResturant; // new restaurant
