@@ -30,6 +30,7 @@ public class TheJoestars {
     public TheJoestars(String currentLocation, int currentDay) {
         this.currentDay = currentDay;
         this.MENU = new Menu();
+        MENU.loadMenu(false);
         JadeGardenMenu = MENU.getMenuByRestaurant("Jade Garden");
         CafeDeuxMagotsMenu = MENU.getMenuByRestaurant("Cafe Deux Magots");
         TrattoriaTrussardiMenu = MENU.getMenuByRestaurant("Trattoria Trussardi");
