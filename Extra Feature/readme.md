@@ -1,4 +1,5 @@
-**Extra Feature 1 -- Another One Bite of Dust**<br>
+# Extra Feature
+### Extra Feature 1 -- Another One Bite of Dust<br>
 Requirements<br>
 ● Create a new option Another One Bites the Dust in Angelo Rock.<br>
 ● A player can enter the path of locations Yoshikage Kira remembered he went through.<br>
@@ -7,7 +8,7 @@ Requirements<br>
 ● The path should consist of more than one location.<br>
 ● If there are multiple paths with the same longest length, the system would display any of the paths. <br>
 
-**Extra Feature 4 -- Dirty Deeds Done Dirt Cheap**<br>
+### Extra Feature 4 -- Dirty Deeds Done Dirt Cheap <br>
 Requirements<br>
 ● Create a new option Dirty Deeds Done Dirt Cheap in Green Dolphin Street Prison.<br>
 ● A player can enter a source and a destination as inputs.<br>
@@ -15,14 +16,14 @@ Requirements<br>
 ● If two paths have the same total distance, the one with fewer locations is given priority.<br>
 ● The paths should not visit any location more than once.<br>
 
-**Extra Feature 7 -- The Golden Spirit**<br>
+### Extra Feature 7 -- The Golden Spirit <br>
 Requirements<br>
 ● Create a new option The Golden Spirit in Joestar Mansion.<br>
 ● A player can enter the names of any two Joestars to search for their lowest common ancestors.<br>
 ● The system should display all lowest common ancestors of the two Joestars entered.<br>
 ● Note that there might be more than one lowest common ancestor.<br>
 
-**Extra Feature 8 -- Thus Spoke Rohan Kishibe**<br>
+### Extra Feature 8 -- Thus Spoke Rohan Kishibe <br>
 Requirements<br>
 ● Create a new option Thus Spoke Rohan Kishibe in Morioh Grand Hotel.<br>
 ● A player can enter the locations that Rohan would like to visit.<br>
