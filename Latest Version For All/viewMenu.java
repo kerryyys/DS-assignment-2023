@@ -11,12 +11,22 @@ public class viewMenu {
 
     public viewMenu(String currentLocation) {
         this.menu = new Menu();
+         menu.loadMenu(false);
         this.currentLocation = currentLocation;
     }
 
     public void addNewFoodFromUser(String foodName, double price) {
         Map<String, Double> restaurantMenu = menu.getMenuByRestaurant(currentLocation);
-        if (!restaurantMenu.containsKey(foodName)) {
+        boolean exists = false;
+
+        for (String menuFood : restaurantMenu.keySet()) {
+            if (menuFood.equalsIgnoreCase(foodName)) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
             menu.addFoodItem(currentLocation, foodName, price);
             System.out.println("Menu item '" + foodName + "' added successfully");
             System.out.println("======================================================================");
@@ -24,32 +34,51 @@ public class viewMenu {
             System.out.println("Menu item '" + foodName + "' already exists.");
             System.out.println("======================================================================");
         }
+
         displayMenu(currentLocation);
     }
 
     public void removeFoodFromUser(String foodName) {
         Map<String, Double> restaurantMenu = menu.getMenuByRestaurant(currentLocation);
-        if (restaurantMenu.containsKey(foodName)) {
-            menu.deleteFoodItem(currentLocation, foodName);
-            System.out.println("Menu item '" + foodName + "' removed successfully.");
-            System.out.println("======================================================================");
-        } else {
+        boolean found = false;
+
+        for (String menuFood : restaurantMenu.keySet()) {
+            if (menuFood.equalsIgnoreCase(foodName)) {
+                menu.deleteFoodItem(currentLocation, menuFood);
+                System.out.println("Menu item '" + menuFood + "' removed successfully.");
+                System.out.println("======================================================================");
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
             System.out.println("Menu item '" + foodName + "' not found.");
             System.out.println("======================================================================");
         }
+
         displayMenu(currentLocation);
     }
 
     public void modifyFoodFromUser(String foodName, double newPrice) {
         Map<String, Double> restaurantMenu = menu.getMenuByRestaurant(currentLocation);
-        if (restaurantMenu.containsKey(foodName)) {
-            menu.setFoodPrice(currentLocation, foodName, newPrice);
-            System.out.println("Menu item '" + foodName + "' price modified successfully.");
-            System.out.println("======================================================================");
-        } else {
+        boolean found = false;
+
+        for (String menuFood : restaurantMenu.keySet()) {
+            if (menuFood.equalsIgnoreCase(foodName)) {
+                menu.setFoodPrice(currentLocation, menuFood, newPrice);
+                System.out.println("Menu item '" + menuFood + "' price modified successfully.");
+                System.out.println("======================================================================");
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
             System.out.println("Menu item '" + foodName + "' not found.");
             System.out.println("======================================================================");
         }
+
         displayMenu(currentLocation);
     }
 

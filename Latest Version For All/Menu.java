@@ -11,12 +11,20 @@ public class Menu {
 
     public Menu() {
         this.menuFilePath = directory + "/menu.txt";
-        loadMenu();
     }
 
-    private void loadMenu() {
+    public void loadMenu(boolean newGame) {
         // Load the menu data from the file
         try {
+            File file = new File(menuFilePath);
+
+            if (newGame && file.exists()) {
+                // Clear the file content if it's a new game
+                FileWriter fileWriter = new FileWriter(file);
+                fileWriter.write("");
+                fileWriter.close();
+            }
+
             FileInputStream fis = new FileInputStream(menuFilePath);
             ObjectInputStream ois = new ObjectInputStream(fis);
             menu = (Map<String, Map<String, Double>>) ois.readObject();

@@ -10,7 +10,7 @@ import org.json.simple.parser.ParseException;
 import JOJOLands.AnotherOneBiteTheDusts;
 import JOJOLands.BiteTheDusts;
 
-public class HermitPurple { 
+public class HermitPurple {
     private String currentLocation;
     private int day;
     private int currentDay;
@@ -36,8 +36,8 @@ public class HermitPurple {
         currentDay = 1;
     }
 
-    //used in F7
-     public Graph<String,Integer> getMaps(){
+    // used in F7
+    public Graph<String, Integer> getMaps() {
         return maps;
     }
 
@@ -50,8 +50,8 @@ public class HermitPurple {
         this.MapName = MapName;
     }
 
-    //Player must have D drive to run this program
-    public void setFileDirectory(){
+    // Player must have D drive to run this program
+    public void setFileDirectory() {
         directoryPath = "D:/JOJOLands/" + MapName + " directory";
         File directory = new File(directoryPath);
         if (!directory.exists()) {
@@ -105,7 +105,7 @@ public class HermitPurple {
         adjacentVertices = maps.getNeighbours(currentLocation);
         System.out.println("Current Location: " + currentLocation);
         System.out.print("[1] Move to: \n\t");
-        
+
         for (int i = 0; i < adjacentVertices.size(); i++) {
             char alphabet = (char) (i + 'A');
             System.out.printf("[%c] %-23s", alphabet, adjacentVertices.get(i));
@@ -116,7 +116,8 @@ public class HermitPurple {
     // travel back to the most recent location visited
     public void Back() {
         if (!temp.isEmpty()) {
-            visitedLocation.pop();// repeated currentLocation twice since Select() will push in currentLocation again
+            visitedLocation.pop();// repeated currentLocation twice since Select() will push in currentLocation
+                                  // again
             holdTopLocation = visitedLocation.pop();
             previousLocation = visitedLocation.peek();
         }
@@ -129,7 +130,8 @@ public class HermitPurple {
             visitedLocation.push(holdTopLocation);
             moveForward();
         } else if (input.equalsIgnoreCase("no")) { // go to new location
-            currentLocation = visitedLocation.pop(); // clears a player’s forward history when he decides to move to a new location
+            currentLocation = visitedLocation.pop(); // clears a player’s forward history when he decides to move to a
+                                                     // new location
             displayMenu();
             Select();
         } else {
@@ -168,7 +170,6 @@ public class HermitPurple {
         temp.clear();
         previousLocation = null;
         displayMenu();
-        Select();
     }
 
     // starts at the Town Hall at the start of each day
@@ -192,7 +193,8 @@ public class HermitPurple {
         return daysofWeek[index];
     }
 
-    // advance to the next day by selecting the corresponding option at the Town Hall
+    // advance to the next day by selecting the corresponding option at the Town
+    // Hall
     public void advanceToNextDay() {
         start();
     }
@@ -221,11 +223,24 @@ public class HermitPurple {
     // Used to terminate the program
     public void Exit() {
         System.out.println("Exiting the game...");
-        // Perform any necessary cleanup or saving operations here
+        cleanFiles(directoryPath);
         System.exit(0);
     }
 
-     public void LoadGame(String mapIdentifier) {
+    private void cleanFiles(String directoryPath) {
+        File directory = new File(directoryPath);
+        File[] files = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    file.delete();
+                }
+            }
+        }
+    }
+
+    public void LoadGame(String mapIdentifier) {
         // Create a directory path for the game progress
         String directoryPath = mapIdentifier;
 
@@ -251,17 +266,11 @@ public class HermitPurple {
         }
     }
 
-
-
     public void Select() {
         while (true) {
             System.out.print("Select: ");
             String input = sc.nextLine().toUpperCase();
             System.out.println("================================================================================");
-
-            adjacentVertices = maps.getNeighbours(currentLocation);
-            visitedLocation.push(currentLocation);
-            previousLocation = currentLocation;
 
             if (input.isEmpty() || input.equals("1")) {
                 System.out.println("Please enter a valid selection.");
@@ -271,6 +280,10 @@ public class HermitPurple {
             // if the player choose moveTo
             // move to adjacent locations connected from current location
             if (input.length() > 1 && input.length() < 3) {
+                adjacentVertices = maps.getNeighbours(currentLocation);
+                visitedLocation.push(currentLocation);
+                previousLocation = currentLocation;
+
                 int optionIndex = input.charAt(1) - 'A';
                 if (optionIndex >= 0 && optionIndex < adjacentVertices.size()) {
                     selection = adjacentVertices.get(optionIndex);
@@ -289,11 +302,11 @@ public class HermitPurple {
                             System.out.println("[4] Exit");
                         }
                     } else {
-                            moveTo();
-                            displayMission();
-                            System.out.println("[" + lastNumber + "] Back" + "(" + previousLocation + ")");
-                            System.out.println("[" + (lastNumber + 1) + "] Back To Town Hall");
-                        }
+                        moveTo();
+                        displayMission();
+                        System.out.println("[" + lastNumber + "] Back" + "(" + previousLocation + ")");
+                        System.out.println("[" + (lastNumber + 1) + "] Back To Town Hall");
+                    }
                 }
                 visitedLocation.push(currentLocation); // can only be updated during this time
             }
@@ -301,30 +314,45 @@ public class HermitPurple {
             else {
                 switch (currentLocation) {
                     case "Town Hall":
-                        switch (input) {
-                            case "2":
-                                advanceToNextDay();
-                                displayMenu();
-                                break;
+                        if (previousLocation == null) {
+                            switch (input) {
+                                case "2":
+                                    advanceToNextDay();
+                                    displayMenu();
+                                    break;
 
-                            case "3":
-                                SaveGame(MapName);
-                                displayMenu();
-                                break;
+                                case "3":
+                                    SaveGame(MapName);
+                                    displayMenu();
+                                    break;
 
-                            case "4":
-                                if (previousLocation == null) {
+                                case "4":
                                     Exit();
-                                } else {
-                                    Back();
-                                }
-                                break;
+                                    break;
+                            }
+                            break;
+                        } else {
+                            switch (input) {
+                                case "2":
+                                    advanceToNextDay();
+                                    displayMenu();
+                                    break;
 
-                            case "5":
-                                Exit();
-                                break;
+                                case "3":
+                                    SaveGame(MapName);
+                                    displayMenu();
+                                    break;
+
+                                case "4":
+                                    Back();
+                                    break;
+
+                                case "5":
+                                    Exit();
+                                    break;
+                            }
+                            break;
                         }
-                        break;
 
                     case "Morioh Grand Hotel":
                         switch (input) {
@@ -389,8 +417,8 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -433,8 +461,8 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -474,8 +502,8 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                 MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                 milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -514,8 +542,8 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                 MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                 milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -553,8 +581,8 @@ public class HermitPurple {
                                 break;
 
                             case "5":
-                                MilagroMan milargoMan = new MilagroMan(currentLocation);
-                                milargoMan.modifyFoodPrices();
+                                MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.enterExperimentalMode();
                                 break;
 
                             case "6":
@@ -629,26 +657,26 @@ public class HermitPurple {
                         break;
 
                     case "Joestar Mansion":
-                    switch (input){
-                        case "2":
+                        switch (input) {
+                            case "2":
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
                                 visitedLocation.pop();
                                 displayMenu();
                                 break;
-                        
-                        case "3":
+
+                            case "3":
                                 TheGoldenSpirit tgs = new TheGoldenSpirit();
                                 tgs.LCAJoestarFamily();
                                 displayMenu();
                                 break;
 
-                        case "4":
+                            case "4":
                                 Back();
                                 break;
 
-                        case "5":
+                            case "5":
                                 BackTownHall();
                                 break;
                         }
@@ -675,6 +703,9 @@ public class HermitPurple {
                                 break;
                         }
                 }
+                adjacentVertices = maps.getNeighbours(currentLocation);
+                visitedLocation.push(currentLocation);
+                previousLocation = currentLocation;
                 break;
             }
         }
@@ -781,7 +812,8 @@ public class HermitPurple {
     }
 
 }
-class GameState implements Serializable{ // please dont remove this because it is for the save and load -Darwish-
+
+class GameState implements Serializable { // please dont remove this because it is for the save and load -Darwish-
     private Stack<String> visitedLocation;
     private String currentLocation;
     private String previousLocation;

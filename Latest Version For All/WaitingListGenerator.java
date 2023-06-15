@@ -39,11 +39,11 @@ public class WaitingListGenerator {
         SavageGardenWaitingList = new ArrayList<>();
         this.currentDay = currentDay;
         MENU = new Menu();
+        MENU.loadMenu(currentDay == 1);
         this.rand = new Random();
     }
 
-    // need to call in HermitPurple whenever start a new day, cannot call at other
-    // time
+    // need to call in HermitPurple whenever start a new day, cannot call at other time
     public void addCustomerToWaitingList() {
         assignArrivalTimes();
 
