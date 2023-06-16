@@ -542,8 +542,8 @@ public class TheJoestars {
                     // Assign a new restaurant since it's the same as the previous one and not/ saturday, dad next visit is unknown
                     do {
                         setNewRestaurant();
-                        Map<String, Double> newMenu = MENU.getMenuByRestaurant(orderList[11]);
                         orderList[11] = getNewRestaurant(); // new restaurant
+                        Map<String, Double> newMenu = MENU.getMenuByRestaurant(orderList[11]);
                         orderList[12] = getRandomOrder(newMenu); // new food
                         orderList[13] = Double.toString(newMenu.get(orderList[12])); // new price
                         orderList[15] = day + "," + orderList[12] + "," + orderList[11] + "," + orderList[13];

@@ -115,8 +115,6 @@ public class HermitPurple {
     // travel back to the most recent location visited
     public void Back() {
         if (!temp.isEmpty()) {
-            visitedLocation.pop();// repeated currentLocation twice since Select() will push in currentLocation
-                                  // again
             holdTopLocation = visitedLocation.pop();
             previousLocation = visitedLocation.peek();
         }
@@ -187,13 +185,12 @@ public class HermitPurple {
     }
 
     private String getDay(int day) {
-        String[] daysofWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+        String[] daysofWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         int index = (day - 1) % 7; // modulo 7 to handle days beyond a week
         return daysofWeek[index];
     }
 
-    // advance to the next day by selecting the corresponding option at the Town
-    // Hall
+    // advance to the next day by selecting the corresponding option at the Town Hall
     public void advanceToNextDay() {
         start();
     }
@@ -276,8 +273,7 @@ public class HermitPurple {
                 continue; // Continue to loop back and ask for input again
             }
 
-            // if the player choose moveTo
-            // move to adjacent locations connected from current location
+            // if the player choose moveTo move to adjacent locations connected from current location
             if (input.length() > 1 && input.length() < 3) {
                 adjacentVertices = maps.getNeighbours(currentLocation);
                 visitedLocation.push(currentLocation);
