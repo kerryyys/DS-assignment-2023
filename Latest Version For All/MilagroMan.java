@@ -1,5 +1,5 @@
 package JOJOLands.JOJO;
-
+import javax.swing.*;
 import java.util.*;
 import java.io.*;
 
@@ -26,10 +26,9 @@ class Food {
 
 class Restaurant {
     private int currentDay;
-    private Menu menu;
+    private viewMenu menu;
     private Resident resident;
     private String currentLocation;
-    private static List<String[]> MilagroManSalesInformation;
     private Map<String, List<Food>> salesByDay;
     private Map<String, List<Food>> originalSalesByDay;
 
@@ -58,42 +57,33 @@ public class MilagroMan {
         this.currentDay = currentDay;
         this.foodName = "";
         this.foodPrices = 0.00;
-        this.sDay = 0;
-        this.eDay = 0;
-        this.sc = new Scanner(System.in);
+        this.sDay = sDay;
+        this.eDay = eDay;
         this.restaurant = new Restaurant(currentLocation);
         this.salesData = new HashMap<>();
     }
     public void enterExperimentalMode() {
-        Scanner scanner = new Scanner(System.in);
+        sc = new Scanner(System.in);
         while (true) {
-            System.out.println("=======================================================================");
             System.out.println("Restaurant: " + currentLocation + " (Milagro Man mode) ");
             System.out.println("[1] Modify Food Prices");
-            System.out.println("[2] Add Food");
-            System.out.println("[3] Remove Food");
-            System.out.println("[4] View Sales Information");
-            System.out.println("[5] Exit Milagro Man");
+            System.out.println("[2] View Sales Information");
+            System.out.println("[3] Exit Milagro Man");
             System.out.print("Select: ");
-            String option = scanner.nextLine();
+            String option = sc.nextLine();
 
             switch (option) {
                 case "1":
                     modifyFoodPrice();
                     break;
                 case "2":
-                    addFood();
+                    viewSalesInformation();
                     break;
                 case "3":
-                    removeFood();
-                case "4":
-                    viewSalesInformation();
-                case "5":
                     System.out.println("=======================================================================");
                     return;
                 default:
                     System.out.println("Invalid option. Please try again.");
-                    break;
             }
         }
     }
@@ -180,55 +170,10 @@ public class MilagroMan {
                 }
             }
             System.out.println("Food price modified successfully!");
-    }
-    private void addFood() {
         System.out.println("=======================================================================");
-        System.out.print("Enter the food name: ");
-        this.foodName = sc.nextLine();
-        System.out.print("Enter the price: $");
-        this.foodPrices = sc.nextDouble();
-        sc.nextLine();
-        System.out.print("Enter the starting day: ");
-        this.sDay = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Enter the ending day: ");
-        this.eDay = sc.nextInt();
-        sc.nextLine();
-        Map<String, SalesRecord> newFoodSales = new HashMap<>();
-        int quantity = new Random().nextInt(8) + 1;
-        for (int day = sDay + 1; day <= eDay; day++) {
-            String dayKey = String.valueOf(day);
-            newFoodSales.put(String.valueOf(day), new SalesRecord(quantity, foodPrices));
-            Map<String, SalesRecord> salesByFood = salesData.computeIfAbsent(currentLocation, k -> new HashMap<>()).
-                    computeIfAbsent(dayKey, k -> new HashMap<>());
-            salesByFood.put(foodName, newFoodSales.get(dayKey));
-        }
-        System.out.println("Food added successfully!");
-    }
-    private void removeFood() {
-        System.out.println("=======================================================================");
-        System.out.print("Enter the food name: ");
-        this.foodName = sc.nextLine();
-        System.out.print("Enter the starting day: ");
-        this.sDay = sc.nextInt();
-        sc.nextLine();
-        System.out.print("Enter the ending day: ");
-        this.eDay = sc.nextInt();
-        sc.nextLine();
-        for (int day = sDay + 1; day <= eDay; day++) {
-            String dayKey = String.valueOf(day);
-            Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>()).
-                    getOrDefault(dayKey, new HashMap<>());
-            // Remove the food from salesByFood if it exists
-            if (salesByFood.containsKey(foodName)) {
-                salesByFood.remove(foodName);
-                System.out.println("Food " + foodName + " removed from the menu for day " + day);
-            } else {
-                System.out.println("Food " + foodName + " not found on the menu for day " + day);
-            }
-        }
     }
     private void viewSalesInformation() {
+        sc = new Scanner(System.in);
         String selection = "";
         while (true) {
             System.out.println("=======================================================================");
@@ -272,15 +217,14 @@ public class MilagroMan {
     }
 
     public void viewSales() {
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         System.out.println("Enter day : ");
         int day = sc.nextInt();
+        sc.nextLine();
         // Retrieve the sales data for the specified day and location
-        if (day >= sDay + 1 && day <= eDay) {
             String dayKey = String.valueOf(day);
             Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>()).getOrDefault(dayKey, new HashMap<>());
             // Print the sales table header
-            System.out.println("======================================================================");
             System.out.println("Restaurant: " + currentLocation);
             System.out.println("Day " + day + " Sales");
             System.out.println("+-------------------------------------+----------+-------------+");
@@ -295,8 +239,13 @@ public class MilagroMan {
                 String food = entry.getKey();
                 SalesRecord record = entry.getValue();
                 double totalPrice = 0.00;
+                if (food.equals(foodName)) {
+                    quantity = record.getQuantity();
+                    totalPrice = foodPrices * quantity;
+                } else {
                     quantity = record.getQuantity();
                     totalPrice = record.getPrice();
+                }
                 System.out.printf("| %-35s | %8d | $%9.2f  |\n", food, quantity, totalPrice);
                 totalSales += totalPrice;
             }
@@ -304,12 +253,11 @@ public class MilagroMan {
             System.out.println("+-------------------------------------+----------+-------------+");
             System.out.printf("| Total Sales                         |          | $%9.2f  |\n", totalSales);
             System.out.println("+-------------------------------------+----------+-------------+");
-            System.out.println("======================================================================");
-        }
+        System.out.println();
     }
 
     public void minimumSales() {
-        Map<String, SalesRecord> totalSalesByFood = new HashMap<>();
+        List<Map<String, SalesRecord>> salesByFoodList = new ArrayList<>();
         System.out.print("Enter Start Day: ");
         sDay = sc.nextInt();
         sc.nextLine();
@@ -320,10 +268,9 @@ public class MilagroMan {
         if (eDay >= currentDay) {
             System.out.println("End day should until the current day.");
         }
-        for (int day = sDay + 1; day <= eDay; day++){
+        for (int day = sDay; day <= eDay; day++) {
             String dayKey = String.valueOf(day);
-            Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>())
-                    .getOrDefault(dayKey, new HashMap<>());
+            Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>()).getOrDefault(dayKey, new HashMap<>());
             int quantity = 0;
             double price = 0.0;
             for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
@@ -331,39 +278,26 @@ public class MilagroMan {
                 SalesRecord record = entry.getValue();
                 if (food.equals(foodName)) {
                     quantity = record.getQuantity();
-                    price = foodPrices;
+                    price = record.getPrice() * quantity;
                 } else {
                     quantity = record.getQuantity();
                     price = record.getPrice();
                 }
-                if (totalSalesByFood.containsKey(food)) {
-                    if (food.equals(foodName)) {
-                        double updatedTotalPrice = totalSalesByFood.get(foodName).getPrice() + foodPrices;
-                        totalSalesByFood.put(foodName, new SalesRecord(quantity, updatedTotalPrice));
-                        // Update the original SalesRecord with the updated price
-                        record.setPrice(updatedTotalPrice);
-                    } else {
-                        double updatedTotalPrice = totalSalesByFood.get(food).getPrice() + price;
-                        totalSalesByFood.put(food, new SalesRecord(quantity, updatedTotalPrice));
-                        // Update the original SalesRecord with the updated price
-                        record.setPrice(updatedTotalPrice);
-                    }
-                } else {
-                    totalSalesByFood.put(food, new SalesRecord(quantity, price));
-                }
+                salesByFoodList.add(salesByFood);
             }
         }
         double minimumSales = Double.MAX_VALUE;
         String foodWithMinimumSales = "";
-        for (Map.Entry<String, SalesRecord> entry : totalSalesByFood.entrySet()) {
-            String food = entry.getKey();
-            double foodSales = entry.getValue().getPrice();
-            if (foodSales < minimumSales) {
-                minimumSales = foodSales;
-                foodWithMinimumSales = food;
+        for (Map<String, SalesRecord> salesByFood : salesByFoodList) {
+            for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
+                String food = entry.getKey();
+                double foodSales = entry.getValue().getPrice();
+                if (foodSales < minimumSales) {
+                    minimumSales = foodSales;
+                    foodWithMinimumSales = food;
+                }
             }
         }
-        System.out.println("======================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Minimum Sales (Day " + sDay + " - " + eDay + ")");
         System.out.println("+-------------------------------------+-------------+");
@@ -371,11 +305,11 @@ public class MilagroMan {
         System.out.println("+-------------------------------------+-------------+");
         System.out.printf("| %-35s | $%9.2f  |\n", foodWithMinimumSales, minimumSales);
         System.out.println("+-------------------------------------+-------------+");
-        System.out.println("======================================================");
+        System.out.println();
     }
 
     public void maximumSales() {
-        Map<String, SalesRecord> totalSalesByFood = new HashMap<>();
+        List<Map<String, SalesRecord>> salesByFoodList = new ArrayList<>();
         System.out.print("Enter Start Day: ");
         sDay = sc.nextInt();
         sc.nextLine();
@@ -383,7 +317,7 @@ public class MilagroMan {
         eDay = sc.nextInt();
         sc.nextLine();
         System.out.println();
-        for (int day = sDay + 1; day <= eDay; day++) {
+        for (int day = sDay; day <= eDay; day++) {
             String dayKey = String.valueOf(day);
             Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>())
                     .getOrDefault(dayKey, new HashMap<>());
@@ -399,32 +333,21 @@ public class MilagroMan {
                     quantity = record.getQuantity();
                     price = record.getPrice();
                 }
-                if (totalSalesByFood.containsKey(food)) {
-                    if (food.equals(foodName)) {
-                        double updatedTotalPrice = totalSalesByFood.get(foodName).getPrice() + foodPrices;
-                        totalSalesByFood.put(foodName, new SalesRecord(quantity, updatedTotalPrice));
-                        record.setPrice(updatedTotalPrice);
-                    } else {
-                        double updatedTotalPrice = totalSalesByFood.get(food).getPrice() + price;
-                        totalSalesByFood.put(food, new SalesRecord(quantity, updatedTotalPrice));
-                        record.setPrice(updatedTotalPrice);
-                    }
-                } else {
-                    totalSalesByFood.put(food, new SalesRecord(quantity, price));
-                }
+                salesByFoodList.add(salesByFood);
             }
         }
         double maximumSales = 0.0;
         String foodWithMaximumSales = "";
-        for (Map.Entry<String, SalesRecord> entry : totalSalesByFood.entrySet()) {
-            String food = entry.getKey();
-            double foodSales = entry.getValue().getPrice();
-            if (foodSales > maximumSales) {
-                maximumSales = foodSales;
-                foodWithMaximumSales = food;
+        for (Map<String, SalesRecord> salesByFood : salesByFoodList) {
+            for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
+                String food = entry.getKey();
+                double foodSales = entry.getValue().getPrice();
+                if (foodSales > maximumSales) {
+                    maximumSales = foodSales;
+                    foodWithMaximumSales = food;
+                }
             }
         }
-        System.out.println("======================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Maximum Sales (Day " + sDay + " - " + eDay + ")");
         System.out.println("+-------------------------------------+-------------+");
@@ -432,11 +355,11 @@ public class MilagroMan {
         System.out.println("+-------------------------------------+-------------+");
         System.out.printf("| %-35s | $%9.2f  |\n", foodWithMaximumSales, maximumSales);
         System.out.println("+-------------------------------------+-------------+");
-        System.out.println("======================================================");
+        System.out.println();
     }
 
     public void topKHighestSales() {
-        Map<String, SalesRecord> totalSalesByFood = new HashMap<>();
+        List<Map<String, SalesRecord>> salesByFoodList = new ArrayList<>();
         System.out.print("Enter Start Day: ");
         sDay = sc.nextInt();
         sc.nextLine();
@@ -447,7 +370,7 @@ public class MilagroMan {
         if (eDay >= currentDay) {
             System.out.println("End day should until the current day.");
         }
-        for (int day = sDay + 1; day <= eDay; day++) {
+        for (int day = sDay; day <= eDay; day++) {
             String dayKey = String.valueOf(day);
             Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>())
                     .getOrDefault(dayKey, new HashMap<>());
@@ -464,51 +387,42 @@ public class MilagroMan {
                     quantity = record.getQuantity();
                     price = record.getPrice();
                 }
-                if (totalSalesByFood.containsKey(food)) {
-                    if (food.equals(foodName)) {
-                        double updatedTotalPrice = totalSalesByFood.get(foodName).getPrice() + foodPrices;
-                        totalSalesByFood.put(foodName, new SalesRecord(quantity, updatedTotalPrice));
-                        record.setPrice(updatedTotalPrice);
-                    } else {
-                        double updatedTotalPrice = totalSalesByFood.get(food).getPrice() + price;
-                        totalSalesByFood.put(food, new SalesRecord(quantity, updatedTotalPrice));
-                        record.setPrice(updatedTotalPrice);
-                    }
-                } else {
-                    totalSalesByFood.put(food, new SalesRecord(quantity, price));
-                    record.setPrice(price);
-                }
+                salesByFoodList.add(salesByFood);
             }
         }
         Map.Entry<String, SalesRecord> foodWithHighestPrice = null;
-        for (Map.Entry<String, SalesRecord> entry : totalSalesByFood.entrySet()) {
-            if (foodWithHighestPrice == null || entry.getValue().getPrice() > foodWithHighestPrice.getValue().getPrice()) {
-                foodWithHighestPrice = entry;
-            }
-        }
         Map.Entry<String, SalesRecord> foodWithHighestQuantity = null;
-        for (Map.Entry<String, SalesRecord> entry : totalSalesByFood.entrySet()) {
-            if (foodWithHighestQuantity == null || entry.getValue().getQuantity() > foodWithHighestQuantity.getValue().getQuantity()) {
-                foodWithHighestQuantity = entry;
+        for (Map<String, SalesRecord> salesByFood : salesByFoodList) {
+            for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
+                if (foodWithHighestPrice == null || entry.getValue().getPrice() > foodWithHighestPrice.getValue().getPrice()) {
+                    foodWithHighestPrice = entry;
+                }
+            }
+            for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
+                if (foodWithHighestQuantity == null || entry.getValue().getQuantity() > foodWithHighestQuantity.getValue().getQuantity()) {
+                    foodWithHighestQuantity = entry;
+                }
             }
         }
-        System.out.println("======================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Top K Highest Sales (Day " + sDay + " - " + eDay + ")");
-        System.out.println("---------------------------------------------------------");
+        System.out.println();
+        System.out.println("----------------------------------------------------------------");
+        System.out.println();
         System.out.println("Food with Highest Total Price:");
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("| Food                                | Quantity | Price       |");
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.printf("| %-35s | %8d | $%9.2f  |\n", foodWithHighestPrice.getKey(), foodWithHighestPrice.getValue().getQuantity(), foodWithHighestPrice.getValue().getPrice());
         System.out.println("+-------------------------------------+----------+-------------+");
+        System.out.println();
         System.out.println("Food with Highest Quantity:");
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("| Food                                | Quantity | Price       |");
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.printf("| %-35s | %8d | $%9.2f  |\n", foodWithHighestQuantity.getKey(), foodWithHighestQuantity.getValue().getQuantity(), foodWithHighestQuantity.getValue().getPrice());
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.println("======================================================");
+        System.out.println();
     }
 
     public void totalAndAverageSales() {
@@ -524,36 +438,30 @@ public class MilagroMan {
         if (eDay >= currentDay) {
             System.out.println("End day should until the current day.");
         }
-        int quantity = 0;
-        double price = 0.0;
         for (int day = sDay; day <= eDay; day++) {
             String dayKey = String.valueOf(day);
             Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>())
                     .getOrDefault(dayKey, new HashMap<>());
+
+            // Iterate over the sales data for each day and update the total sales
             for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
                 String food = entry.getKey();
                 SalesRecord record = entry.getValue();
-                int updatedQuantity = 0;
+
+                int quantity = record.getQuantity();
+                double price = record.getPrice();
                 double updatedTotalPrice = 0.0;
-                if (food.equals(foodName)) {
-                    quantity = record.getQuantity();
-                    price = foodPrices;
-                } else {
-                    quantity = record.getQuantity();
-                    price = record.getPrice();
-                }
-                if (totalSalesByFood.containsKey(food)) {
-                    if (food.equals(foodName)) {
-                        SalesRecord existingRecord = totalSalesByFood.get(foodName);
-                        updatedQuantity = existingRecord.getQuantity() + quantity;
-                        updatedTotalPrice = existingRecord.getPrice() + foodPrices * quantity;
-                        totalSalesByFood.put(food, new SalesRecord(updatedQuantity, updatedTotalPrice));
-                    } else {
-                        SalesRecord existingRecord = totalSalesByFood.get(food);
-                        updatedQuantity = existingRecord.getQuantity() + quantity;
-                        updatedTotalPrice = existingRecord.getPrice() + price * quantity;
-                        totalSalesByFood.put(food, new SalesRecord(updatedQuantity, updatedTotalPrice));
-                    }
+
+                if (totalSalesByFood.containsKey(foodName)) {
+                    SalesRecord existingRecord = totalSalesByFood.get(foodName);
+                    int updatedQuantity = existingRecord.getQuantity() + quantity;
+                    updatedTotalPrice = existingRecord.getPrice() + foodPrices * quantity;
+                    totalSalesByFood.put(food, new SalesRecord(updatedQuantity, updatedTotalPrice));
+                } else if (totalSalesByFood.containsKey(food)){
+                    SalesRecord existingRecord = totalSalesByFood.get(food);
+                    int updatedQuantity = existingRecord.getQuantity() + quantity;
+                    updatedTotalPrice = existingRecord.getPrice() + price;
+                    totalSalesByFood.put(food, new SalesRecord(updatedQuantity, updatedTotalPrice));
                 } else {
                     totalSalesByFood.put(food, new SalesRecord(quantity, price));
                 }
@@ -565,23 +473,21 @@ public class MilagroMan {
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.println("| Food                                | Quantity | Total Price |");
         System.out.println("+-------------------------------------+----------+-------------+");
+
         for (Map.Entry<String, SalesRecord> entry : totalSalesByFood.entrySet()) {
             String food = entry.getKey();
             SalesRecord record = entry.getValue();
-            double totalFoodPrice = 0.0;
-            if (food.equals(foodName)) {
-                quantity = record.getQuantity();
-                totalFoodPrice = foodPrices * quantity;
-            } else {
-                quantity = record.getQuantity();
-                totalFoodPrice = record.getPrice();
-            }
+
+            int quantity = record.getQuantity();
+            double totalFoodPrice = record.getPrice();
+
             System.out.printf("| %-35s | %8d | $%9.2f  |\n", food, quantity, totalFoodPrice);
         }
+
             System.out.println("+-------------------------------------+----------+-------------+");
             System.out.printf("| Total Sales                         |          | $%9.2f  |\n", totalPrice);
             System.out.printf("| Average Sales                       |          | $%9.2f  |\n", totalPrice / totalSalesByFood.size());
             System.out.println("+-------------------------------------+----------+-------------+");
-            System.out.println("======================================================================");
+            System.out.println();
     }
 }
