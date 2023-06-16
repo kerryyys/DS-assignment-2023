@@ -355,7 +355,6 @@ public class HermitPurple {
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
                                 break;
@@ -363,14 +362,12 @@ public class HermitPurple {
                             case "3":
                                 TheHand theHand = new TheHand();
                                 theHand.display(maps);
-                                visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
                                 break;
 
                             case "4":
                                 ThusSpokeRohanKishibe spoke = new ThusSpokeRohanKishibe(maps);
-                                visitedLocation.pop();
                                 previousLocation = visitedLocation.peek();
                                 displayMenu();
                                 break;
@@ -391,15 +388,12 @@ public class HermitPurple {
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayWaitingList();
                                 pearlJam.displayList();
-                                visitedLocation.pop(); // to pop the currentLocation that have been added since it will
-                                                       // back to here to avoid previous location=currentLocation
                                 displayMenu();
                                 break;
 
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -407,7 +401,6 @@ public class HermitPurple {
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -437,14 +430,12 @@ public class HermitPurple {
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayWaitingList();
                                 pearlJam.displayList();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -452,7 +443,6 @@ public class HermitPurple {
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -479,14 +469,12 @@ public class HermitPurple {
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayWaitingList();
                                 pearlJam.displayList();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -494,7 +482,6 @@ public class HermitPurple {
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -520,14 +507,12 @@ public class HermitPurple {
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayWaitingList();
                                 pearlJam.displayList();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -535,7 +520,6 @@ public class HermitPurple {
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -561,21 +545,18 @@ public class HermitPurple {
                                 PearlJam pearlJam = new PearlJam(currentLocation, day);
                                 pearlJam.displayWaitingList();
                                 pearlJam.displayList();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
                                 viewMenu view = new viewMenu(currentLocation);
                                 view.displayMenu(currentLocation);
-                                visitedLocation.pop();
                                 displayMenu();
 
                             case "4":
                                 MoodyBlue moodyBlues = new MoodyBlue(hermitPurple, currentLocation, currentDay);
                                 moodyBlues.readSalesDataFromFile();
                                 moodyBlues.ViewSalesInformation();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -600,21 +581,18 @@ public class HermitPurple {
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "3":
                                 RedHotChiliPepper rhcp = new RedHotChiliPepper();
                                 rhcp.display(maps);
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
                             case "4":
                                 AnotherOneBiteTheDusts biteTheDusts = new AnotherOneBiteTheDusts();
                                 biteTheDusts.checkBiteTheClass();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -634,7 +612,6 @@ public class HermitPurple {
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -642,7 +619,6 @@ public class HermitPurple {
                                 // Extra feature 4
                                 DirtyDeedsDoneDirtCheap DDDDC = new DirtyDeedsDoneDirtCheap(maps);
                                 DDDDC.RunDDDDC();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -662,7 +638,6 @@ public class HermitPurple {
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
@@ -690,7 +665,6 @@ public class HermitPurple {
                                 HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
-                                visitedLocation.pop();
                                 displayMenu();
                                 break;
 
