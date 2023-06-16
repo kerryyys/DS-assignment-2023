@@ -414,6 +414,7 @@ public class HermitPurple {
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
                                 milargoMan.enterExperimentalMode();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -458,6 +459,7 @@ public class HermitPurple {
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
                                 milargoMan.enterExperimentalMode();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -499,6 +501,7 @@ public class HermitPurple {
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
                                 milargoMan.enterExperimentalMode();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -539,6 +542,7 @@ public class HermitPurple {
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
                                 milargoMan.enterExperimentalMode();
+                                displayMenu();
                                 break;
 
                             case "6":
@@ -578,6 +582,7 @@ public class HermitPurple {
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
                                 milargoMan.enterExperimentalMode();
+                                displayMenu();
                                 break;
 
                             case "6":
