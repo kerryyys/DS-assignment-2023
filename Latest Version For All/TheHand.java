@@ -1,9 +1,10 @@
-package JOJOLands.JOJO;
+package JOJOLand;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
-class EdgeTheHand {
+class EdgeTheHand implements Comparable<EdgeTheHand> {
     String vertex1;
     String vertex2;
     int weight;
@@ -12,6 +13,11 @@ class EdgeTheHand {
         this.vertex1 = vertex1;
         this.vertex2 = vertex2;
         this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(EdgeTheHand other) {
+        return Integer.compare(this.weight, other.weight);
     }
 }
 
@@ -30,32 +36,42 @@ public class TheHand extends Player{
         return edges;
     }
 
-    public static List<EdgeTheHand> prim(String graphStr, String rootVertex) {
-        List<EdgeTheHand> edges = assignGraph(graphStr);
-        List<EdgeTheHand> prims = new ArrayList<>();
-        List<String> visited = new ArrayList<>();
-        visited.add(rootVertex);
+   public static List<EdgeTheHand> prim(String graphStr, String rootVertex) {
+    List<EdgeTheHand> edges = assignGraph(graphStr);
+    List<EdgeTheHand> prims = new ArrayList<>();
+    List<String> visited = new ArrayList<>();
+    visited.add(rootVertex);
 
-        while (visited.size() < getTotalVertices(edges)) {
-            int minWeight = Integer.MAX_VALUE;
-            EdgeTheHand minEdge = null;
+    PriorityQueue<EdgeTheHand> minHeap = new PriorityQueue<>();
+    minHeap.addAll(getEdgesConnectedToVertex(edges, rootVertex));
 
-            for (EdgeTheHand edge : edges) {
-                boolean isConnectedToVisited = visited.contains(edge.vertex1) ^ visited.contains(edge.vertex2);//xor to see connected to either vertex
-                if (isConnectedToVisited && edge.weight < minWeight) {
-                    minWeight = edge.weight;
-                    minEdge = edge;
-                }
-            }
+    while (visited.size() < getTotalVertices(edges)) {
+        EdgeTheHand minEdge = minHeap.poll();
 
-            if (minEdge != null) {   
-                visited.add(visited.contains(minEdge.vertex1) ? minEdge.vertex2 : minEdge.vertex1);//checks which vertex is already visisted or not
+        if (minEdge != null) {
+            String newVertex = visited.contains(minEdge.vertex1) ? minEdge.vertex2 : minEdge.vertex1;
+
+            if (!visited.contains(newVertex)) {
+                visited.add(newVertex);
                 prims.add(minEdge);
+                minHeap.addAll(getEdgesConnectedToVertex(edges, newVertex));
             }
         }
-
-        return prims;
     }
+
+    return prims;
+}
+
+private static List<EdgeTheHand> getEdgesConnectedToVertex(List<EdgeTheHand> edges, String vertex) {
+    List<EdgeTheHand> connectedEdges = new ArrayList<>();
+    for (EdgeTheHand edge : edges) {
+        if (edge.vertex1.equals(vertex) || edge.vertex2.equals(vertex)) {
+            connectedEdges.add(edge);
+        }
+    }
+    return connectedEdges;
+}
+
 
     private static int getTotalVertices(List<EdgeTheHand> edges) {
         ArrayList<String> vertices = new ArrayList<>();
