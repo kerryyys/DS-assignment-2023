@@ -388,7 +388,7 @@ public class MilagroMan {
     }
 
     public void topKHighestSales() {
-        List<Map<String, SalesRecord>> salesByFoodList = new ArrayList<>();
+        Map<String, SalesRecord> totalSalesByFood = new HashMap<>();
         System.out.print("Enter Start Day: ");
         sDay = sc.nextInt();
         sc.nextLine();
@@ -409,28 +409,34 @@ public class MilagroMan {
                 SalesRecord record = entry.getValue();
                 int quantity = record.getQuantity();
                 double price = record.getPrice();
-                if (food.equals(foodName)) {
-                    quantity = record.getQuantity();
-                    price = foodPrices * quantity;
-                    record.setPrice(price);
+                double updatedTotalPrice = 0.0;
+                int updatedQuantity = 0;
+                if (totalSalesByFood.containsKey(food)) {
+                    // If it exists, update the total price
+                    SalesRecord existingRecord = totalSalesByFood.get(food);
+                    updatedQuantity = existingRecord.getQuantity() + quantity;
+                    updatedTotalPrice = existingRecord.getPrice() + price;
+                    totalSalesByFood.put(food, new SalesRecord(updatedQuantity, updatedTotalPrice));
+                } else {
+                    // If it's a new food, add it to the total sales map
+                    totalSalesByFood.put(food, new SalesRecord(quantity, price));
                 }
-                salesByFoodList.add(salesByFood);
             }
         }
-        Map.Entry<String, SalesRecord> foodWithHighestPrice = null;
-        Map.Entry<String, SalesRecord> foodWithHighestQuantity = null;
-        for (Map<String, SalesRecord> salesByFood : salesByFoodList) {
-            for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
+            Map.Entry<String, SalesRecord> foodWithHighestPrice = null;
+            for (Map.Entry<String, SalesRecord> entry : totalSalesByFood.entrySet()) {
                 if (foodWithHighestPrice == null || entry.getValue().getPrice() > foodWithHighestPrice.getValue().getPrice()) {
                     foodWithHighestPrice = entry;
                 }
             }
-            for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
+
+            // Find the food with the highest quantity
+            Map.Entry<String, SalesRecord> foodWithHighestQuantity = null;
+            for (Map.Entry<String, SalesRecord> entry : totalSalesByFood.entrySet()) {
                 if (foodWithHighestQuantity == null || entry.getValue().getQuantity() > foodWithHighestQuantity.getValue().getQuantity()) {
                     foodWithHighestQuantity = entry;
                 }
             }
-        }
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Top K Highest Sales (Day " + sDay + " - " + eDay + ")");
         System.out.println();
@@ -469,11 +475,7 @@ public class MilagroMan {
             String dayKey = String.valueOf(day);
             Map<String, SalesRecord> salesByFood = salesData.getOrDefault(currentLocation, new HashMap<>())
                     .getOrDefault(dayKey, new HashMap<>());
-                if (salesByFood.equals(foodName)) {
-                    SalesRecord record = salesByFood.get(foodName);
-                    int quantity = record.getQuantity();
-                    record.setPrice(foodPrices * quantity);
-                }
+
             // Iterate over the sales data for each day and update the total sales
             for (Map.Entry<String, SalesRecord> entry : salesByFood.entrySet()) {
                 String food = entry.getKey();
@@ -481,10 +483,13 @@ public class MilagroMan {
                 int quantity = record.getQuantity();
                 double price = record.getPrice();
                 double updatedTotalPrice = 0.0;
+                int updatedQuantity = 0;
                 if (totalSalesByFood.containsKey(food)) {
                     // If it exists, update the total price
-                    updatedTotalPrice = totalSalesByFood.get(food).getPrice() + price;
-                    totalSalesByFood.get(food).setPrice(updatedTotalPrice);
+                    SalesRecord existingRecord = totalSalesByFood.get(food);
+                    updatedQuantity = existingRecord.getQuantity() + quantity;
+                    updatedTotalPrice = existingRecord.getPrice() + price;
+                    totalSalesByFood.put(food, new SalesRecord(updatedQuantity, updatedTotalPrice));
                 } else {
                     // If it's a new food, add it to the total sales map
                     totalSalesByFood.put(food, new SalesRecord(quantity, price));
