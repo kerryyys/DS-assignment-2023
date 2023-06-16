@@ -8,7 +8,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import JOJOLands.AnotherOneBiteTheDusts;
-import JOJOLands.BiteTheDusts;
 
 public class HermitPurple {
     private String currentLocation;
