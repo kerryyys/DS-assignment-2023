@@ -3,45 +3,7 @@ package JOJOLands.JOJO;
 import java.util.*;
 import java.io.*;
 
-class Food {
-    private String name;
-    private double price;
-    public Food(String name, double defaultPrice) {
-        this.name = name;
-        this.price = defaultPrice;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-}
-
-class Restaurant {
-    private int currentDay;
-    private viewMenu menu;
-    private Resident resident;
-    private String currentLocation;
-    private Map<String, List<Food>> salesByDay;
-    private Map<String, List<Food>> originalSalesByDay;
-
-    public Restaurant(String currentLocation) {
-        this.currentLocation = currentLocation;
-        salesByDay = new HashMap<>();
-        originalSalesByDay = new HashMap<>();
-        this.currentDay = currentDay;
-        this.resident = new Resident();
-    }
-}
 public class MilagroMan {
-    private Restaurant restaurant;
     private String currentLocation;
     private Scanner sc;
     private int currentDay;
@@ -59,7 +21,6 @@ public class MilagroMan {
         this.foodPrices = 0.00;
         this.sDay = sDay;
         this.eDay = eDay;
-        this.restaurant = new Restaurant(currentLocation);
         this.salesData = new HashMap<>();
     }
 
