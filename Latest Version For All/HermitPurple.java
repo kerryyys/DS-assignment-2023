@@ -405,6 +405,7 @@ public class HermitPurple {
 
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
                                 milargoMan.enterExperimentalMode();
                                 displayMenu();
                                 break;
@@ -447,6 +448,7 @@ public class HermitPurple {
 
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
                                 milargoMan.enterExperimentalMode();
                                 displayMenu();
                                 break;
@@ -486,6 +488,7 @@ public class HermitPurple {
 
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
                                 milargoMan.enterExperimentalMode();
                                 displayMenu();
                                 break;
@@ -524,6 +527,7 @@ public class HermitPurple {
 
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
                                 milargoMan.enterExperimentalMode();
                                 displayMenu();
                                 break;
@@ -561,6 +565,7 @@ public class HermitPurple {
 
                             case "5":
                                 MilagroMan milargoMan = new MilagroMan(hermitPurple, currentLocation, currentDay);
+                                milargoMan.readSalesDataFromFile();
                                 milargoMan.enterExperimentalMode();
                                 displayMenu();
                                 break;
