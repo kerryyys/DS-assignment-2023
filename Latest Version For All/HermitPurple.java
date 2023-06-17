@@ -739,10 +739,10 @@ public class HermitPurple {
         addMission("Cafe Deux Magots", "View Sales Information");
         addMission("Cafe Deux Magots", "Milagro Man");
 
-        addMission("Liberrio", "View Waiting List and Order Processing List");
-        addMission("Liberrio", "View Menu");
-        addMission("Liberrio", "View Sales Information");
-        addMission("Liberrio", "Milagro Man");
+        addMission("Libeccio", "View Waiting List and Order Processing List");
+        addMission("Libeccio", "View Menu");
+        addMission("Libeccio", "View Sales Information");
+        addMission("Libeccio", "Milagro Man");
 
         addMission("Savage Garden", "View Waiting List and Order Processing List");
         addMission("Savage Garden", "View Menu");
