@@ -1,15 +1,18 @@
 package JOJOLands.JOJO;
 
-public class JOJOMaps{
-    
+public class JOJOMaps {
+
     protected Graph<String, Integer> defaultMap = new Graph<>();
     protected Graph<String, Integer> parallelMap = new Graph<>();
     protected Graph<String, Integer> alternateMap = new Graph<>();
-    protected String [] location;
-//The World
-    public JOJOMaps(){
-        location = new String[] {"Town Hall", "Morioh Grand Hotel", "Jade Garden", "Cafe Deux Magots", "Trattoria Trussardi", "San Giorgio Maggiore", "Joestar Mansion", "Polnareff Land", "Savage Garden", "Green Dolphin Street Prison", "Libeccio", "Angelo Rock", "DIO's Mansion", "Vineyard"};
-        
+    protected String[] location;
+
+    // The World
+    public JOJOMaps() {
+        location = new String[] { "Town Hall", "Morioh Grand Hotel", "Jade Garden", "Cafe Deux Magots",
+                "Trattoria Trussardi", "San Giorgio Maggiore", "Joestar Mansion", "Polnareff Land", "Savage Garden",
+                "Green Dolphin Street Prison", "Libeccio", "Angelo Rock", "DIO's Mansion", "Vineyard" };
+
         defaultMap = initializeDefaultMap();
 
         parallelMap = initializeParallelMap();
@@ -19,11 +22,11 @@ public class JOJOMaps{
 
     private Graph<String, Integer> initializeDefaultMap() {
         Graph<String, Integer> maps = new Graph<>();
-        for(String i : location)
-        maps.addVertex(i);
+        for (String i : location)
+            maps.addVertex(i);
 
-        //add edge to connect each location, in km
-        maps.addEdge("Town Hall", "Morioh Grand Hotel",5);
+        // add edge to connect each location, in km
+        maps.addEdge("Town Hall", "Morioh Grand Hotel", 5);
         maps.addEdge("Town Hall", "Jade Garden", 5);
         maps.addEdge("Town Hall", "Cafe Deux Magots", 4);
 
@@ -62,11 +65,10 @@ public class JOJOMaps{
 
     private Graph<String, Integer> initializeParallelMap() {
         Graph<String, Integer> maps = new Graph<>();
-        for(String i : location)
-        maps.addVertex(i);
+        for (String i : location)
+            maps.addVertex(i);
 
-        //add edge to connect each location, in km
-        maps.addEdge("Town Hall", "Vineyard",3);
+        maps.addEdge("Town Hall", "Vineyard", 3);
         maps.addEdge("Town Hall", "Libeccio", 2);
         maps.addEdge("Town Hall", "Cafe Deux Magots", 4);
         maps.addEdge("Town Hall", "Trattoria Trussardi", 6);
@@ -99,16 +101,15 @@ public class JOJOMaps{
         return maps;
     }
 
-    //Passione Restaurant -> Libeccio
+    // Passione Restaurant -> Libeccio
     private Graph<String, Integer> initializeAlternateMap() {
         Graph<String, Integer> maps = new Graph<>();
-        for(String i : location)
-        maps.addVertex(i);
+        for (String i : location)
+            maps.addVertex(i);
 
-        //add edge to connect each location, in km
-        maps.addEdge("Town Hall", "Morioh Grand Hotel",2);
+        maps.addEdge("Town Hall", "Morioh Grand Hotel", 2);
         maps.addEdge("Town Hall", "Green Dolphin Street Prison", 3);
-        maps.addEdge("Town Hall", "Libeccio", 7); 
+        maps.addEdge("Town Hall", "Libeccio", 7);
 
         maps.addEdge("Morioh Grand Hotel", "Green Dolphin Street Prison", 2);
         maps.addEdge("Morioh Grand Hotel", "San Giorgio Maggiore", 3);
@@ -120,7 +121,7 @@ public class JOJOMaps{
         maps.addEdge("Cafe Deux Magots", "Libeccio", 4);
         maps.addEdge("Cafe Deux Magots", "DIO's Mansion", 1);
         maps.addEdge("Cafe Deux Magots", "Vineyard", 4);
-        
+
         maps.addEdge("Trattoria Trussardi", "Joestar Mansion", 5);
         maps.addEdge("Trattoria Trussardi", "Green Dolphin Street Prison", 4);
         maps.addEdge("Trattoria Trussardi", "Libeccio", 1);
@@ -137,15 +138,13 @@ public class JOJOMaps{
         return maps;
     }
 
-    public Graph<String, Integer> getDefaultMap() {
-        return defaultMap;
-    }
-
-    public Graph<String, Integer> getParallelMap() {
-        return parallelMap;
-    }
-
-    public Graph<String, Integer> getAlternateMap() {
-        return alternateMap;
+    public Graph<String, Integer> getMapByName(String mapType) {
+        if (mapType.equals("Default Map")) {
+            return defaultMap;
+        } else if (mapType.equals("Parallel Map")) {
+            return parallelMap;
+        } else {
+            return alternateMap;
+        }
     }
 }

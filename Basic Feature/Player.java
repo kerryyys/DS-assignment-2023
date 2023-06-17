@@ -1,66 +1,96 @@
 package JOJOLands.JOJO;
 
+import java.io.File;
 import java.util.*;
 
 public class Player extends JOJOMaps {
-    
-    public static Graph<String,Integer> mainMap1 = new Graph<>();
 
-    public static Graph<String,Integer> mainMap2 = new Graph<>();
+    public static Graph<String, Integer> DefaultMap = new Graph<>();
 
-    public static Graph<String,Integer> mainMap3 = new Graph<>();
+    public static Graph<String, Integer> ParallelMap = new Graph<>();
+
+    public static Graph<String, Integer> AlternateMap = new Graph<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        String input = "";
         JOJOMaps jojo = new JOJOMaps();
         System.out.println("Welcome to JOJOLands!");
 
         System.out.println("[1] Start Game");
         System.out.println("[2] Load Game");
         System.out.println("[3] Exit");
-        System.out.print("\nSelect: ");
-        String input = sc.nextLine();
-        System.out.println("================================================================================");
-        if(!input.equals("1") && !input.equals("2") && !input.equals("3") || input.isEmpty()){
-            System.out.println("Please choose valid input.");
-                return; 
+        while (true) {
+            System.out.print("\nSelect: ");
+            input = sc.nextLine();
+            System.out.println("================================================================================");
+
+            if (input.equals("1") || input.equals("2") || input.equals("3")) {
+                break; // Valid input, exit the loop
+            } else {
+                System.out.println("Please choose a valid input.");
             }
+        }
 
         switch (input) {
             case "1":
-                System.out.println("[1] Default Map");
-                System.out.println("[2] Parallel Map");
-                System.out.println("[3] Alternate Map");
-                System.out.print("\nSelect: ");
-                String mapchoice = sc.nextLine();
-                System.out.println("================================================================================");
-                if(!mapchoice.equals("1") && !mapchoice.equals("2") && !mapchoice.equals("3") ||mapchoice.isEmpty()){
-                    System.out.println("Please choose valid input.");
-                return; 
-            }
+                String mapchoice;
+                String MapName = "";
+                while (true) {
+                    System.out.println("[1] Default Map");
+                    System.out.println("[2] Parallel Map");
+                    System.out.println("[3] Alternate Map");
+                    System.out.print("\nSelect: ");
+                    mapchoice = sc.nextLine();
+                    System.out.println(
+                            "================================================================================");
 
-                //constructor of Hermit may be change to get better code structure
+                    if (mapchoice.equals("1") || mapchoice.equals("2") || mapchoice.equals("3")) {
+                        if (mapchoice.equals("1")) {
+                            MapName = "Default Map";
+                        } else if (mapchoice.equals("2")) {
+                            MapName = "Parallel Map";
+                        } else {
+                            MapName = "Alternate Map";
+                        }
+                        break; // Valid input, exit the loop
+                    } else {
+                        System.out.println("Please choose a valid input.");
+                    }
+                }
+
+                // clean file in exist directory before start a new game
+                String directoryPath = "D:/JOJOLands/" + MapName;
+                File existDirectory = new File(directoryPath);
+                File[] files = existDirectory.listFiles();
+                if (files != null) {
+                    for (File file : files) {
+                        if (file.isFile()) {
+                            file.delete();
+                        }
+                    }
+                }
                 switch (mapchoice) {
                     case "1":
                         HermitPurple hermitPurple1 = new HermitPurple();
-                        hermitPurple1.getMapType(jojo.getDefaultMap());
-                        mainMap1 = hermitPurple1.getMaps();
+                        hermitPurple1.getMapType(jojo.getMapByName(MapName));
+                        DefaultMap = hermitPurple1.getMaps();
                         hermitPurple1.setMapName("Default Map");
                         hermitPurple1.startGame();
                         break;
 
                     case "2":
                         HermitPurple hermitPurple2 = new HermitPurple();
-                        hermitPurple2.getMapType(jojo.getParallelMap());
-                        mainMap2 = hermitPurple2.getMaps();
+                        hermitPurple2.getMapType(jojo.getMapByName(MapName));
+                        ParallelMap = hermitPurple2.getMaps();
                         hermitPurple2.setMapName("Parallel Map");
                         hermitPurple2.startGame();
                         break;
 
                     case "3":
                         HermitPurple hermitPurple3 = new HermitPurple();
-                        hermitPurple3.getMapType(jojo.getAlternateMap());
-                        mainMap3 = hermitPurple3.getMaps();
+                        hermitPurple3.getMapType(jojo.getMapByName(MapName));
+                        AlternateMap = hermitPurple3.getMaps();
                         hermitPurple3.setMapName("Alternate Map");
                         hermitPurple3.startGame();
                         break;
@@ -68,56 +98,48 @@ public class Player extends JOJOMaps {
                 break;
 
             case "2":
-                // Load game
-                System.out.print("Enter the path of your save file: ");
-                String filepath = sc.nextLine();
-                System.out.println("================================================================================");
+                String directory = null;
                 String mapIdentifier = null;
 
-                System.out.println("[1] Default Map");
-                System.out.println("[2] Parallel Map");
-                System.out.println("[3] Alternate Map");
-                System.out.print("\nSelect the map for the saved game(Must be same as the directory map): ");
-                String savedMapChoice = sc.nextLine();
-                System.out.println("================================================================================");
+                boolean validDirectory = false;
+                while (!validDirectory) {
+                    System.out.print("Enter the path of your save file: ");
+                    directory = sc.nextLine();
+                    System.out.println(
+                            "================================================================================");
 
-                switch (savedMapChoice) {
-                        
-                    case "1":
-                        mapIdentifier = "Default Map";
-                        HermitPurple savedHermitPurple1 = new HermitPurple();
-                        savedHermitPurple1.getMapType(jojo.getDefaultMap());
-                        savedHermitPurple1.setMapName(mapIdentifier);
-                        savedHermitPurple1.LoadGame(filepath);
-                        savedHermitPurple1.startGame();
-                        break;
-
-                    case "2":
-                        mapIdentifier = "Parallel Map";
-                        HermitPurple savedHermitPurple2 = new HermitPurple();
-                        savedHermitPurple2.getMapType(jojo.getParallelMap());
-                        savedHermitPurple2.setMapName(mapIdentifier);
-                        savedHermitPurple2.LoadGame(filepath);
-                        savedHermitPurple2.startGame();
-                        break;
-
-                    case "3":
-                        mapIdentifier = "Alternate Map";
-                        HermitPurple savedHermitPurple3 = new HermitPurple();
-                        savedHermitPurple3.getMapType(jojo.getAlternateMap());
-                        savedHermitPurple3.setMapName(mapIdentifier);
-                        savedHermitPurple3.LoadGame(filepath);
-                        savedHermitPurple3.startGame();
-                        break;
-
-                    default:
-                        System.out.println("Invalid map choice.");
-                        return;
+                    // Check if the file exists
+                    File file = new File(directory);
+                    if (!file.exists()) {
+                        System.out.println("The specified path does not exist. Please enter a valid path.");
+                    } else {
+                        validDirectory = true;
+                    }
                 }
 
-                
-                break;
+                // Extract the map name from the directory path
+                int lastSlashIndex = directory.lastIndexOf("\\");
+                if (lastSlashIndex != -1) {
+                    mapIdentifier = directory.substring(lastSlashIndex + 1);
+                } else {
+                    System.out.println("Invalid directory path.");
+                    return;
+                }
 
+                // Check if the extracted map name matches the available map choices
+                if (mapIdentifier.equals("Default Map") || mapIdentifier.equals("Parallel Map")
+                        || mapIdentifier.equals("Alternate Map")) {
+                    HermitPurple savedHermitPurple = new HermitPurple();
+                    savedHermitPurple.getMapType(jojo.getMapByName(mapIdentifier));
+                    savedHermitPurple.setMapName(mapIdentifier);
+                    savedHermitPurple.LoadGame(directory);
+                    savedHermitPurple.startGame();
+                } else {
+                    System.out.println("Invalid map choice.");
+                    return;
+                }
+
+                break;
             case "3":
                 System.exit(0);
                 break;

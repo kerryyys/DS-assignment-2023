@@ -13,17 +13,9 @@ public class Menu {
         this.menuFilePath = directory + "/menu.txt";
     }
 
-    public void loadMenu(boolean newGame) {
+    public void loadMenu() {
         // Load the menu data from the file
         try {
-            File file = new File(menuFilePath);
-
-            if (newGame && file.exists()) {
-                // Clear the file content if it's a new game
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write("");
-                fileWriter.close();
-            }
 
             FileInputStream fis = new FileInputStream(menuFilePath);
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -115,5 +107,21 @@ public class Menu {
 
     public Map<String, Double> getMenuByRestaurant(String restaurant) {
         return menu.getOrDefault(restaurant, new HashMap<>());
+    }
+
+    public void printMenuTable(String restaurant) {
+        Map<String, Double> restaurantMenu = menu.getOrDefault(restaurant, new HashMap<>());
+
+        System.out.println("+-------------------------------------+-------------+");
+        System.out.println("| Food                                | Price       |");
+        System.out.println("+-------------------------------------+-------------+");
+
+        for (Map.Entry<String, Double> entry : restaurantMenu.entrySet()) {
+            String foodItem = entry.getKey();
+            double price = entry.getValue();
+            System.out.printf("| %-35s | $%-10.2f |\n", foodItem, price);
+        }
+
+        System.out.println("+-------------------------------------+-------------+");
     }
 }

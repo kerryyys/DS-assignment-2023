@@ -8,16 +8,12 @@ public class HeavensDoor {
     private List<String[]> residents;
     private List<String[]> stands;
     private String currentLocation;
-    private int currentDay;
     private ArrayList<String> residentInCurrentArea;
     private TheJoestarsChecker JoestarsChecker;
-    private HermitPurple hermitPurple;
     private List<String[]> combinedResidents;
 
-    public HeavensDoor(HermitPurple hermit, String currentLocation, int currentDay) {
-        this.hermitPurple = hermit;
+    public HeavensDoor(String currentLocation) {
         this.currentLocation = currentLocation;
-        this.currentDay = currentDay;
         this.residentInCurrentArea = new ArrayList<>();
         residents = new ArrayList<>();
         stands = new ArrayList<>();
@@ -223,21 +219,21 @@ public class HeavensDoor {
 
         System.out.println("Sorted Resident Information in " + currentLocation);
         System.out.println(
-                "+----+-----------------------+-----+--------+-----------------------+-------------------+-------+-------+---------+-----------+-----------------------+");
+                "+----+-----------------------+-----+--------+-----------------------+-------------------+-----------+-----------+-------------+---------------+-----------------------+");
         System.out.println(
-                "| No | Name                  | Age | Gender | Stand                 | Destructive Power | Speed | Range | Stamina | Precision | Development Potential |");
+                "| No | Name                  | Age | Gender | Stand                 | Destructive Power |   Speed   |   Range   |   Stamina   |   Precision   | Development Potential |");
         System.out.println(
-                "+----+-----------------------+-----+--------+-----------------------+-------------------+-------+-------+---------+-----------+-----------------------+");
+                "+----+-----------------------+-----+--------+-----------------------+-------------------+-----------+-----------+-------------+---------------+-----------------------+");
 
         for (int i = 0; i < combinedResidents.size(); i++) {
             String[] resident = combinedResidents.get(i);
-            System.out.printf("| %-2d | %-21s | %-3s | %-6s | %-21s | %-17s | %-5s | %-5s | %-7s | %-9s | %-21s |\n",
+            System.out.printf("| %-2d | %-21s | %-3s | %-6s | %-21s | %-17s | %-9s | %-9s | %-11s | %-13s | %-21s |\n",
                     no, resident[0], resident[1], resident[2], resident[3], resident[4], resident[5], resident[6],
                     resident[7], resident[8], resident[9]);
             no++;
         }
         System.out.println(
-                "+----+-----------------------+-----+--------+-----------------------+-------------------+-------+-------+---------+-----------+-----------------------+");
+                "+----+-----------------------+-----+--------+-----------------------+-------------------+-----------+-----------+-------------+---------------+-----------------------+");
     }
 
     private void bubbleSort(List<String[]> residents, int fieldIndex, String sortOrder) {

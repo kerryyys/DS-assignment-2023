@@ -101,7 +101,7 @@ public class MoodyBlue {
             System.out.print("Select: ");
 
             selection = sc.nextLine();
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
             switch (selection.toUpperCase()) {
                 case "1":
                     System.out.print("Enter Day: ");
@@ -181,7 +181,7 @@ public class MoodyBlue {
                 .getOrDefault(dayKey, new HashMap<>());
 
         // Print the sales table header
-        System.out.println("======================================================================");
+        System.out.println("================================================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Day " + day + " Sales");
         System.out.println("+-------------------------------------+----------+-------------+");
@@ -207,7 +207,7 @@ public class MoodyBlue {
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.printf("| Total Sales                         |          | $%9.2f  |\n", totalSales);
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.println("======================================================================");
+        System.out.println("================================================================================");
     }
 
     public void minimumSales(int startDay, int endDay) {
@@ -255,7 +255,7 @@ public class MoodyBlue {
         }
 
         // Print the minimum sales
-        System.out.println("======================================================");
+        System.out.println("================================================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Minimum Sales (Day " + startDay + " - " + endDay + ")");
         System.out.println("+-------------------------------------+-------------+");
@@ -263,7 +263,7 @@ public class MoodyBlue {
         System.out.println("+-------------------------------------+-------------+");
         System.out.printf("| %-35s | $%9.2f  |\n", foodWithMinimumSales, minimumSales);
         System.out.println("+-------------------------------------+-------------+");
-        System.out.println("======================================================");
+        System.out.println("================================================================================");
     }
 
     public void maximumSales(int startDay, int endDay) {
@@ -311,7 +311,7 @@ public class MoodyBlue {
         }
 
         // Print the maximum sales
-        System.out.println("======================================================");
+        System.out.println("================================================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Maximum Sales (Day " + startDay + " - " + endDay + ")");
         System.out.println("+-------------------------------------+-------------+");
@@ -319,7 +319,7 @@ public class MoodyBlue {
         System.out.println("+-------------------------------------+-------------+");
         System.out.printf("| %-35s | $%9.2f  |\n", foodWithMaximumSales, maximumSales);
         System.out.println("+-------------------------------------+-------------+");
-        System.out.println("======================================================");
+        System.out.println("================================================================================");
     }
 
     public void topKHighestSales(int startDay, int endDay) {
@@ -384,7 +384,7 @@ public class MoodyBlue {
         System.out.println("+-------------------------------------+----------+-------------+");
         System.out.printf("| %-35s | %8d | $%9.2f  |\n", foodWithHighestQuantity.getKey(), foodWithHighestQuantity.getValue().getQuantity(), foodWithHighestQuantity.getValue().getPrice());
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.println("======================================================");
+        System.out.println("================================================================================");
     }
 
     public void totalAndAverageSales(int startDay, int endDay) {
@@ -441,7 +441,7 @@ public class MoodyBlue {
         System.out.printf("| Average Sales                       |          | $%9.2f  |\n",
                 totalPrice / totalSalesByFood.size());
         System.out.println("+-------------------------------------+----------+-------------+");
-        System.out.println("======================================================================");
+        System.out.println("================================================================================");
     }
 }
 
@@ -462,11 +462,7 @@ class SalesRecord {
     public double getPrice() {
         return price;
     }
-// JS:    public double getSales() {
-//         return Sales;
-//     }
-
-//     public void setPrice(double price) {
-//         this.price = price;
-//     }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

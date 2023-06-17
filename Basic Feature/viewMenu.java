@@ -11,7 +11,7 @@ public class viewMenu {
 
     public viewMenu(String currentLocation) {
         this.menu = new Menu();
-         menu.loadMenu(false);
+         menu.loadMenu();
         this.currentLocation = currentLocation;
     }
 
@@ -29,10 +29,10 @@ public class viewMenu {
         if (!exists) {
             menu.addFoodItem(currentLocation, foodName, price);
             System.out.println("Menu item '" + foodName + "' added successfully");
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
         } else {
             System.out.println("Menu item '" + foodName + "' already exists.");
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
         }
 
         displayMenu(currentLocation);
@@ -46,7 +46,7 @@ public class viewMenu {
             if (menuFood.equalsIgnoreCase(foodName)) {
                 menu.deleteFoodItem(currentLocation, menuFood);
                 System.out.println("Menu item '" + menuFood + "' removed successfully.");
-                System.out.println("======================================================================");
+                System.out.println("================================================================================");
                 found = true;
                 break;
             }
@@ -54,7 +54,7 @@ public class viewMenu {
 
         if (!found) {
             System.out.println("Menu item '" + foodName + "' not found.");
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
         }
 
         displayMenu(currentLocation);
@@ -68,7 +68,7 @@ public class viewMenu {
             if (menuFood.equalsIgnoreCase(foodName)) {
                 menu.setFoodPrice(currentLocation, menuFood, newPrice);
                 System.out.println("Menu item '" + menuFood + "' price modified successfully.");
-                System.out.println("======================================================================");
+                System.out.println("================================================================================");
                 found = true;
                 break;
             }
@@ -76,7 +76,7 @@ public class viewMenu {
 
         if (!found) {
             System.out.println("Menu item '" + foodName + "' not found.");
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
         }
 
         displayMenu(currentLocation);
@@ -95,7 +95,7 @@ public class viewMenu {
             System.out.printf("| %-45s | $%8.2f |\n", menuItem, price);
         }
         System.out.println("+-----------------------------------------------+-----------+");
-        System.out.println("======================================================================");
+        System.out.println("================================================================================");
         System.out.println(currentLocation + "'s Menu");
         System.out.println("\n[1] Add Food");
         System.out.println("[2] Modify Food Price");
@@ -107,7 +107,7 @@ public class viewMenu {
         sc.nextLine();
         switch (choice) {
             case 1:
-                System.out.println("=====================================================");
+                System.out.println("================================================================================");
                 System.out.print("Enter new food name to add : ");
                 foodName = sc.nextLine();
                 System.out.print("Enter new food price : $");
@@ -115,7 +115,7 @@ public class viewMenu {
                 addNewFoodFromUser(foodName, price);
                 break;
             case 2:
-                System.out.println("=====================================================");
+                System.out.println("================================================================================");
                 System.out.print("Enter food name to modify : ");
                 foodName = sc.nextLine();
                 System.out.print("Enter new food price : $");
@@ -123,13 +123,13 @@ public class viewMenu {
                 modifyFoodFromUser(foodName, newPrice);
                 break;
             case 3:
-                System.out.println("=====================================================");
+                System.out.println("================================================================================");
                 System.out.print("Enter food name to remove : ");
                 foodName = sc.nextLine();
                 removeFoodFromUser(foodName);
                 break;
             case 4:
-                System.out.println("======================================================================");
+                System.out.println("================================================================================");
                 return;
             default:
         }

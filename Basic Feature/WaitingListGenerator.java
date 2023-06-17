@@ -39,11 +39,12 @@ public class WaitingListGenerator {
         SavageGardenWaitingList = new ArrayList<>();
         this.currentDay = currentDay;
         MENU = new Menu();
-        MENU.loadMenu(currentDay == 1);
+        MENU.loadMenu();
         this.rand = new Random();
     }
 
-    // need to call in HermitPurple whenever start a new day, cannot call at other time
+    // need to call in HermitPurple whenever start a new day, cannot call at other
+    // time
     public void addCustomerToWaitingList() {
         assignArrivalTimes();
 
@@ -165,18 +166,18 @@ public class WaitingListGenerator {
             count++;
 
             ResidentProfile(residentInfo[0]);
-            if(currentDay != 1){
-            appendOrderHistoryToFile(residentInfo[15], residentInfo[0], true, directory);
-            }else{
+            if (currentDay != 1) {
+                appendOrderHistoryToFile(residentInfo[15], residentInfo[0], true, directory);
+            } else {
                 appendOrderHistoryToFile(residentInfo[15], residentInfo[0], false, directory);
             }
         }
         waitingListContent.append(
-                "+----+-------------------------+-----+--------+---------------+-------------------------------------+-------------------------+----------+\n");
+                "+----+------------------------+-----+--------+---------------+------------------------------------+-------------------------+----------+\n");
         String content = waitingListContent.toString();
-        if(currentDay == 1){
-        writeWaitingListToFile(content, "FullWaitingList.txt", false, directory);
-        }else{
+        if (currentDay == 1) {
+            writeWaitingListToFile(content, "FullWaitingList.txt", false, directory);
+        } else {
             writeWaitingListToFile(content, "FullWaitingList.txt", true, directory);
         }
 
@@ -233,7 +234,7 @@ public class WaitingListGenerator {
             }
         }
         waitingList.append(
-                "+----+------------------------+-----+--------+---------------+-------------------------------------+-------------------------+-------+\n");
+                "+----+------------------------+-----+--------+---------------+------------------------------------+-------------------------+---------+\n");
         String content = waitingList.toString();
         String filename = "waiting_list_" + Restaurant + "_" + currentDay + ".txt";
 
@@ -363,32 +364,33 @@ public class WaitingListGenerator {
         }
     }
 
-    public void appendOrderHistoryToFile(String orderHistory, String residentName, boolean append, String directoryPath) {
-    String fileName = directoryPath + "/" + residentName.replaceAll(" ", "").toLowerCase() + "_order_history.txt";
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, append))) {
-        writer.write(orderHistory);
-        writer.newLine();
-    } catch (IOException e) {
-        e.printStackTrace();
+    public void appendOrderHistoryToFile(String orderHistory, String residentName, boolean append,
+            String directoryPath) {
+        String fileName = directoryPath + "/" + residentName.replaceAll(" ", "").toLowerCase() + "_order_history.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, append))) {
+            writer.write(orderHistory);
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 
-private void writeWaitingListToFile(String content, String filename, boolean append, String directoryPath) {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(directoryPath + "/" + filename, append))) {
-        writer.write(content);
-        writer.newLine(); // Add a new line after appending the content
-    } catch (IOException e) {
-        e.printStackTrace();
+    private void writeWaitingListToFile(String content, String filename, boolean append, String directoryPath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(directoryPath + "/" + filename, append))) {
+            writer.write(content);
+            writer.newLine(); // Add a new line after appending the content
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 
-public void writeProfileToFile(String content, String fileName, boolean append, String directoryPath) {
-    try {
-        FileWriter writer = new FileWriter(directoryPath + "/" + fileName, append);
-        writer.write(content);
-        writer.close();
-    } catch (IOException e) {
-        System.err.println("Error writing to file: " + e.getMessage());
+    public void writeProfileToFile(String content, String fileName, boolean append, String directoryPath) {
+        try {
+            FileWriter writer = new FileWriter(directoryPath + "/" + fileName, append);
+            writer.write(content);
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
     }
-}
 }
