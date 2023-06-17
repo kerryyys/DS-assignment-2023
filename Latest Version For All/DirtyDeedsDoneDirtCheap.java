@@ -2,7 +2,7 @@ package JOJOLands.JOJO;
 
 import java.util.*;
 
-public class DirtyDeedsDoneDirtCheap{
+public class DirtyDeedsDoneDirtCheap {
 
     private Scanner sc = new Scanner(System.in);
     private static Graph<String, Integer> map = new Graph<>();
@@ -12,7 +12,7 @@ public class DirtyDeedsDoneDirtCheap{
         this.map = maps;
     }
 
-    public void RunDDDDC(){
+    public void RunDDDDC() {
         List<List<String>> paths = new ArrayList<>();
         List<String> currentPath = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class DirtyDeedsDoneDirtCheap{
         sortPathsByDistance(paths);
 
         List<List<String>> topPaths = new ArrayList<>();
-         for (int i = 0; i < Math.min(3, paths.size()); i++) {
+        for (int i = 0; i < Math.min(3, paths.size()); i++) {
             topPaths.add(paths.get(i));
         }
 
@@ -43,14 +43,15 @@ public class DirtyDeedsDoneDirtCheap{
                     System.out.print(" -> ");
                 }
             }
-        System.out.printf(" (%.2f km)\n", distance);
-    }
+            System.out.printf(" (%.2f km)\n", distance);
+        }
         System.out.println("================================================================================");
         System.out.println();
     }
 
     // find possible paths using depth first search
-    public static void findPossiblePaths(String currentVertex, String targetVertex,List<String> currentPath, List<List<String>> paths) {
+    public static void findPossiblePaths(String currentVertex, String targetVertex, List<String> currentPath,
+            List<List<String>> paths) {
         if (currentVertex.equals(targetVertex)) {
             paths.add(new ArrayList<>(currentPath));
             return;
@@ -78,7 +79,7 @@ public class DirtyDeedsDoneDirtCheap{
         return distance;
     }
 
-     private static void sortPathsByDistance(List<List<String>> paths) {
+    private static void sortPathsByDistance(List<List<String>> paths) {
         paths.sort(Comparator.comparingDouble(DirtyDeedsDoneDirtCheap::calculateDistance));
     }
 }

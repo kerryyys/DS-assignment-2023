@@ -137,15 +137,13 @@ public class JOJOMaps{
         return maps;
     }
 
-    public Graph<String, Integer> getDefaultMap() {
-        return defaultMap;
-    }
-
-    public Graph<String, Integer> getParallelMap() {
-        return parallelMap;
-    }
-
-    public Graph<String, Integer> getAlternateMap() {
-        return alternateMap;
+    public Graph<String, Integer> getMapByName(String mapType){
+        if(mapType.equals("Default Map")){
+            return defaultMap;
+        }else if(mapType.equals("Parallel Map")){
+            return parallelMap;
+        }else{
+            return alternateMap;
+        }
     }
 }

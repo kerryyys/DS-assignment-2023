@@ -8,16 +8,12 @@ public class HeavensDoor {
     private List<String[]> residents;
     private List<String[]> stands;
     private String currentLocation;
-    private int currentDay;
     private ArrayList<String> residentInCurrentArea;
     private TheJoestarsChecker JoestarsChecker;
-    private HermitPurple hermitPurple;
     private List<String[]> combinedResidents;
 
-    public HeavensDoor(HermitPurple hermit, String currentLocation, int currentDay) {
-        this.hermitPurple = hermit;
+    public HeavensDoor(String currentLocation) {
         this.currentLocation = currentLocation;
-        this.currentDay = currentDay;
         this.residentInCurrentArea = new ArrayList<>();
         residents = new ArrayList<>();
         stands = new ArrayList<>();

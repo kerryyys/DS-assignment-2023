@@ -6,11 +6,9 @@ import java.util.*;
 public class TheJoestarsChecker {
 
     private String directory = HermitPurple.directoryPath;
-    public TheJoestarsChecker() {
-    }
 
     public String readResidentProfiles(String nameSaved) {
-        String filename =  directory + "/profile_" + nameSaved + ".txt";
+        String filename = directory + "/profile_" + nameSaved + ".txt";
 
         StringBuilder content = new StringBuilder();
 

@@ -7,8 +7,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import JOJOLands.AnotherOneBiteTheDusts;
-
 public class HermitPurple {
     private String currentLocation;
     private int day;
@@ -30,8 +28,6 @@ public class HermitPurple {
 
     public HermitPurple() {
         this.hermitPurple = this;
-        temp = visitedLocation;
-        currentLocation = "Town Hall";
         currentDay = 1;
     }
 
@@ -51,7 +47,7 @@ public class HermitPurple {
 
     // Player must have D drive to run this program
     public void setFileDirectory() {
-        directoryPath = "D:/JOJOLands/" + MapName + " directory";
+        directoryPath = "D:/JOJOLands/" + MapName;
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             directory.mkdir();
@@ -172,6 +168,9 @@ public class HermitPurple {
     // starts at the Town Hall at the start of each day
     public void start() {
         startNewDay();
+        temp = visitedLocation;
+        currentLocation = "Town Hall";
+        previousLocation = null;
         joestars = new TheJoestars(currentLocation, currentDay - 1); // the current day is increase after startNewDay
         joestars.Filter(); // to reset the waiting list
     }
@@ -185,12 +184,12 @@ public class HermitPurple {
     }
 
     private String getDay(int day) {
-        String[] daysofWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        String[] daysofWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
         int index = (day - 1) % 7; // modulo 7 to handle days beyond a week
         return daysofWeek[index];
     }
 
-    // advance to the next day by selecting the corresponding option at the Town Hall
+    // advance to the next day by selecting the corresponding option at Town Hall
     public void advanceToNextDay() {
         start();
     }
@@ -208,7 +207,7 @@ public class HermitPurple {
             objectOutputStream.writeObject(gameState);
             objectOutputStream.close();
 
-            System.out.println("Game progress for map " + mapIdentifier + " saved successfully.");
+            System.out.println("Game progress for " + mapIdentifier + " saved successfully.");
         } catch (IOException e) {
             System.out.println("Failed to save the game progress: " + e.getMessage());
         }
@@ -273,7 +272,7 @@ public class HermitPurple {
                 continue; // Continue to loop back and ask for input again
             }
 
-            // if the player choose moveTo move to adjacent locations connected from current location
+            // if player choose moveTo adjacent locations connected from current location
             if (input.length() > 1 && input.length() < 3) {
                 adjacentVertices = maps.getNeighbours(currentLocation);
                 visitedLocation.push(currentLocation);
@@ -352,7 +351,7 @@ public class HermitPurple {
                     case "Morioh Grand Hotel":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
                                 previousLocation = visitedLocation.peek();
@@ -578,7 +577,7 @@ public class HermitPurple {
                     case "Angelo Rock":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
                                 displayMenu();
@@ -609,7 +608,7 @@ public class HermitPurple {
                     case "Green Dolphin Street Prison":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
                                 displayMenu();
@@ -635,7 +634,7 @@ public class HermitPurple {
                     case "Joestar Mansion":
                         switch (input) {
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
                                 displayMenu();
@@ -662,7 +661,7 @@ public class HermitPurple {
                         switch (input) {
 
                             case "2":
-                                HeavensDoor heavensDoor = new HeavensDoor(hermitPurple, currentLocation, currentDay);
+                                HeavensDoor heavensDoor = new HeavensDoor(currentLocation);
                                 heavensDoor.printResidents();
                                 heavensDoor.select();
                                 displayMenu();

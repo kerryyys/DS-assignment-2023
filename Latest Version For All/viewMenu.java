@@ -11,7 +11,7 @@ public class viewMenu {
 
     public viewMenu(String currentLocation) {
         this.menu = new Menu();
-         menu.loadMenu(false);
+         menu.loadMenu();
         this.currentLocation = currentLocation;
     }
 
@@ -107,7 +107,7 @@ public class viewMenu {
         sc.nextLine();
         switch (choice) {
             case 1:
-                System.out.println("=====================================================");
+                System.out.println("======================================================================");
                 System.out.print("Enter new food name to add : ");
                 foodName = sc.nextLine();
                 System.out.print("Enter new food price : $");
@@ -115,7 +115,7 @@ public class viewMenu {
                 addNewFoodFromUser(foodName, price);
                 break;
             case 2:
-                System.out.println("=====================================================");
+                System.out.println("======================================================================");
                 System.out.print("Enter food name to modify : ");
                 foodName = sc.nextLine();
                 System.out.print("Enter new food price : $");
@@ -123,7 +123,7 @@ public class viewMenu {
                 modifyFoodFromUser(foodName, newPrice);
                 break;
             case 3:
-                System.out.println("=====================================================");
+                System.out.println("======================================================================");
                 System.out.print("Enter food name to remove : ");
                 foodName = sc.nextLine();
                 removeFoodFromUser(foodName);
