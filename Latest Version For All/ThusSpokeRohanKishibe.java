@@ -12,18 +12,18 @@ public class ThusSpokeRohanKishibe {
             List<String> locations = getUserInputLocations();
             if (locations.isEmpty()) {
                 System.out.println("Exit Thus Spoke Rohan Kishibe");
-                System.out.println("======================================================================");
+                System.out.println("================================================================================");
                 return; // Exit if no locations are entered
             }
 
             List<String> shortestPath = findShortestPath(locations);
 
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
             System.out.println("Shortest Path:");
             printPath(shortestPath);
             int totalDistance = calculateDistance(shortestPath);
             System.out.printf(" (%d km)\n", totalDistance);
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
         }
     }
 

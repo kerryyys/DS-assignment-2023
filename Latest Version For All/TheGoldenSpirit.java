@@ -1,16 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package JOJOLands;
+package JOJOLands.JOJO;
 
-/**
- *
- * @author Darwi
- */
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 class Node {
     String data;
@@ -36,7 +26,8 @@ public class TheGoldenSpirit {
         }
 
         // Check if "Jotaro Kujo" and "Jolyne Cujoh" are chosen
-        if ((n1.equals("Jotaro Kujo") && n2.equals("Jolyne Cujoh")) || (n1.equals("Jolyne Cujoh") && n2.equals("Jotaro Kujo"))) {
+        if ((n1.equals("Jotaro Kujo") && n2.equals("Jolyne Cujoh"))
+                || (n1.equals("Jolyne Cujoh") && n2.equals("Jotaro Kujo"))) {
             return root.left.left.left.left;
         }
 

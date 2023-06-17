@@ -1,4 +1,5 @@
 package JOJOLands.JOJO;
+
 import java.util.*;
 import java.io.*;
 
@@ -41,7 +42,7 @@ public class MilagroMan {
                     viewSalesInformation();
                     break;
                 case "3":
-                    System.out.println("=======================================================================");
+                    System.out.println("================================================================================");
                     return;
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -110,7 +111,7 @@ public class MilagroMan {
     }
 
     private void modifyFoodPrice() {
-        System.out.println("=======================================================================");
+        System.out.println("================================================================================");
         System.out.print("Enter the food name: ");
         this.foodName = sc.nextLine();
         System.out.print("Enter the new price: $");
@@ -133,14 +134,14 @@ public class MilagroMan {
             }
         }
         System.out.println("Food price modified successfully!");
-        System.out.println("=======================================================================");
+        System.out.println("================================================================================");
     }
 
     private void viewSalesInformation() {
         sc = new Scanner(System.in);
         String selection = "";
         while (true) {
-            System.out.println("=======================================================================");
+            System.out.println("================================================================================");
             System.out.println("Restaurant: " + currentLocation);
             System.out.println("Sales Information");
             System.out.println("[1] View Sales");
@@ -153,7 +154,7 @@ public class MilagroMan {
             System.out.print("Select: ");
 
             selection = sc.nextLine();
-            System.out.println("======================================================================");
+            System.out.println("================================================================================");
             switch (selection.toUpperCase()) {
                 case "1":
                     viewSales();
@@ -273,7 +274,7 @@ public class MilagroMan {
             }
         }
         // Print the minimum sales
-        System.out.println("======================================================");
+        System.out.println("================================================================================");
         System.out.println("Restaurant: " + currentLocation);
         System.out.println("Minimum Sales (Day " + sDay + " - " + eDay + ")");
         System.out.println("+-------------------------------------+-------------+");
@@ -281,7 +282,7 @@ public class MilagroMan {
         System.out.println("+-------------------------------------+-------------+");
         System.out.printf("| %-35s | $%9.2f  |\n", foodWithMinimumSales, minimumSales);
         System.out.println("+-------------------------------------+-------------+");
-        System.out.println("======================================================");
+        System.out.println("================================================================================");
     }
 
     public void maximumSales() {
