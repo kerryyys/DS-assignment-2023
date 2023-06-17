@@ -20,20 +20,20 @@ public class TheGoldenSpirit {
         List<String> path2 = new ArrayList<>();
 
         if (!findPath(root, n1, path1) || !findPath(root, n2, path2)) {
-            System.out.println((path1.size() > 0) ? "n1 is present" : "n1 is missing");
-            System.out.println((path2.size() > 0) ? "n2 is present" : "n2 is missing");
+            System.out.println((path1.size() > 0) ? "\nn1 is present" : "\nn1 is missing");
+            System.out.println((path2.size() > 0) ? "\nn2 is present" : "\nn2 is missing");
             return null;
         }
 
         // Check if "Jotaro Kujo" and "Jolyne Cujoh" are chosen
-        if ((n1.equals("Jotaro Kujo") && n2.equals("Jolyne Cujoh"))
-                || (n1.equals("Jolyne Cujoh") && n2.equals("Jotaro Kujo"))) {
+        if ((n1.equalsIgnoreCase("Jotaro Kujo") && n2.equalsIgnoreCase("Jolyne Cujoh"))
+                || (n1.equalsIgnoreCase("Jolyne Cujoh") && n2.equalsIgnoreCase("Jotaro Kujo"))) {
             return root.left.left.left.left;
         }
 
         int i;
         for (i = 0; i < path1.size() && i < path2.size(); i++) {
-            if (!path1.get(i).equals(path2.get(i)))
+            if (!path1.get(i).equalsIgnoreCase(path2.get(i)))
                 break;
         }
 
@@ -49,7 +49,7 @@ public class TheGoldenSpirit {
             return null;
         }
 
-        if (node.data.equals(n1) || node.data.equals(n2)) {
+        if (node.data.equalsIgnoreCase(n1) || node.data.equalsIgnoreCase(n2)) {
             return node;
         }
 
@@ -78,7 +78,7 @@ public class TheGoldenSpirit {
 
         path.add(node.data);
 
-        if (node.data.equals(n)) {
+        if (node.data.equalsIgnoreCase(n)) {
             return true;
         }
 
@@ -111,9 +111,11 @@ public class TheGoldenSpirit {
 
         Node lca = tree.findLCA(name1, name2);
         if (lca != null) {
-            System.out.printf("Lowest Common Ancestor of %s and %s is: %s\n", name1, name2, lca.data);
+            System.out.printf("\nLowest Common Ancestor of %s and %s is: %s\n", name1, name2, lca.data);
+            System.out.println("================================================================================");
         } else {
-            System.out.println("Name entered is not in the Joestar family.");
+            System.out.println("\nName entered is not in the Joestar family.");
+            System.out.println("================================================================================");
         }
     }
 }
