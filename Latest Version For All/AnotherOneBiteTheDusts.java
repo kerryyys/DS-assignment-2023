@@ -10,14 +10,14 @@ public class AnotherOneBiteTheDusts {
         List<String> longestPath = findLongestNonOverlappingPath(pathArray);
 
         if (longestPath.size() > 1) {
-            System.out.println("====================================================================================================");
+            System.out.println("================================================================================");
             System.out.print("Bites the Dust is most likely to be activated when Kira passed through ");
             System.out.println(String.join(" > ", longestPath) + ".");
-            System.out.println("====================================================================================================");
+            System.out.println("================================================================================");
         } else {
-            System.out.println("====================================================================================================");
+            System.out.println("================================================================================");
             System.out.println("Bites the Dust is not activated.");
-            System.out.println("====================================================================================================");
+            System.out.println("================================================================================");
         }
     }
 
