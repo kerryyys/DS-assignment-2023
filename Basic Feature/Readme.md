@@ -1,10 +1,11 @@
 # Basic Feature
 There are 8 basic features in this file.<br>
-Each class is created according to their feature names and there are some helper classes to assist the functionalities of the classes.<br>
+Most of the classes are created according to their feature names and there are some helper classes to assist the functionalities of the classes.<br>
 Player as the Main class to run the whole program<br>
 
 ### Hermit Purple <br>
-as the main menu to diplay whole output.<br>
+As the main menu to diplay whole output.<br>
+Related to JOJOMaps and other classes.
 Requirement:<br>
 ● Create a virtual game environment of JOJOLands based on the map given.<br>
 ● A player can move to adjacent locations connected by roads from his current location.<br>
@@ -28,6 +29,7 @@ Requirement:<br>
 ● The Stand parameters follow an ascending order of Infinity, A, B, C, D, E, ?, and Null.<br>
 
 ### PearlJam<br>
+Function to process the order list of the restaurant <br>
 Requirement: <br>
 ● A player can view the waiting list and order processing list of a restaurant of the current day.<br>
 ● A player can view the name, age, and gender of each customer and the food they ordered in the waiting list and order processing list.<br>
@@ -36,13 +38,15 @@ Requirement: <br>
 ● No resident is allowed to dine more than once in one day.<br>
 
 ### TheJoestars <br>
+Function to filter the order list of the main character before generating the complete full waiting list on the current day. <br>
 Requirement: <br>
 ● A player can select a resident in a given residential area to view his detailed information.<br>
 ● A player can view a resident’s recent food and restaurant history, which should match the restaurant’s daily sales records.<br>
 ● The system randomly selects a food and restaurant for each resident. <br>
 ● The random food selection algorithm should satisfy the Joestars’ food preferences. <br>
 
-### MondayBlues <br>
+### MoodyBlues <br>
+Function to view each type of sales on a specific range of day. <br>
 Requirement: <br>
 ● A player can view the number of each food sold with its total price on a specific day.<br>
 ● A player can specify a range of days to view the aggregated information on the sales.<br>
@@ -50,6 +54,7 @@ Requirement: <br>
 ● The system should display the information in a table format.<br>
 
 ### MilagroMan <br>
+Function to enable the player to modify the sales record but not affect the original record. Also, the player are able to modify the menu based on their preference. <br>
 Requirement: <br>
 ● A player can create new food in a restaurant.<br>
 ● A player can modify existing food information in a restaurant.<br>
@@ -62,6 +67,7 @@ Requirement: <br>
 ● The system restores sales records to their original state once a player exits the Milagro Man.<br>
 
 ### SuperFly <br>
+Function to display the path based on the requirement. <br>
 Requirement: <br>
 ● Create a new option Red Hot Chili Pepper in Angelo Rock.<br>
 ● In Red Hot Chili Pepper,<br>
@@ -75,6 +81,7 @@ Requirement: <br>
   ○ Every location should only have one connection with the water supply from the Town Hall.<br>
 
 ### TheWorld <br>
+Function to load and save the game status and provide three types of maps. <br>
 Requirement: <br>
 ● A player can select from multiple maps available at the start of the game.<br>
 ● The maps should include the Default Map, Parallel Map, and Alternate Map.<br>
