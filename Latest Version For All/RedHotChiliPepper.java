@@ -196,7 +196,7 @@ public class RedHotChiliPepper extends Player {
             }
             System.out.println();
             System.out.println("Total length: " + totalLength + "km");
-
+            System.out.println("================================================================================");
         }
     }
 }
