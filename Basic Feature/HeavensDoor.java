@@ -119,22 +119,22 @@ public class HeavensDoor {
 
         System.out.println("Resident Information in " + currentLocation);
         System.out.println(
-                "+----+-----------------------+-----+--------+-----------------------+-------------------+-------+-------+---------+-----------+-----------------------+");
+                "+----+-----------------------+-----+--------+-----------------------+-------------------+-----------+-----------+-------------+---------------+-----------------------+");
         System.out.println(
-                "| No | Name                  | Age | Gender | Stand                 | Destructive Power | Speed | Range | Stamina | Precision | Development Potential |");
+                "| No | Name                  | Age | Gender | Stand                 | Destructive Power |   Speed   |   Range   |   Stamina   |   Precision   | Development Potential |");
         System.out.println(
-                "+----+-----------------------+-----+--------+-----------------------+-------------------+-------+-------+---------+-----------+-----------------------+");
+                "+----+-----------------------+-----+--------+-----------------------+-------------------+-----------+-----------+-------------+---------------+-----------------------+");
 
         for (int i = 0; i < combinedResidents.size(); i++) {
             String[] resident = combinedResidents.get(i);
-            System.out.printf("| %-2d | %-21s | %-3s | %-6s | %-21s | %-17s | %-5s | %-5s | %-7s | %-9s | %-21s |\n",
+            System.out.printf("| %-2d | %-21s | %-3s | %-6s | %-21s | %-17s | %-9s | %-9s | %-11s | %-13s | %-21s |\n",
                     no, resident[0], resident[1], resident[2], resident[3], resident[4], resident[5], resident[6],
                     resident[7], resident[8], resident[9]);
             no++;
         }
 
         System.out.println(
-                "+----+-----------------------+-----+--------+-----------------------+-------------------+-------+-------+---------+-----------+-----------------------+");
+                "+----+-----------------------+-----+--------+-----------------------+-------------------+-----------+-----------+-------------+---------------+-----------------------+");
     }
 
     // to change the null into N/A
@@ -166,14 +166,11 @@ public class HeavensDoor {
     }
 
     private void sortResidents(String sortingOrder) {
-        if (combinedResidents == null) {
-            System.out
-                    .println("Residents list is not initialized. Please call combineResidentsAndStands method first.");
-            return;
-        }
+
         String[] sortingCriteria = sortingOrder.split(";");
 
-        for (String criteria : sortingCriteria) {
+        for (int i = sortingCriteria.length - 1; i >= 0; i--) {
+            String criteria = sortingCriteria[i];
             String[] parts = criteria.trim().split("\\(");
             String field = parts[0].trim();
             String sortOrder = parts[1].replaceAll("[()]", "").trim();
@@ -293,10 +290,6 @@ public class HeavensDoor {
         } else {
             return Integer.compare(index2, index1);
         }
-    }
-
-    public String getCurrentLocation() {
-        return currentLocation;
     }
 
     public void select() {

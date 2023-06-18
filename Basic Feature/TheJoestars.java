@@ -408,6 +408,7 @@ public class TheJoestars {
         String thePrice = null;
         int visitedTrattoriaTrussardiCount = 0;
         ArrayList<String> foodinTrattoriaTrussardi = new ArrayList<>();
+        ArrayList<String> foodInOtherRestaurant = new ArrayList<>();
 
         // get the day of the week
         int today = currentDay > 7 ? currentDay % 7 : currentDay;
@@ -424,6 +425,9 @@ public class TheJoestars {
                     if (VisitedRestaurant.equals("Trattoria Trussardi")) {
                         foodinTrattoriaTrussardi.add(specificOrderFood);
                         visitedTrattoriaTrussardiCount++;
+                    }
+                    else{
+                        foodInOtherRestaurant.add(specificOrderFood);
                     }
                 }
             }
@@ -465,8 +469,7 @@ public class TheJoestars {
                             break;
                         }
                     } else if (!LatestRestaurant.equals("Trattoria Trussardi")) {
-                        for (int x = currentDay - today; x < GiornoGiovannaOrder.size(); x++) {
-                            if (GiornoGiovannaOrder.get(x)[1].equals(food)) {
+                            if (foodInOtherRestaurant.contains(food)) {
                                 do {
                                     Map<String, Double> menu = MENU.getMenuByRestaurant(LatestRestaurant);
                                     newFood = getRandomOrder(menu);
@@ -476,7 +479,7 @@ public class TheJoestars {
                                     orderList[12] = newFood;
                                     orderList[13] = thePrice;
                                     WaitingList.set(i, orderList);
-                                } while (GiornoGiovannaOrder.get(x)[1].equals(newFood));
+                                } while (foodInOtherRestaurant.contains(newFood));
                             } else {
                                 WaitingList = originalWaitingList;
                                 break;
@@ -498,8 +501,7 @@ public class TheJoestars {
                         } while (orderList[11].equals("Trattoria Trussardi"));
 
                     } else if (!LatestRestaurant.equals("Trattoria Trussardi")) {
-                        for (int x = currentDay - today; x < GiornoGiovannaOrder.size(); x++) {
-                            if (GiornoGiovannaOrder.get(x)[1].equals(food)) {
+                            if (foodInOtherRestaurant.contains(food)) {
                                 do {
                                     setNewRestaurant();
                                     Restaurant = getNewRestaurant();
@@ -511,7 +513,7 @@ public class TheJoestars {
                                     orderList[12] = newFood;
                                     orderList[13] = thePrice;
                                     WaitingList.set(i, orderList);
-                                } while (GiornoGiovannaOrder.get(x)[1].equals(food));
+                                } while (foodInOtherRestaurant.contains(newFood));
                             } else {
                                 WaitingList = originalWaitingList;
                                 break;
@@ -520,8 +522,7 @@ public class TheJoestars {
                     }
                 }
             }
-        }
-    }
+        
 
     // assume for 1 week only
     public void JolyneCujohFilter(List<String[]> JolyneCujohOrder) {

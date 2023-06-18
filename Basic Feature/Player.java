@@ -16,11 +16,11 @@ public class Player extends JOJOMaps {
         String input = "";
         JOJOMaps jojo = new JOJOMaps();
         System.out.println("Welcome to JOJOLands!");
-
-        System.out.println("[1] Start Game");
-        System.out.println("[2] Load Game");
-        System.out.println("[3] Exit");
         while (true) {
+            System.out.println("[1] Start Game");
+            System.out.println("[2] Load Game");
+            System.out.println("[3] Exit");
+
             System.out.print("\nSelect: ");
             input = sc.nextLine();
             System.out.println("================================================================================");
