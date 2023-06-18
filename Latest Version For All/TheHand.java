@@ -168,5 +168,6 @@ int count = 1;
 
         System.out.println("Total Length: " + totalLength +"km");
         }
+        System.out.println("================================================================================");
    }
  }
