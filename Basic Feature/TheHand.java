@@ -44,12 +44,12 @@ public class TheHand extends Player {
 
         PriorityQueue<EdgeTheHand> minHeap = new PriorityQueue<>();
         minHeap.addAll(getEdgesConnectedToVertex(edges, rootVertex));
-
         while (visited.size() < getTotalVertices(edges)) {
             EdgeTheHand minEdge = minHeap.poll();
 
             if (minEdge != null) {
                 String newVertex = visited.contains(minEdge.vertex1) ? minEdge.vertex2 : minEdge.vertex1;
+
                 if (!visited.contains(newVertex)) {
                     visited.add(newVertex);
                     prims.add(minEdge);
