@@ -32,7 +32,6 @@ public class DirtyDeedsDoneDirtCheap {
             topPaths.add(paths.get(i));
         }
 
-        System.out.println();
         System.out.println("Top Three Shortest Paths:");
         for (int i = 0; i < Math.min(3, topPaths.size()); i++) {
             double distance = calculateDistance(topPaths.get(i));
@@ -46,7 +45,6 @@ public class DirtyDeedsDoneDirtCheap {
             System.out.printf(" (%.2f km)\n", distance);
         }
         System.out.println("================================================================================");
-        System.out.println();
     }
 
     // find possible paths using depth first search
