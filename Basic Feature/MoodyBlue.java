@@ -132,6 +132,10 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
+                    if(endday >currentDay){
+                        System.out.println("End day should until the current day.");
+                        continue;
+                    }
                     maximumSales(startday, endday);
                     continue;
                 case "2C":
