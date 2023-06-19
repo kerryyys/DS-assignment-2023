@@ -39,7 +39,6 @@ public class Graph<T extends Comparable<T>, N extends Comparable<N>> {
         return false;
     }
 
-    // Question 1
     public boolean addEdge(T v1, T v2, N w) {
         if (this.addEdgeHelper(v1, v2, w))
             return this.addEdgeHelper(v2, v1, w);
