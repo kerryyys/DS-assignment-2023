@@ -118,8 +118,9 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
-                    if(endday >currentDay){
+                   if(endday >=currentDay){
                         System.out.println("End day should until the current day.");
+                        System.out.println("================================================================================");
                         continue;
                     }
                     minimumSales(startday, endday);
@@ -132,8 +133,9 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
-                    if(endday >currentDay){
+                    if(endday >=currentDay){
                         System.out.println("End day should until the current day.");
+                        System.out.println("================================================================================");
                         continue;
                     }
                     maximumSales(startday, endday);
@@ -146,8 +148,9 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
-                    if(endday >currentDay){
+                    if(endday >=currentDay){
                         System.out.println("End day should until the current day.");
+                        System.out.println("================================================================================");
                         continue;
                     }
                     topKHighestSales(startday, endday);
@@ -160,8 +163,9 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
-                    if(endday >currentDay){
+                    if(endday >=currentDay){
                         System.out.println("End day should until the current day.");
+                        System.out.println("================================================================================");
                         continue;
                     }
                     totalAndAverageSales(startday, endday);
