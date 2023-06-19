@@ -108,7 +108,6 @@ public class RedHotChiliPepper extends Player {
 
             System.out.println("Necessary Power Cables to be Upgraded: ");
 
-            System.out.println("Necessary Power Cables to be Upgraded: ");
             List<GraphEdge> kruskal = Kruskal(edges);
 
             int totalLength = 0;
