@@ -45,7 +45,7 @@ public class ThusSpokeRohanKishibe {
         boolean isValid = false;
         for (Vertex<String, Integer> vertex : map.getAllVertices()) {
             String vertexName = vertex.getVertexInfo();
-            if (vertexName.equalsIgnoreCase(location)) {
+            if (vertexName.equals(location)) {
                 isValid = true;
                 break;
             }
