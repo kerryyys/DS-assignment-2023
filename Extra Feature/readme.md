@@ -30,8 +30,8 @@ Requirements<br>
 ● The system should display the shortest path, which starts from Rohan’s home (Morioh Grand Hotel) and includes all the locations specified, with the total distance.<br>
 ● The sequence in which Rohan visits the locations doesn’t matter.<br>
 ● Rohan doesn’t mind passing through other places or visiting a location more than once.<br>
-_Solution<br>
-findShortestPath(List<String> locations):
+**Solution** <br>
+*findShortestPath(List<String> locations):*
 
 This method takes a list of locations as input and returns the shortest path that connects those locations.
 It initializes an empty list called shortestPath to store the final result.
@@ -41,8 +41,8 @@ For each location, it calls the findPath method to retrieve the path from the st
 If it's not the first location in the list (i > 0), it adds only the portion of the path from the second vertex to the last vertex (path.subList(1, path.size())) to the shortestPath list.
 Otherwise, for the first location, it adds the entire path to the shortestPath list.
 It updates the startVertex to be the current endVertex for the next iteration.
-Finally, it returns the shortestPath, which contains the complete shortest path connecting all the locations.
-findPath(String startVertex, String endVertex):
+Finally, it returns the shortestPath, which contains the complete shortest path connecting all the locations.<br>
+**findPath(String startVertex, String endVertex):**
 
 This method finds the shortest path from a startVertex to an endVertex using Dijkstra's algorithm.
 It uses a PriorityQueue<VertexEntry> to store vertices based on their distance from the startVertex.
@@ -60,4 +60,4 @@ It adds the neighbor and its total distance as a new VertexEntry to the priority
 After finding the shortest path, it reconstructs the path by starting from the endVertex and following the previousVertex map until it reaches the startVertex.
 The path is stored in the path list by adding each vertex at the beginning (path.add(0, currentVertex)).
 Finally, it adds the startVertex to the beginning of the path list and returns it.
-These methods work together to find the shortest path between multiple locations by repeatedly finding the shortest path between consecutive locations using Dijkstra's algorithm._
+These methods work together to find the shortest path between multiple locations by repeatedly finding the shortest path between consecutive locations using Dijkstra's algorithm.
