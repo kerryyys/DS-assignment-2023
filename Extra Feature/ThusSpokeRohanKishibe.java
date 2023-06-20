@@ -42,11 +42,20 @@ public class ThusSpokeRohanKishibe {
 
         // Validate user input
         for (String location : uniqueLocations) {
-            if (!map.getAllVertices().contains(new Vertex<>(location, null))) {
-                System.out.println("\nInvalid location: " + location + ". Please enter a valid location.\n");
-                return getUserInputLocations(); // Recursively call the method to re-prompt for input
+        boolean isValid = false;
+        for (Vertex<String, Integer> vertex : map.getAllVertices()) {
+            String vertexName = vertex.getVertexInfo();
+            if (vertexName.equalsIgnoreCase(location)) {
+                isValid = true;
+                break;
             }
         }
+
+        if (!isValid) {
+            System.out.println("\nInvalid location: " + location + ". Please enter a valid location.\n");
+            return getUserInputLocations(); // Recursively call the method to re-prompt for input
+        }
+    }
 
         return uniqueLocations;
     }
