@@ -42,7 +42,7 @@ If it's not the first location in the list (i > 0), it adds only the portion of 
 Otherwise, for the first location, it adds the entire path to the shortestPath list.
 It updates the startVertex to be the current endVertex for the next iteration.
 Finally, it returns the shortestPath, which contains the complete shortest path connecting all the locations.<br>
-**findPath(String startVertex, String endVertex):**
+*findPath(String startVertex, String endVertex):*
 
 This method finds the shortest path from a startVertex to an endVertex using Dijkstra's algorithm.
 It uses a PriorityQueue<VertexEntry> to store vertices based on their distance from the startVertex.
