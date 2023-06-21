@@ -15,6 +15,7 @@ Requirements<br>
 ● The system displays the top three shortest paths with their respective total distances between the source and destination.<br>
 ● If two paths have the same total distance, the one with fewer locations is given priority.<br>
 ● The paths should not visit any location more than once.<br>
+[currentPath.remove(currentPath.size() - 1): After the recursive call returns, we remove the last vertex from the current path. This is done to backtrack and explore other possible paths from the current vertex.]
 
 ### Extra Feature 7 -- The Golden Spirit <br>
 Requirements<br>
