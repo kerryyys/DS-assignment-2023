@@ -280,16 +280,32 @@ public class HeavensDoor {
             return sortOrder.equalsIgnoreCase("asc") ? -1 : 1;
         }
 
-        // Special sorting order for stand details
-        List<String> sortingOrder = Arrays.asList("Infinity", "A", "B", "C", "D", "E", "?", "Null");
-        int index1 = sortingOrder.indexOf(value1);
-        int index2 = sortingOrder.indexOf(value2);
+        if (isNumeric(value1) && isNumeric(value2)) {
+            int numericValue1 = Integer.parseInt(value1);
+            int numericValue2 = Integer.parseInt(value2);
 
-        if (sortOrder.equalsIgnoreCase("asc")) {
-            return Integer.compare(index1, index2);
+            if (sortOrder.equalsIgnoreCase("asc")) {
+                return Integer.compare(numericValue1, numericValue2);
+            } else {
+                return Integer.compare(numericValue2, numericValue1);
+            }
         } else {
-            return Integer.compare(index2, index1);
+            // Special sorting order for stand details (A, B, C, etc.)
+            List<String> sortingOrder = Arrays.asList("Infinity", "A", "B", "C", "D", "E", "?", "Null", "N/A");
+
+            int index1 = sortingOrder.indexOf(value1);
+            int index2 = sortingOrder.indexOf(value2);
+
+            if (sortOrder.equalsIgnoreCase("asc")) {
+                return Integer.compare(index1, index2);
+            } else {
+                return Integer.compare(index2, index1);
+            }
         }
+    }
+
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
     }
 
     public void select() {
