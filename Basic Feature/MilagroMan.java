@@ -192,7 +192,7 @@ public class MilagroMan {
         int day = sc.nextInt();
         sc.nextLine();
         if (day >= currentDay) {
-            System.out.println("End day should until the current day.");]
+            System.out.println("End day should until the current day.");
         }
         // Retrieve the sales data for the specified day and location
         String dayKey = String.valueOf(day);
