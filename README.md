@@ -17,7 +17,7 @@ The necessary data files for this assignment can be obtained from the following 
  <br>
 
 ## Report
-https://docs.google.com/document/d/1YCsE3yL6r0Z-5awKURhZ4Ns3GM_YfXdxOnlUeMmj_C0/edit?usp=sharing 
+https://docs.google.com/document/d/1YCsE3yL6r0Z-5awKURhZ4Ns3GM_YfXdxOnlUeMmj_C0/edit?usp=sharing
 <br>
 ## Improvement
 We highly appreciate your feedback after testing this program, as it motivates us to make improvements and enhance the overall gaming experience. We are actively working on adding a graphical user interface (GUI) to further enhance the game.
