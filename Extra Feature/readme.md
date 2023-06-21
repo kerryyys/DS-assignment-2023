@@ -50,7 +50,7 @@ It creates two maps: distance to store the minimum distance from the startVertex
 Initially, it sets the distance of all vertices to infinity except for the startVertex, which is set to 0.
 It adds the startVertex to the priority queue with a distance of 0.
 While the priority queue is not empty:
-It retrieves the vertex with the minimum distance (currentEntry) from the priority queue.
+It retrieves the vertex with the minimum distance (currentEntry) from the priority queue. [By removing the vertex with the smallest distance, the algorithm focuses on exploring its neighbors and updating their distances if a shorter path is found. This process continues until the destination vertex is reached or all reachable vertices have been visited.]
 If the current vertex is the endVertex, it means the shortest path has been found, so the loop is exited.
 It retrieves the current distance from the distance map.
 For each neighbor of the current vertex:
