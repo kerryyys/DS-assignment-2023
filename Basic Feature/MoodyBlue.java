@@ -108,6 +108,11 @@ public class MoodyBlue {
                     int day = sc.nextInt();
                     sc.nextLine(); // Consume the remaining newline character
                     System.out.println();
+                    if(day >=currentDay){
+                        System.out.println("Day should until the current day.");
+                        System.out.println("================================================================================");
+                        continue;
+                    }
                     viewSales(day);
                     continue;
                 case "2A":
@@ -118,7 +123,7 @@ public class MoodyBlue {
                     endday = sc.nextInt();
                     sc.nextLine();
                     System.out.println();
-                   if(endday >=currentDay){
+                    if(endday >=currentDay){
                         System.out.println("End day should until the current day.");
                         System.out.println("================================================================================");
                         continue;
