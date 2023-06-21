@@ -58,7 +58,6 @@ public class HermitPurple {
         setFileDirectory();
         storeMission();
         start();
-        displayMenu();
     }
 
     // used to display option
@@ -174,6 +173,7 @@ public class HermitPurple {
         previousLocation = null;
         joestars = new TheJoestars(currentLocation, currentDay - 1); // the current day is increase after startNewDay
         joestars.Filter(); // to reset the waiting list
+        displayMenu();
     }
 
     // recognises the first day as Day 1, which represents Sunday
@@ -192,6 +192,7 @@ public class HermitPurple {
 
     // advance to the next day by selecting the corresponding option at Town Hall
     public void advanceToNextDay() {
+        visitedLocation.clear();
         start();
     }
 
@@ -313,12 +314,10 @@ public class HermitPurple {
                             switch (input) {
                                 case "2":
                                     advanceToNextDay();
-                                    displayMenu();
                                     break;
 
                                 case "3":
                                     SaveGame(MapName);
-                                    displayMenu();
                                     break;
 
                                 case "4":
@@ -330,12 +329,10 @@ public class HermitPurple {
                             switch (input) {
                                 case "2":
                                     advanceToNextDay();
-                                    displayMenu();
                                     break;
 
                                 case "3":
                                     SaveGame(MapName);
-                                    displayMenu();
                                     break;
 
                                 case "4":
@@ -597,7 +594,7 @@ public class HermitPurple {
 
                             case "4":
                                 AnotherOneBiteTheDusts biteTheDusts = new AnotherOneBiteTheDusts();
-                                biteTheDusts.checkBiteTheClass();
+                                biteTheDusts.checkBiteTheDust();
                                 displayMenu();
                                 break;
 
