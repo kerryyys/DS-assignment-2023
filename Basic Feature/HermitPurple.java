@@ -31,7 +31,7 @@ public class HermitPurple {
         currentDay = 1;
     }
 
-    //in The World
+    // in The World
     public Graph<String, Integer> getMaps() {
         return maps;
     }
@@ -70,19 +70,19 @@ public class HermitPurple {
                 previousLocation = null;
         }
         if (currentLocation.equals("Town Hall")) {
-            if (previousLocation != null) {
+            if (previousLocation == null || previousLocation.equals("Town Hall")) {
+                moveTo();
+                System.out.println("[2] Advance to Next Day");
+                System.out.println("[3] Save Game");
+                System.out.println("[4] Exit");
+            } else if (previousLocation != null) {
                 moveTo();
                 System.out.println("[2] Advance to Next Day");
                 System.out.println("[3] Save Game");
                 System.out.println("[4] Back" + "(" + previousLocation + ")");
                 System.out.println("[5] Exit");
                 temp.push(holdTopLocation); // push back to remain temp
-            } else if (previousLocation == null) {
-                moveTo();
-                System.out.println("[2] Advance to Next Day");
-                System.out.println("[3] Save Game");
-                System.out.println("[4] Exit");
-            }
+            } 
         } else {
             moveTo();
             displayMission();
@@ -123,7 +123,8 @@ public class HermitPurple {
             visitedLocation.push(holdTopLocation);
             moveForward();
         } else if (input.equalsIgnoreCase("no")) { // go to new location
-            currentLocation = visitedLocation.pop(); // clears a player’s forward history when he decides to move to a new location
+            currentLocation = visitedLocation.pop(); // clears a player’s forward history when he decides to move to a
+                                                     // new location
             displayMenu();
             Select();
         } else {
@@ -323,6 +324,11 @@ public class HermitPurple {
                                 case "4":
                                     Exit();
                                     break;
+
+                                default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                             }
                             break;
                         } else {
@@ -342,6 +348,11 @@ public class HermitPurple {
                                 case "5":
                                     Exit();
                                     break;
+
+                                default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                             }
                             break;
                         }
@@ -375,6 +386,11 @@ public class HermitPurple {
 
                             case "6":
                                 BackTownHall();
+                                break;
+
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
                                 break;
                         }
                         break;
@@ -414,6 +430,11 @@ public class HermitPurple {
 
                             case "7":
                                 BackTownHall();
+                                break;
+
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
                                 break;
                         }
                         break;
@@ -458,6 +479,11 @@ public class HermitPurple {
                             case "7":
                                 BackTownHall();
                                 break;
+
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                         }
                         break;
 
@@ -498,6 +524,11 @@ public class HermitPurple {
                             case "7":
                                 BackTownHall();
                                 break;
+
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                         }
                         break;
 
@@ -537,6 +568,11 @@ public class HermitPurple {
                             case "7":
                                 BackTownHall();
                                 break;
+                            
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                         }
                         break;
 
@@ -575,6 +611,11 @@ public class HermitPurple {
                             case "7":
                                 BackTownHall();
                                 break;
+                            
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                         }
 
                     case "Angelo Rock":
@@ -605,6 +646,11 @@ public class HermitPurple {
                             case "6":
                                 BackTownHall();
                                 break;
+                            
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                         }
                         break;
 
@@ -631,6 +677,11 @@ public class HermitPurple {
                             case "5":
                                 BackTownHall();
                                 break;
+
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                         }
                         break;
 
@@ -656,6 +707,11 @@ public class HermitPurple {
                             case "5":
                                 BackTownHall();
                                 break;
+
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
+                                break;
                         }
                         break;
 
@@ -676,6 +732,11 @@ public class HermitPurple {
 
                             case "4":
                                 BackTownHall();
+                                break;
+                            
+                            default:
+                                System.out.println("Please enter a valid selection.\n");
+                                displayMenu();
                                 break;
                         }
                 }
@@ -789,7 +850,7 @@ public class HermitPurple {
 
 }
 
-class GameState implements Serializable { 
+class GameState implements Serializable {
     private Stack<String> visitedLocation;
     private String currentLocation;
     private String previousLocation;
