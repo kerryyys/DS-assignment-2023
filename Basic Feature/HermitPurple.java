@@ -151,6 +151,7 @@ public class HermitPurple {
     // A player can move forward again to last visited location
     public void moveForward() {
         currentLocation = visitedLocation.peek();
+        visitedLocation.pop();
         displayMenu();
         Select(); // select to continue
     }
