@@ -280,7 +280,14 @@ public class HeavensDoor {
             return sortOrder.equalsIgnoreCase("asc") ? -1 : 1;
         }
 
-        if (isNumeric(value1) && isNumeric(value2)) {
+        if (fieldIndex == 0) {
+            // Sorting by name
+            if (sortOrder.equalsIgnoreCase("asc")) {
+                return value1.compareToIgnoreCase(value2);
+            } else {
+                return value2.compareToIgnoreCase(value1);
+            }
+        } else if (isNumeric(value1) && isNumeric(value2)) {
             int numericValue1 = Integer.parseInt(value1);
             int numericValue2 = Integer.parseInt(value2);
 
