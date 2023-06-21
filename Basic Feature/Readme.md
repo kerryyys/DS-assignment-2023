@@ -27,6 +27,7 @@ Requirement:<br>
 ● A player can sort the residents in a self-defined order by multiple fields, including each of their orders.<br>
 ● Built-in sorting methods like Arrays.sort are not allowed.<br>
 ● The Stand parameters follow an ascending order of Infinity, A, B, C, D, E, ?, and Null.<br>
+{did not take in both parents, need refer to Resident to take the method to read both parents}
 
 ### PearlJam<br>
 Function to process the order list of the restaurant <br>
