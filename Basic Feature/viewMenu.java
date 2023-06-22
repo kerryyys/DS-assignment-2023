@@ -103,10 +103,9 @@ public class viewMenu {
         System.out.println("[4] Exit View Menu");
         Scanner sc = new Scanner(System.in);
         System.out.print("Select : ");
-        int choice = sc.nextInt();
-        sc.nextLine();
+        String choice = sc.nextLine();
         switch (choice) {
-            case 1:
+            case "1":
                 System.out.println("================================================================================");
                 System.out.print("Enter new food name to add : ");
                 foodName = sc.nextLine();
@@ -114,7 +113,7 @@ public class viewMenu {
                 price = sc.nextDouble();
                 addNewFoodFromUser(foodName, price);
                 break;
-            case 2:
+            case "2":
                 System.out.println("================================================================================");
                 System.out.print("Enter food name to modify : ");
                 foodName = sc.nextLine();
@@ -122,16 +121,19 @@ public class viewMenu {
                 newPrice = sc.nextDouble();
                 modifyFoodFromUser(foodName, newPrice);
                 break;
-            case 3:
+            case "3":
                 System.out.println("================================================================================");
                 System.out.print("Enter food name to remove : ");
                 foodName = sc.nextLine();
                 removeFoodFromUser(foodName);
                 break;
-            case 4:
+            case "4":
                 System.out.println("================================================================================");
                 return;
             default:
+                System.out.println("Invalid input. Please try again");
+                System.out.println("================================================================================");
+                break;
         }
     }
 }
